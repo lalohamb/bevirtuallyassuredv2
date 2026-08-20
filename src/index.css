@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans text-almond-900 bg-tan-50 antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  .btn-primary {
+    @apply btn bg-pink-500 text-white hover:bg-pink-600 focus:ring-pink-400 shadow-sm hover:shadow-md;
+  }
+  .btn-secondary {
+    @apply btn bg-almond-700 text-white hover:bg-almond-800 focus:ring-almond-400 shadow-sm hover:shadow-md;
+  }
+  .btn-outline {
+    @apply btn border-2 border-pink-300 text-pink-700 hover:bg-pink-50 focus:ring-pink-300;
+  }
+  .btn-ghost {
+    @apply btn text-almond-700 hover:bg-almond-100 focus:ring-almond-300;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-almond-100 transition-all duration-300;
+  }
+  .card-hover {
+    @apply card hover:shadow-xl hover:border-pink-200 hover:-translate-y-1;
+  }
+  .input {
+    @apply w-full px-4 py-3 rounded-xl border border-almond-200 bg-white text-almond-900 placeholder-almond-300 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-300 transition;
+  }
+  .label {
+    @apply block text-sm font-medium text-almond-700 mb-1.5;
+  }
+  .section-title {
+    @apply font-serif text-3xl sm:text-4xl text-almond-900;
+  }
+  .section-subtitle {
+    @apply text-almond-500 mt-3 text-base sm:text-lg;
+  }
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+  }
+}
