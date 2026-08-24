@@ -5,46 +5,46 @@ import { supabase, type BlogPost } from '@/lib/supabase';
 
 const FALLBACK_POSTS: BlogPost[] = [
   {
-    slug: 'signs-you-need-a-va',
-    category: 'Productivity',
-    title: "7 Signs You Need a Virtual Assistant (And You're Ignoring Them)",
-    summary: "If you're spending more than 2 hours a day on email, you're leaving money on the table. Here are the seven clearest signals it's time to delegate.",
+    slug: 'why-marketing-strategy-before-tactics',
+    category: 'Marketing Strategy',
+    title: 'Why Strategy Has to Come Before Tactics (And Most Businesses Get This Backwards)',
+    summary: "Most businesses start with tactics — ads, social media, SEO — and wonder why they're not getting results. The problem isn't the tactics. It's the order.",
     read_time: '5 min read',
-    image_url: 'https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg',
-    body: `Most entrepreneurs wait too long before hiring a VA. They tell themselves they can handle it, that no one else will do it right, or that they can't afford it yet. By the time they finally delegate, they've lost months of growth.\n\nHere are the seven signs you've already waited too long:\n\n1. Your inbox has more than 500 unread emails.\n2. You've missed a follow-up that cost you a client.\n3. You're doing data entry at 10pm.\n4. You haven't posted on social media in three weeks.\n5. Your invoices go out late — or not at all.\n6. You're the bottleneck on tasks that don't need your expertise.\n7. You feel busy all day but can't point to what you actually accomplished.\n\nIf three or more of these sound familiar, a VA isn't a luxury — it's a business necessity.`,
+    image_url: 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg',
+    body: `The most common mistake we see in marketing isn't a bad ad or a poorly optimized landing page. It's starting with tactics before establishing strategy.\n\nHere's what that looks like in practice: A business owner decides they need more leads. They hire someone to run Google Ads. The ads run, leads come in, but they're not the right leads — or the cost per lead is too high — or the leads don't convert. So they try Facebook Ads. Same result. Then they try SEO. Then email marketing.\n\nEach tactic is executed in isolation, without a coherent strategy connecting them. The result is fragmented marketing that produces inconsistent results and makes it impossible to know what's actually working.\n\nStrategy answers the questions that tactics can't:\n\n- Who exactly are we trying to reach, and what do they care about?\n- What makes us meaningfully different from the alternatives?\n- What is the most efficient path from awareness to purchase for our specific customer?\n- Which channels are most likely to reach our ideal customer at the right moment?\n\nOnce you have clear answers to these questions, tactics become much more effective — because they're coordinated around a shared objective rather than executed independently.\n\nThe businesses that grow consistently aren't the ones running the most tactics. They're the ones running the right tactics, in the right sequence, for the right audience.`,
     published: true,
     created_at: '2025-01-14T00:00:00Z',
   },
   {
-    slug: 'how-to-delegate-inbox',
-    category: 'Delegation',
-    title: 'How to Delegate Your Inbox Without Losing Control',
-    summary: "Handing over email access feels terrifying. Here's the exact system we use to help clients delegate their inbox in under a week.",
-    read_time: '7 min read',
-    image_url: 'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg',
-    body: `The number one objection we hear from new clients is: "I can't let someone else into my email." We get it. Your inbox is personal, sensitive, and chaotic.\n\nBut here's the truth: with the right system, delegating your inbox is one of the highest-leverage moves you can make.\n\nStep 1: Create a shared label system. Work with your VA to create labels like "Needs Reply", "Waiting On", "FYI Only", and "Urgent".\n\nStep 2: Write a voice guide. Spend 30 minutes writing down how you like to communicate — formal or casual, short or detailed, how you handle complaints.\n\nStep 3: Start with a 2-week shadow period. Your VA reads and drafts responses, but you approve before sending. After two weeks, most clients flip to full delegation.\n\nStep 4: Set a daily briefing. Each morning, your VA sends a 5-bullet summary of what came in overnight and what they handled.`,
+    slug: 'what-is-a-qualified-lead',
+    category: 'Lead Generation',
+    title: 'What Is a Qualified Lead? (And Why Most Businesses Are Measuring the Wrong Thing)',
+    summary: 'Lead volume is a vanity metric. What matters is lead quality — and most businesses have no system for measuring or improving it.',
+    read_time: '6 min read',
+    image_url: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg',
+    body: `When we ask business owners how their marketing is performing, the most common answer is some version of: "We're getting leads, but they're not converting."\n\nThis is almost always a lead quality problem, not a sales problem.\n\nA qualified lead is a prospect who:\n1. Has the problem your product or service solves\n2. Has the authority to make a purchasing decision\n3. Has the budget to invest in a solution\n4. Has a timeline that makes them an active buyer\n\nMost marketing systems are optimized to generate volume — as many leads as possible at the lowest cost per lead. But a low-cost, high-volume lead generation system that produces unqualified leads is worse than a higher-cost system that produces qualified ones, because it wastes your sales team's time and distorts your conversion metrics.\n\nThe fix starts with defining what a qualified lead looks like for your specific business, then building your marketing system around attracting those prospects specifically — even if it means generating fewer total leads.\n\nThis is counterintuitive for most business owners, but it's one of the highest-leverage changes you can make to your marketing.`,
     published: true,
     created_at: '2025-01-28T00:00:00Z',
   },
   {
-    slug: 'va-vs-employee',
-    category: 'Business',
-    title: "Virtual Assistant vs. Full-Time Employee: What's Right for Your Business?",
-    summary: "Hiring a full-time employee costs 1.25–1.4x their salary when you factor in benefits, taxes, and overhead. Here's when a VA makes more financial sense.",
-    read_time: '6 min read',
-    image_url: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg',
-    body: `The decision between a VA and a full-time hire comes down to three factors: volume, specialisation, and budget.\n\nA VA makes sense when:\n- You need 10–30 hours of support per week (not 40+)\n- The tasks are varied but don't require deep institutional knowledge\n- You want flexibility to scale up or down month-to-month\n- You're not ready to manage an employee (payroll, HR, benefits)\n\nA full-time hire makes sense when:\n- The role requires someone embedded in your culture and systems\n- You need 40+ hours of dedicated, specialised work\n- The tasks require real-time collaboration throughout the day\n\nFor most small businesses and solopreneurs, a VA is the smarter first hire.`,
+    slug: 'conversion-rate-optimization-basics',
+    category: 'Conversion Optimization',
+    title: 'The Fastest Way to Grow Revenue Without Spending More on Marketing',
+    summary: 'Improving your conversion rate by 2 percentage points can double your revenue without increasing your marketing budget. Here\'s where to start.',
+    read_time: '7 min read',
+    image_url: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg',
+    body: `Most businesses focus their growth efforts on generating more traffic and more leads. But there's a faster, cheaper path to revenue growth that most businesses overlook: improving conversion.\n\nConsider this: if you're generating 100 leads per month and converting 10% into customers, you have 10 customers. If you improve your conversion rate to 20% — without changing anything else — you have 20 customers. You've doubled revenue without spending an additional dollar on marketing.\n\nConversion rate optimization (CRO) is the discipline of systematically improving the percentage of visitors or leads who take a desired action. It applies at every stage of your funnel:\n\n- Website visitors → leads (landing page optimization)\n- Leads → qualified leads (lead qualification and nurture)\n- Qualified leads → customers (sales process optimization)\n\nThe most common conversion problems we see:\n\n1. Unclear value proposition — visitors don't immediately understand what you do and why it matters to them\n2. Weak or absent calls to action — there's no clear next step\n3. No lead nurture — leads are captured but never followed up with systematically\n4. Misaligned messaging — the ad promises one thing, the landing page delivers another\n\nStart by identifying where in your funnel you're losing the most prospects, then focus your optimization efforts there first.`,
     published: true,
     created_at: '2025-02-05T00:00:00Z',
   },
   {
-    slug: 'tools-for-delegation',
-    category: 'Tools',
-    title: 'The 8 Tools That Make Delegation Actually Work',
-    summary: 'Delegation fails when communication breaks down. These eight tools create the structure your VA needs to work independently.',
-    read_time: '4 min read',
+    slug: 'fractional-cmo-vs-agency',
+    category: 'Marketing Leadership',
+    title: 'Fractional CMO vs. Marketing Agency: Which Does Your Business Actually Need?',
+    summary: 'Agencies execute. A fractional CMO thinks strategically. Understanding the difference could save you significant time and money.',
+    read_time: '5 min read',
     image_url: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg',
-    body: `The right tools turn a good VA into a great one. Here are the eight we recommend to every new client:\n\n1. Loom — for recording quick video walkthroughs instead of writing long instructions.\n2. Notion — for your SOPs, brand guidelines, and shared knowledge base.\n3. Asana or Trello — for task tracking and project visibility.\n4. LastPass or 1Password — for securely sharing login credentials.\n5. Slack — for async communication that doesn't clog your inbox.\n6. Google Workspace — for shared docs, sheets, and calendar.\n7. Calendly — so your VA can book meetings on your behalf without back-and-forth.\n8. Loom + Notion combo — record a process once, your VA documents it, and it becomes an SOP forever.`,
+    body: `Growing businesses often face a choice: hire a marketing agency or bring in a fractional CMO. The right answer depends on where your biggest gap is.\n\nMarketing agencies are built for execution. They're good at producing content, running ads, managing social media, and implementing SEO. What they're typically not built for is strategic thinking about your business — understanding your competitive position, your customer acquisition economics, and how marketing connects to your overall business objectives.\n\nA fractional CMO fills the strategic gap. They think about marketing at the business level — setting direction, prioritizing investments, building systems, and holding execution accountable to outcomes. They can also manage agencies and vendors on your behalf, ensuring that execution is aligned with strategy.\n\nThe question to ask is: do we have a strategy problem or an execution problem?\n\nIf you have a clear strategy and just need more hands to execute it, an agency may be the right choice. If you're not sure what your strategy should be, or if your current marketing isn't producing results despite adequate execution, you likely need strategic leadership first.\n\nMany businesses benefit from both — a fractional CMO to set direction and an agency (or in-house team) to execute against it.`,
     published: true,
     created_at: '2025-02-19T00:00:00Z',
   },
@@ -91,10 +91,10 @@ export function BlogPage() {
             ))}
           </div>
           <div className="mt-12 card p-8 text-center bg-gradient-to-br from-pink-50 to-tan-100 border-pink-100">
-            <h3 className="font-serif text-xl text-almond-900 mb-2">Ready to delegate?</h3>
-            <p className="text-almond-600 text-sm mb-5">Book a free consultation and get matched with your assistant.</p>
-            <button onClick={() => navigate('')} className="btn-primary">
-              Get a Free Consultation <ArrowRight className="w-4 h-4" />
+            <h3 className="font-serif text-xl text-almond-900 mb-2">Need help identifying your biggest marketing opportunity?</h3>
+            <p className="text-almond-600 text-sm mb-5">Take our free marketing assessment and get a personalized growth score.</p>
+            <button onClick={() => navigate('assessment')} className="btn-primary">
+              Get Your Free Marketing Assessment <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -106,9 +106,9 @@ export function BlogPage() {
     <div className="pt-28 pb-20">
       <div className="container-page">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">Blog & Resources</h1>
+          <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">Marketing Insights</h1>
           <p className="text-almond-600 text-lg">
-            Practical guides on delegation, productivity, and growing your business with less stress.
+            Practical strategy, lead generation, and growth marketing insights for business owners and marketing leaders.
           </p>
         </div>
 

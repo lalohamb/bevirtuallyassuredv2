@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag, Sparkles } from 'lucide-react';
+import { Menu, X, TrendingUp } from 'lucide-react';
 import { navigate, useRouter } from '@/lib/router';
-import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { isAdmin } from '@/lib/supabase';
+import { track, Events } from '@/lib/analytics';
 
 const links = [
-  { label: 'Home', path: '' },
-  { label: 'About', path: 'about' },
   { label: 'Services', path: 'services' },
-  { label: 'Portfolio', path: 'portfolio' },
-  { label: 'Packages', path: 'packages' },
-  { label: 'Blog', path: 'blog' },
+  { label: 'Results', path: 'results' },
+  { label: 'Insights', path: 'blog' },
+  { label: 'About', path: 'about' },
+  { label: 'Calculator', path: 'calculator' },
 ];
 
 export function Navbar() {
   const route = useRouter();
-  const { count } = useCart();
   const { user, signOut } = useAuth();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -27,11 +25,16 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const isActive = (path: string) => route.name === (path || 'home');
+  const isActive = (path: string) => route.name === path;
 
   const handleNav = (path: string) => {
     navigate(path);
     setOpen(false);
+  };
+
+  const handleAssessment = () => {
+    track(Events.ASSESSMENT_STARTED, { source: 'navbar' });
+    handleNav('assessment');
   };
 
   return (
@@ -44,10 +47,10 @@ export function Navbar() {
         {/* Logo */}
         <button onClick={() => handleNav('')} className="flex items-center gap-2 group">
           <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5 text-white" />
+            <TrendingUp className="w-5 h-5 text-white" />
           </div>
           <span className="font-serif text-xl text-almond-900 font-semibold">
-            Petal Assist
+            Nandi Marketing
           </span>
         </button>
 
@@ -70,55 +73,27 @@ export function Navbar() {
 
         {/* Right actions */}
         <div className="flex items-center gap-2">
-          {/* Free Consultation CTA */}
           <button
-            onClick={() => handleNav('')}
-            className="hidden md:inline-flex btn-primary text-sm py-2 px-4"
+            onClick={handleAssessment}
+            className="hidden md:inline-flex btn-primary text-sm py-2 px-5"
           >
-            Free Consultation
-          </button>
-          {/* Cart */}
-          <button
-            onClick={() => handleNav('checkout')}
-            className="relative p-2.5 rounded-full hover:bg-pink-50 transition-colors"
-            aria-label="Cart"
-          >
-            <ShoppingBag className="w-5 h-5 text-almond-700" />
-            {count > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-pink-500 text-white text-xs font-semibold rounded-full flex items-center justify-center">
-                {count}
-              </span>
-            )}
+            Free Assessment
           </button>
 
-          {/* Auth */}
           {user ? (
             <div className="hidden md:flex items-center gap-2">
               {isAdmin(user) && (
-                <button onClick={() => handleNav('admin')} className="btn-ghost text-sm">
-                  Admin
-                </button>
+                <button onClick={() => handleNav('admin')} className="btn-ghost text-sm">Admin</button>
               )}
-              <button
-                onClick={() => handleNav('dashboard')}
-                className="btn-ghost text-sm"
-              >
-                Dashboard
-              </button>
-              <button onClick={signOut} className="btn-outline text-sm">
-                Sign Out
-              </button>
+              <button onClick={() => handleNav('dashboard')} className="btn-ghost text-sm">Dashboard</button>
+              <button onClick={signOut} className="btn-outline text-sm">Sign Out</button>
             </div>
           ) : (
-            <button
-              onClick={() => handleNav('login')}
-              className="hidden md:inline-flex btn-primary text-sm"
-            >
+            <button onClick={() => handleNav('login')} className="hidden md:inline-flex btn-ghost text-sm">
               Client Login
             </button>
           )}
 
-          {/* Mobile toggle */}
           <button
             onClick={() => setOpen(!open)}
             className="md:hidden p-2.5 rounded-full hover:bg-pink-50 transition-colors"
@@ -144,30 +119,25 @@ export function Navbar() {
                 {l.label}
               </button>
             ))}
+            <button onClick={handleAssessment} className="btn-primary mt-2">
+              Free Marketing Assessment
+            </button>
             <button
-              onClick={() => { handleNav(''); setTimeout(() => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
-              className="btn-primary mt-2"
+              onClick={() => { track(Events.CONSULTATION_STARTED, { source: 'navbar_mobile' }); handleNav('contact'); }}
+              className="btn-outline mt-2"
             >
-              Free Consultation
+              Book a Consultation
             </button>
             {user ? (
               <>
                 {isAdmin(user) && (
-                  <button onClick={() => handleNav('admin')} className="px-4 py-3 rounded-xl text-left text-sm text-pink-700 font-medium hover:bg-pink-50/50">
-                    Admin Dashboard
-                  </button>
+                  <button onClick={() => handleNav('admin')} className="px-4 py-3 rounded-xl text-left text-sm text-pink-700 font-medium hover:bg-pink-50/50">Admin</button>
                 )}
-                <button onClick={() => handleNav('dashboard')} className="px-4 py-3 rounded-xl text-left text-sm text-almond-700 hover:bg-pink-50/50">
-                  Dashboard
-                </button>
-                <button onClick={signOut} className="px-4 py-3 rounded-xl text-left text-sm text-pink-600 hover:bg-pink-50/50">
-                  Sign Out
-                </button>
+                <button onClick={() => handleNav('dashboard')} className="px-4 py-3 rounded-xl text-left text-sm text-almond-700 hover:bg-pink-50/50">Dashboard</button>
+                <button onClick={signOut} className="px-4 py-3 rounded-xl text-left text-sm text-pink-600 hover:bg-pink-50/50">Sign Out</button>
               </>
             ) : (
-              <button onClick={() => handleNav('login')} className="btn-primary mt-2">
-                Client Login
-              </button>
+              <button onClick={() => handleNav('login')} className="px-4 py-3 rounded-xl text-left text-sm text-almond-500 hover:bg-pink-50/50">Client Login</button>
             )}
           </div>
         </div>

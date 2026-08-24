@@ -1,32 +1,18 @@
-import { ArrowRight, Heart, Users, Globe } from 'lucide-react';
+import { ArrowRight, Target, BarChart2, Users, CheckCircle2 } from 'lucide-react';
 import { navigate } from '@/lib/router';
+import { track, Events } from '@/lib/analytics';
 
-const team = [
-  {
-    name: 'Nandi Rivera',
-    role: 'Founder & CEO',
-    bio: 'Former operations director turned entrepreneur. Nandi started Petal Assist after spending years watching brilliant business owners drown in admin work that could easily be delegated.',
-    image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg',
-  },
-  {
-    name: 'Camille Torres',
-    role: 'Head of Client Success',
-    bio: 'With a background in customer experience at two SaaS startups, Camille ensures every client-assistant match is set up for long-term success.',
-    image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg',
-  },
-  {
-    name: 'Marcus Webb',
-    role: 'Lead VA Trainer',
-    bio: 'Marcus built our onboarding curriculum from the ground up. Every Petal Assist VA goes through his 40-hour certification program before meeting a client.',
-    image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg',
-  },
+const values = [
+  { icon: Target, title: 'Strategy before tactics', desc: 'We never recommend a tactic without first understanding the strategy it serves. Activity without direction is just noise.' },
+  { icon: BarChart2, title: 'Outcomes over activity', desc: 'We measure success by business results — qualified leads, customer acquisition, revenue growth — not by impressions or follower counts.' },
+  { icon: Users, title: 'Partnership over vendor', desc: "We operate as an extension of your team. Your growth objectives become our growth objectives. We're invested in your success." },
 ];
 
-const milestones = [
-  { year: '2019', event: 'Petal Assist founded with 3 assistants and 5 clients.' },
-  { year: '2021', event: 'Reached 50 active clients and launched the Bookkeeping service.' },
-  { year: '2023', event: 'Expanded to 150+ clients across 12 countries.' },
-  { year: '2024', event: 'Launched the client dashboard and self-serve onboarding.' },
+const methodology = [
+  { step: '01', title: 'Assess', desc: 'We start by understanding your business, your market, your current marketing, and your growth objectives. No assumptions.' },
+  { step: '02', title: 'Strategize', desc: 'We identify your highest-value growth opportunities and build a prioritized strategy around them — with clear milestones.' },
+  { step: '03', title: 'Execute', desc: 'We implement the strategy with precision, coordinating across channels and functions to ensure everything works together.' },
+  { step: '04', title: 'Optimize', desc: 'We track performance against objectives, identify what\'s working, and continuously improve. Marketing is never "set and forget."' },
 ];
 
 export function AboutPage() {
@@ -38,42 +24,49 @@ export function AboutPage() {
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
           <div className="animate-fade-up">
             <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-6">
-              We believe your time is<br />
-              <span className="text-pink-600">too valuable to waste.</span>
+              We help businesses turn marketing into a<br />
+              <span className="text-pink-600">measurable growth engine.</span>
             </h1>
             <p className="text-almond-600 text-lg leading-relaxed mb-6">
-              Petal Assist was born from a simple observation: the most talented entrepreneurs
-              spend half their day on tasks that don't require their unique genius. We exist
-              to change that.
+              Nandi Marketing is a marketing consulting firm focused on one thing:
+              helping businesses generate qualified leads, improve conversion, and build
+              marketing systems that produce repeatable, measurable growth.
             </p>
             <p className="text-almond-600 leading-relaxed mb-8">
-              Founded in 2019, we have grown from a small team of three assistants to a
-              global network of vetted VAs serving clients in over 12 countries. Every
-              assistant is hand-selected, trained in-house, and matched to clients based
-              on industry, working style, and personality.
+              We work with established small businesses, growing SMBs, and professional
+              services firms that are serious about growth and ready to invest in a real
+              marketing strategy — not just more activity.
             </p>
-            <button onClick={() => navigate('packages')} className="btn-primary">
-              Work with us <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'about' }); navigate('assessment'); }}
+                className="btn-primary"
+              >
+                Get Your Free Assessment <ArrowRight className="w-4 h-4" />
+              </button>
+              <button onClick={() => navigate('contact')} className="btn-outline">
+                Book a Consultation
+              </button>
+            </div>
           </div>
           <div className="relative animate-fade-up" style={{ animationDelay: '0.2s' }}>
             <div className="rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg"
-                alt="Petal Assist team"
-                className="w-full h-[420px] object-cover"
+                src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg"
+                alt="Nandi Rivera — Founder, Nandi Marketing"
+                className="w-full h-[420px] object-cover object-top"
               />
+            </div>
+            <div className="absolute -bottom-5 -right-5 bg-white rounded-2xl shadow-xl p-4 max-w-[200px]">
+              <div className="text-sm font-semibold text-almond-900">Nandi Rivera</div>
+              <div className="text-xs text-pink-600">Founder & Lead Strategist</div>
             </div>
           </div>
         </div>
 
-        {/* Values strip */}
+        {/* Values */}
         <div className="grid sm:grid-cols-3 gap-6 mb-20">
-          {[
-            { icon: Heart, title: 'People first', desc: 'We treat every client and assistant as a long-term partner, not a transaction.' },
-            { icon: Users, title: 'Vetted & trained', desc: 'Every VA completes a 40-hour certification before their first client engagement.' },
-            { icon: Globe, title: 'Remote by design', desc: 'Our distributed team means you get the best talent, wherever they are in the world.' },
-          ].map(({ icon: Icon, title, desc }) => (
+          {values.map(({ icon: Icon, title, desc }) => (
             <div key={title} className="card p-6 text-center">
               <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center mx-auto mb-4">
                 <Icon className="w-6 h-6 text-pink-600" />
@@ -84,48 +77,66 @@ export function AboutPage() {
           ))}
         </div>
 
-        {/* Team */}
+        {/* Founder story */}
+        <div className="mb-20 max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="section-title">Why we exist</h2>
+          </div>
+          <div className="space-y-4 text-almond-600 leading-relaxed">
+            <p>
+              Most marketing agencies are built around deliverables — content, ads, social posts.
+              They measure success by output. We measure success by outcomes.
+            </p>
+            <p>
+              Nandi Marketing was founded on a simple observation: the businesses that struggle
+              most with marketing aren't struggling because they lack tactics. They're struggling
+              because they lack a coherent strategy that connects marketing activity to business
+              objectives.
+            </p>
+            <p>
+              We built this firm to be the strategic partner that growing businesses need but
+              rarely find — one that understands both marketing and business, that speaks in
+              terms of revenue and growth rather than impressions and engagement, and that
+              holds itself accountable to the same outcomes it promises.
+            </p>
+          </div>
+        </div>
+
+        {/* Methodology */}
         <div className="mb-20">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="section-title">Meet the team</h2>
-            <p className="section-subtitle">The people behind every smooth-running business we support.</p>
+            <h2 className="section-title">How we work</h2>
+            <p className="section-subtitle">A disciplined four-step process that produces consistent, measurable results.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {team.map((member, i) => (
-              <div key={member.name} className="card overflow-hidden animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="h-56 overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover object-top"
-                    loading="lazy"
-                  />
+          <div className="grid md:grid-cols-4 gap-8 relative">
+            <div className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-almond-200" />
+            {methodology.map((m, i) => (
+              <div key={m.step} className="text-center animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
+                <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-4 relative z-10">
+                  <span className="font-serif text-xl text-pink-600 font-bold">{m.step}</span>
                 </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-lg text-almond-900">{member.name}</h3>
-                  <p className="text-pink-600 text-sm font-medium mb-3">{member.role}</p>
-                  <p className="text-sm text-almond-500 leading-relaxed">{member.bio}</p>
-                </div>
+                <h3 className="font-serif text-lg text-almond-900 mb-2">{m.title}</h3>
+                <p className="text-sm text-almond-500 leading-relaxed">{m.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Timeline */}
-        <div className="mb-20">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="section-title">Our story</h2>
-          </div>
-          <div className="max-w-2xl mx-auto space-y-6">
-            {milestones.map((m, i) => (
-              <div key={m.year} className="flex gap-6 items-start animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="w-16 flex-shrink-0 text-right">
-                  <span className="font-serif text-pink-600 font-semibold">{m.year}</span>
-                </div>
-                <div className="w-px bg-almond-200 self-stretch relative">
-                  <div className="absolute top-1.5 -left-1.5 w-3 h-3 rounded-full bg-pink-400" />
-                </div>
-                <p className="text-almond-600 text-sm leading-relaxed pt-0.5 pb-4">{m.event}</p>
+        {/* What we don't do */}
+        <div className="mb-20 card p-8 sm:p-10 bg-almond-50 border-almond-100">
+          <h2 className="font-serif text-2xl text-almond-900 mb-6">What we don't do</h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              "We don't fabricate results or manufacture social proof",
+              "We don't recommend tactics without a strategic rationale",
+              "We don't take on clients we can't genuinely help",
+              "We don't optimize for vanity metrics",
+              "We don't make AI the centerpiece of our pitch",
+              "We don't disappear after the strategy deck is delivered",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-almond-700">{item}</span>
               </div>
             ))}
           </div>
@@ -133,11 +144,16 @@ export function AboutPage() {
 
         {/* CTA */}
         <div className="card p-10 text-center bg-gradient-to-br from-pink-50 to-tan-100 border-pink-100">
-          <h2 className="font-serif text-2xl text-almond-900 mb-3">Ready to reclaim your time?</h2>
-          <p className="text-almond-600 mb-6">Book a free, no-pressure consultation and meet your future assistant.</p>
+          <h2 className="font-serif text-2xl text-almond-900 mb-3">Ready to build a marketing system that actually works?</h2>
+          <p className="text-almond-600 mb-6">Start with a free marketing assessment — no commitment, no pitch, just clarity.</p>
           <div className="flex flex-wrap justify-center gap-3">
-            <button onClick={() => navigate('')} className="btn-primary">Get a Free Consultation</button>
-            <button onClick={() => navigate('packages')} className="btn-outline">View Packages</button>
+            <button
+              onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'about_cta' }); navigate('assessment'); }}
+              className="btn-primary"
+            >
+              Get Your Free Marketing Assessment
+            </button>
+            <button onClick={() => navigate('contact')} className="btn-outline">Book a Consultation</button>
           </div>
         </div>
 

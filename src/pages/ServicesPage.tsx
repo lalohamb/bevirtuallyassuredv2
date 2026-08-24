@@ -1,90 +1,103 @@
-import { Mail, Users, FileText, Phone, Calendar, BarChart2, ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check, Target, Search, Megaphone, Layers, Zap, Users } from 'lucide-react';
 import { navigate } from '@/lib/router';
+import { track, Events } from '@/lib/analytics';
 
 const services = [
   {
-    icon: Mail,
-    title: 'Inbox & Calendar Management',
-    summary: 'Never miss an important email or double-book a meeting again.',
-    description: 'Your assistant monitors your inbox, triages emails by priority, drafts responses in your voice, and keeps your calendar organised. We handle scheduling, reminders, and follow-ups so you can focus on the conversations that matter.',
+    icon: Target,
+    category: 'Marketing Strategy',
+    headline: 'Build a Marketing Strategy That Actually Drives Growth',
+    problem: 'Most businesses are executing marketing tactics without a coherent strategy. The result is wasted spend, inconsistent messaging, and no clear path to growth.',
+    outcome: 'A clear, prioritized marketing strategy aligned to your business objectives — with a 90-day action plan you can execute immediately.',
     deliverables: [
-      'Daily inbox triage and prioritisation',
-      'Email drafting and responses in your brand voice',
-      'Calendar scheduling and conflict resolution',
-      'Meeting prep and follow-up summaries',
-      'Unsubscribe and spam management',
-    ],
-    image: 'https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg',
-  },
-  {
-    icon: Users,
-    title: 'Customer Support',
-    summary: 'Keep your customers happy without being glued to your inbox.',
-    description: 'Our assistants handle first-line customer enquiries, complaints, and feedback across email, chat, and social DMs. We follow your brand guidelines and escalate only what truly needs your attention.',
-    deliverables: [
-      'First-response handling within agreed SLA',
-      'FAQ and knowledge base management',
-      'Refund and complaint resolution (within your policy)',
-      'Social media DM monitoring',
-      'Weekly support summary reports',
-    ],
-    image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg',
-  },
-  {
-    icon: FileText,
-    title: 'Content & Admin',
-    summary: 'From blog posts to data entry — handled, formatted, and filed.',
-    description: 'Whether you need blog drafts, social media captions, slide decks, or spreadsheets cleaned up, our assistants are trained content generalists who work fast and accurately.',
-    deliverables: [
-      'Blog post drafting and formatting',
-      'Social media caption writing and scheduling',
-      'Presentation and slide deck creation',
-      'Data entry and spreadsheet management',
-      'Document formatting and filing',
-    ],
-    image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg',
-  },
-  {
-    icon: Phone,
-    title: 'Bookkeeping',
-    summary: 'Stay on top of cash flow without touching a spreadsheet.',
-    description: 'Our bookkeeping-trained assistants handle invoicing, expense categorisation, and reconciliation. We work inside your existing tools (QuickBooks, Xero, Wave) and keep your records clean for your accountant.',
-    deliverables: [
-      'Invoice creation and sending',
-      'Expense tracking and categorisation',
-      'Bank reconciliation (monthly)',
-      'Accounts receivable follow-up',
-      'Monthly financial summary report',
-    ],
-    image: 'https://images.pexels.com/photos/6863183/pexels-photo-6863183.jpeg',
-  },
-  {
-    icon: Calendar,
-    title: 'Project Coordination',
-    summary: 'Keep projects on track without micromanaging every detail.',
-    description: 'Your assistant acts as a project coordinator — tracking tasks, chasing deadlines, updating project boards, and keeping stakeholders informed. We work inside Asana, Notion, Trello, or whatever tool you use.',
-    deliverables: [
-      'Task creation and assignment tracking',
-      'Deadline monitoring and reminders',
-      'Stakeholder update emails',
-      'Meeting notes and action item tracking',
-      'Project board maintenance',
+      'Market and competitive analysis',
+      'Customer segmentation and ideal client profile',
+      'Positioning and differentiation strategy',
+      'Go-to-market planning',
+      'Marketing channel prioritization',
+      '90-day growth roadmap',
     ],
     image: 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg',
   },
   {
-    icon: BarChart2,
-    title: 'Research & Reporting',
-    summary: 'Get the data you need to make better decisions, faster.',
-    description: 'From competitor research to market analysis, our assistants compile, summarise, and present information in a format you can act on. No more hours lost down research rabbit holes.',
+    icon: Search,
+    category: 'Lead Generation',
+    headline: 'Fill Your Pipeline With Qualified Prospects',
+    problem: "Generating leads is easy. Generating qualified leads — prospects who actually have the problem you solve and the budget to address it — is where most marketing falls short.",
+    outcome: 'A lead generation system that consistently delivers qualified prospects into your pipeline, with clear attribution so you know exactly what\'s working.',
     deliverables: [
-      'Competitor and market research',
-      'Lead list building and enrichment',
-      'Industry news digests',
-      'Custom report creation',
-      'Data visualisation and dashboards',
+      'Lead funnel design and build',
+      'Landing page strategy and optimization',
+      'Lead magnet development',
+      'Conversion rate optimization',
+      'Lead qualification framework',
+      'Campaign strategy and management',
     ],
     image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg',
+  },
+  {
+    icon: Megaphone,
+    category: 'Digital Marketing',
+    headline: 'Coordinate Your Digital Channels Into a Single Growth System',
+    problem: 'Running SEO, paid ads, email, and social media as separate activities produces fragmented results. The real leverage comes from coordinating them into a unified demand-generation system.',
+    outcome: 'An integrated digital marketing program where every channel reinforces the others — producing compounding results over time.',
+    deliverables: [
+      'SEO strategy and implementation',
+      'Paid advertising (Google, Meta, LinkedIn)',
+      'Email marketing and automation',
+      'Content strategy and production',
+      'Social media strategy',
+      'Performance reporting and optimization',
+    ],
+    image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg',
+  },
+  {
+    icon: Layers,
+    category: 'Brand Strategy',
+    headline: 'Position Your Brand to Win the Right Clients',
+    problem: "If your brand looks and sounds like everyone else in your market, you're competing on price. Strong positioning lets you compete on value.",
+    outcome: 'A clear brand position, differentiated messaging, and a customer value proposition that resonates with your ideal clients and justifies premium pricing.',
+    deliverables: [
+      'Brand positioning and differentiation',
+      'Messaging architecture',
+      'Customer value proposition',
+      'Brand voice and tone guidelines',
+      'Competitive differentiation strategy',
+      'Brand architecture (if applicable)',
+    ],
+    image: 'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg',
+  },
+  {
+    icon: Zap,
+    category: 'Marketing Technology',
+    headline: 'Turn Your Marketing Stack Into a Revenue-Generating Asset',
+    problem: 'Most businesses have invested in marketing tools that are underutilized, poorly integrated, or producing data nobody acts on. The technology should be working for you.',
+    outcome: 'A streamlined marketing technology stack with proper CRM setup, automation workflows, and analytics that give you clear visibility into pipeline and revenue.',
+    deliverables: [
+      'CRM audit and optimization',
+      'Marketing automation setup',
+      'Lead scoring and routing',
+      'Analytics and attribution setup',
+      'Workflow automation',
+      'Martech integration and consolidation',
+    ],
+    image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg',
+  },
+  {
+    icon: Users,
+    category: 'Fractional CMO',
+    headline: 'Senior Marketing Leadership Without the Full-Time Cost',
+    problem: "Growing companies often need strategic marketing leadership but aren't ready — or don't need — a full-time CMO. The gap between junior execution and senior strategy is where growth stalls.",
+    outcome: 'Executive-level marketing leadership on a fractional basis — strategic direction, team oversight, and accountability for marketing performance.',
+    deliverables: [
+      'Marketing strategy and planning',
+      'Team leadership and mentorship',
+      'Agency and vendor management',
+      'Board and executive reporting',
+      'Marketing budget management',
+      'Hiring and team building support',
+    ],
+    image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg',
   },
 ];
 
@@ -93,30 +106,40 @@ export function ServicesPage() {
     <div className="pt-28 pb-20">
       <div className="container-page">
 
-        {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">What we do</h1>
+          <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">
+            Marketing Services Built Around Business Outcomes
+          </h1>
           <p className="text-almond-600 text-lg leading-relaxed">
-            Every service is delivered by a trained, dedicated assistant who learns your
-            business and works as an extension of your team.
+            Every service we offer is designed to move qualified prospects closer to
+            becoming customers — and to give you clear visibility into what's working.
           </p>
         </div>
 
-        {/* Services */}
         <div className="space-y-20">
           {services.map((s, i) => (
             <div
-              key={s.title}
-              className={`grid lg:grid-cols-2 gap-12 items-center animate-fade-up ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+              key={s.category}
+              className={`grid lg:grid-cols-2 gap-12 items-center animate-fade-up`}
               style={{ animationDelay: `${i * 0.05}s` }}
             >
               <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
                 <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-5">
                   <s.icon className="w-6 h-6 text-pink-600" />
                 </div>
-                <h2 className="font-serif text-2xl sm:text-3xl text-almond-900 mb-3">{s.title}</h2>
-                <p className="text-pink-600 font-medium mb-4">{s.summary}</p>
-                <p className="text-almond-600 leading-relaxed mb-6">{s.description}</p>
+                <span className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-2 block">{s.category}</span>
+                <h2 className="font-serif text-2xl sm:text-3xl text-almond-900 mb-4">{s.headline}</h2>
+
+                <div className="mb-4 p-4 rounded-xl bg-almond-50 border border-almond-100">
+                  <p className="text-xs font-semibold text-almond-500 uppercase tracking-wide mb-1">The Problem</p>
+                  <p className="text-sm text-almond-700 leading-relaxed">{s.problem}</p>
+                </div>
+
+                <div className="mb-6 p-4 rounded-xl bg-pink-50 border border-pink-100">
+                  <p className="text-xs font-semibold text-pink-500 uppercase tracking-wide mb-1">The Outcome</p>
+                  <p className="text-sm text-almond-700 leading-relaxed">{s.outcome}</p>
+                </div>
+
                 <ul className="space-y-2 mb-8">
                   {s.deliverables.map((d) => (
                     <li key={d} className="flex items-start gap-3 text-sm text-almond-700">
@@ -127,14 +150,17 @@ export function ServicesPage() {
                     </li>
                   ))}
                 </ul>
-                <button onClick={() => navigate('packages')} className="btn-primary">
-                  Get started <ArrowRight className="w-4 h-4" />
+                <button
+                  onClick={() => { track(Events.CONSULTATION_STARTED, { source: `services_${s.category}` }); navigate('assessment'); }}
+                  className="btn-primary"
+                >
+                  Get a Free Assessment <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
               <div className={`rounded-2xl overflow-hidden shadow-lg ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
                 <img
                   src={s.image}
-                  alt={s.title}
+                  alt={s.category}
                   className="w-full h-72 object-cover"
                   loading="lazy"
                 />
@@ -143,13 +169,22 @@ export function ServicesPage() {
           ))}
         </div>
 
-        {/* CTA */}
         <div className="mt-20 card p-10 text-center bg-gradient-to-br from-pink-50 to-tan-100 border-pink-100">
-          <h2 className="font-serif text-2xl text-almond-900 mb-3">Not sure which service you need?</h2>
-          <p className="text-almond-600 mb-6">Book a free consultation and we will help you figure out exactly where to start.</p>
-          <button onClick={() => navigate('')} className="btn-primary">
-            Book a Free Consultation <ArrowRight className="w-4 h-4" />
-          </button>
+          <h2 className="font-serif text-2xl text-almond-900 mb-3">Not sure where to start?</h2>
+          <p className="text-almond-600 mb-6">
+            Take our free marketing assessment and we'll identify your highest-value growth opportunities.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <button
+              onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'services_cta' }); navigate('assessment'); }}
+              className="btn-primary"
+            >
+              Get Your Free Marketing Assessment <ArrowRight className="w-4 h-4" />
+            </button>
+            <button onClick={() => navigate('contact')} className="btn-outline">
+              Book a Consultation
+            </button>
+          </div>
         </div>
 
       </div>

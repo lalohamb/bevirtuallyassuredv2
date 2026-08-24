@@ -1,84 +1,59 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
-  Mail, CalendarCheck, Users, FileText, Phone, Sparkles,
-  ArrowRight, Clock, ShieldCheck, HeartHandshake, ChevronDown, ChevronUp,
+  ArrowRight, TrendingUp, Target, BarChart2, Users, Zap, ChevronDown, ChevronUp,
+  CheckCircle2, Search, Megaphone, Layers,
 } from 'lucide-react';
 import { navigate } from '@/lib/router';
+import { track, Events } from '@/lib/analytics';
 import { LeadForm } from '@/components/LeadForm';
-import { supabase, type PortfolioProject } from '@/lib/supabase';
 
-const testimonials = [
-  {
-    quote: 'Petal Assist gave me back 20 hours a week. My inbox is under control and I can finally focus on growing my coaching practice.',
-    name: 'Sarah M.',
-    role: 'Business Coach',
-    avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
-  },
-  {
-    quote: 'The onboarding was seamless and my assistant understood my brand voice from day one. Worth every penny.',
-    name: 'James T.',
-    role: 'E-commerce Founder',
-    avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg',
-  },
-  {
-    quote: 'I was skeptical about delegating, but Petal Assist made it effortless. My customer response time went from 2 days to 2 hours.',
-    name: 'Priya K.',
-    role: 'Consultant',
-    avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
-  },
-];
-
-const steps = [
-  { number: '01', title: 'Tell us what you need', desc: 'Fill out a short form about your business and the tasks you want to delegate.' },
-  { number: '02', title: 'Meet your assistant', desc: 'We match you with a vetted VA who fits your industry and working style.' },
-  { number: '03', title: 'Hand off and grow', desc: 'Your assistant gets to work. You get your time back — usually within 48 hours.' },
-];
-
-const faqs = [
-  { q: 'How quickly can I get started?', a: 'Most clients are matched with an assistant and onboarded within 48 hours of signing up.' },
-  { q: 'What if I need to change my plan?', a: 'All plans are month-to-month. You can upgrade, downgrade, or cancel at any time with no penalties.' },
-  { q: 'Is my business information kept confidential?', a: 'Absolutely. All assistants sign NDAs and we follow strict data security practices. Your information never leaves our secure systems.' },
-  { q: 'What tools do your assistants use?', a: 'Our VAs are trained on the most common business tools — Gmail, Outlook, Slack, Notion, Asana, QuickBooks, Shopify, and more. Just let us know what you use.' },
-  { q: 'Can I communicate directly with my assistant?', a: 'Yes. You will have a dedicated point of contact and can communicate via email, Slack, or whatever tool you prefer.' },
-];
-
-const clientLogos = [
-  'Bloom Studio', 'Apex Consulting', 'Nova Health', 'Crest & Co.', 'Luminary Media',
+const problems = [
+  "Marketing spend that doesn't produce measurable results",
+  "Website traffic that isn't converting into qualified leads",
+  'No clear customer acquisition strategy',
+  'Fragmented marketing efforts with no unified direction',
+  "Brand positioning that doesn't differentiate you from competitors",
+  "Social media activity that doesn't support revenue growth",
 ];
 
 const services = [
-  { icon: Mail, title: 'Inbox & Calendar', desc: 'Email triage, scheduling, and calendar coordination so you never miss a beat.' },
-  { icon: Users, title: 'Customer Support', desc: 'Friendly, on-brand responses that keep your customers happy and loyal.' },
-  { icon: FileText, title: 'Content & Admin', desc: 'Blog posts, social media, data entry, and document management handled.' },
-  { icon: Phone, title: 'Bookkeeping', desc: 'Invoicing, expense tracking, and financial organization to stay on top of cash flow.' },
+  { icon: Target, title: 'Marketing Strategy', desc: 'Market analysis, positioning, go-to-market planning, and competitive strategy built around your growth objectives.' },
+  { icon: Search, title: 'Lead Generation', desc: 'Qualified lead funnels, conversion optimization, and campaign strategy that fills your pipeline with the right prospects.' },
+  { icon: Megaphone, title: 'Digital Marketing', desc: 'SEO, paid advertising, email, and content strategy coordinated into a single demand-generation system.' },
+  { icon: Layers, title: 'Brand Strategy', desc: 'Positioning, messaging, and differentiation that makes your value proposition impossible to ignore.' },
+  { icon: Zap, title: 'Marketing Technology', desc: "CRM optimization, marketing automation, and analytics that give you visibility into what's actually working." },
+  { icon: Users, title: 'Fractional CMO', desc: 'Senior marketing leadership for companies that need strategic direction without a full-time executive hire.' },
 ];
 
-const stats = [
-  { value: '150+', label: 'Clients Served' },
-  { value: '12k+', label: 'Hours Saved' },
-  { value: '98%', label: 'Satisfaction' },
-  { value: '24h', label: 'Avg. Response' },
+const idealClients = [
+  'Established small businesses ready to scale',
+  'Professional services firms needing more qualified leads',
+  'Growing SMBs without senior marketing leadership',
+  'Companies entering new markets or launching new offers',
+  "Businesses whose marketing spend isn't producing results",
+  'Founders who need a strategic partner, not just an agency',
 ];
 
-const values = [
-  { icon: ShieldCheck, title: 'Trusted & Confidential', desc: 'Your data and business are handled with the utmost care and security.' },
-  { icon: Clock, title: 'Reliable & On Time', desc: 'Deadlines met, every time. We treat your time like it is our own.' },
-  { icon: HeartHandshake, title: 'Genuine Partnership', desc: 'We are invested in your success, not just checking off tasks.' },
+const faqs = [
+  { q: 'What makes Nandi Marketing different from a traditional agency?', a: "We operate as a strategic partner, not a vendor. We focus on business outcomes — qualified leads, customer acquisition, and measurable growth — not just marketing activity. Every recommendation is tied to a business objective." },
+  { q: 'How quickly can we expect to see results?', a: 'Strategy and positioning improvements can be implemented within weeks. Lead generation and SEO results typically build over 60–90 days. We set clear milestones and track progress against them from day one.' },
+  { q: 'Do you work with businesses in specific industries?', a: "We work across professional services, home services, e-commerce, real estate, and B2B. Our approach is adaptable — what matters most is that you're serious about growth and willing to invest in a real strategy." },
+  { q: 'What does the engagement process look like?', a: "It starts with a free marketing assessment or strategy consultation. From there, we develop a 90-day growth plan, align on priorities, and begin execution. You'll have a dedicated point of contact and regular reporting throughout." },
+  { q: 'What is the Fractional CMO service?', a: "It's senior marketing leadership on a part-time basis. You get strategic direction, team oversight, and executive-level marketing thinking without the cost of a full-time CMO hire. Ideal for companies between $1M–$20M in revenue." },
 ];
 
 export function HomePage() {
-  const [projects, setProjects] = useState<PortfolioProject[]>([]);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  useEffect(() => {
-    supabase
-      .from('portfolio_projects')
-      .select('*')
-      .eq('published', true)
-      .order('sort_order')
-      .limit(3)
-      .then(({ data }) => setProjects(data ?? []));
-  }, []);
+  const handleAssessment = (source: string) => {
+    track(Events.ASSESSMENT_STARTED, { source });
+    navigate('assessment');
+  };
+
+  const handleConsultation = (source: string) => {
+    track(Events.CONSULTATION_STARTED, { source });
+    navigate('contact');
+  };
 
   return (
     <div>
@@ -93,56 +68,59 @@ export function HomePage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-up">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 text-sm font-medium mb-6">
-                <Sparkles className="w-4 h-4" />
-                Premium Virtual Assistant Services
+                <TrendingUp className="w-4 h-4" />
+                Marketing Consulting & Growth Strategy
               </div>
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-almond-900 leading-[1.1] mb-6">
-                Reclaim your time.<br />
-                <span className="text-pink-600">Grow your business.</span>
+                Turn Your Marketing Into a<br />
+                <span className="text-pink-600">Growth Engine.</span>
               </h1>
               <p className="text-lg text-almond-600 leading-relaxed mb-8 max-w-lg">
-                Petal Assist pairs you with skilled virtual assistants who handle the
-                admin, so you can focus on the work only you can do.
+                We help businesses generate qualified leads, improve conversion, and build
+                marketing systems that produce measurable, repeatable growth.
               </p>
               <div className="flex flex-wrap gap-3">
-                <button onClick={() => navigate('packages')} className="btn-primary">
-                  View Packages
+                <button onClick={() => handleAssessment('hero')} className="btn-primary">
+                  Get Your Free Marketing Assessment
                   <ArrowRight className="w-4 h-4" />
                 </button>
-                <a href="#contact" className="btn-outline">
-                  Get a Free Consultation
-                </a>
+                <button onClick={() => handleConsultation('hero')} className="btn-outline">
+                  Book a Strategy Consultation
+                </button>
               </div>
 
-              <div className="grid grid-cols-4 gap-4 mt-12">
-                {stats.map((s) => (
-                  <div key={s.label}>
-                    <div className="font-serif text-2xl sm:text-3xl text-pink-600">{s.value}</div>
-                    <div className="text-xs text-almond-500 mt-1">{s.label}</div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12">
+                {[
+                  { metric: 'Strategy', label: 'Clarity on your highest-value growth opportunities' },
+                  { metric: 'Leads', label: 'A consistent flow of qualified prospects' },
+                  { metric: 'Conversion', label: 'More revenue from existing traffic and spend' },
+                  { metric: 'Visibility', label: "Know what's working and why" },
+                ].map((o) => (
+                  <div key={o.metric}>
+                    <div className="font-serif text-lg text-pink-600 font-semibold">{o.metric}</div>
+                    <div className="text-xs text-almond-500 mt-1 leading-snug">{o.label}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Hero image card */}
             <div className="relative animate-fade-up" style={{ animationDelay: '0.2s' }}>
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg"
-                  alt="Virtual assistant at work"
+                  src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg"
+                  alt="Marketing strategy session"
                   className="w-full h-[420px] sm:h-[500px] object-cover"
                   fetchPriority="high"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-almond-900/30 to-transparent" />
               </div>
-              {/* Floating badge */}
-              <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3 max-w-[220px]">
-                <div className="w-10 h-10 rounded-full bg-success-100 flex items-center justify-center flex-shrink-0">
-                  <CalendarCheck className="w-5 h-5 text-success-600" />
+              <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3 max-w-[240px]">
+                <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0">
+                  <BarChart2 className="w-5 h-5 text-pink-600" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-almond-900">15+ hours saved</div>
-                  <div className="text-xs text-almond-500">every week, per client</div>
+                  <div className="text-sm font-semibold text-almond-900">Measurable outcomes</div>
+                  <div className="text-xs text-almond-500">Strategy tied to business results</div>
                 </div>
               </div>
             </div>
@@ -150,34 +128,66 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Client logos */}
-      <section className="py-10 bg-white border-y border-almond-100">
+      {/* Problem section */}
+      <section className="py-16 sm:py-20 bg-white border-y border-almond-100">
         <div className="container-page">
-          <p className="text-center text-xs font-medium text-almond-400 uppercase tracking-widest mb-6">Trusted by businesses like yours</p>
-          <div className="flex flex-wrap justify-center items-center gap-8">
-            {clientLogos.map((name) => (
-              <span key={name} className="font-serif text-lg text-almond-300 font-semibold">{name}</span>
-            ))}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="section-title mb-4">Does any of this sound familiar?</h2>
+              <p className="section-subtitle mb-8">
+                Most businesses we work with are dealing with one or more of these challenges before we start working together.
+              </p>
+              <ul className="space-y-3">
+                {problems.map((p) => (
+                  <li key={p} className="flex items-start gap-3 text-almond-700">
+                    <span className="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="w-2 h-2 rounded-full bg-pink-500 block" />
+                    </span>
+                    <span className="text-sm leading-relaxed">{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="card p-8 bg-gradient-to-br from-pink-50 to-tan-50 border-pink-100">
+              <h3 className="font-serif text-2xl text-almond-900 mb-4">
+                These aren't marketing problems.<br />
+                <span className="text-pink-600">They're growth problems.</span>
+              </h3>
+              <p className="text-almond-600 leading-relaxed mb-6">
+                The root cause is almost always the same: marketing activity without a
+                coordinated strategy. More content, more ads, more tools — but no unified
+                system connecting them to business outcomes.
+              </p>
+              <p className="text-almond-600 leading-relaxed mb-8">
+                That's what we fix. We connect strategy, brand, demand generation,
+                conversion, and analytics into one growth system built around your
+                specific business objectives.
+              </p>
+              <button onClick={() => handleAssessment('problem_section')} className="btn-primary">
+                Find Out What's Holding You Back
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Services */}
-      <section className="py-16 sm:py-20 bg-white">
+      {/* Services preview */}
+      <section className="py-16 sm:py-20">
         <div className="container-page">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="section-title">What we can do for you</h2>
+            <h2 className="section-title">How we help you grow</h2>
             <p className="section-subtitle">
-              From inbox management to content creation, our assistants are trained across
-              the tasks that keep your business running.
+              Six integrated service areas, each designed to move qualified prospects
+              closer to becoming customers.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((s, i) => (
               <div
                 key={s.title}
                 className="card-hover p-6 animate-fade-up"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                style={{ animationDelay: `${i * 0.08}s` }}
               >
                 <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-4">
                   <s.icon className="w-6 h-6 text-pink-600" />
@@ -187,131 +197,91 @@ export function HomePage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="py-16 sm:py-20">
-        <div className="container-page">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="section-title">Why clients choose us</h2>
-            <p className="section-subtitle">We are not just task-doers. We are partners invested in your success.</p>
-          </div>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {values.map((v, i) => (
-              <div
-                key={v.title}
-                className="text-center animate-fade-up"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              >
-                <div className="w-16 h-16 rounded-full bg-almond-100 flex items-center justify-center mx-auto mb-5">
-                  <v.icon className="w-8 h-8 text-almond-700" />
-                </div>
-                <h3 className="font-serif text-xl text-almond-900 mb-2">{v.title}</h3>
-                <p className="text-almond-500 text-sm leading-relaxed max-w-xs mx-auto">{v.desc}</p>
-              </div>
-            ))}
+          <div className="text-center mt-10">
+            <button
+              onClick={() => { track(Events.SERVICES_VIEWED, { source: 'homepage' }); navigate('services'); }}
+              className="btn-outline"
+            >
+              Explore All Services <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Who we help */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="container-page">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="section-title">What our clients say</h2>
-            <p className="section-subtitle">Real results from real business owners.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <div key={t.name} className="card p-6 animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <svg key={j} className="w-4 h-4 text-pink-400 fill-pink-400" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  ))}
-                </div>
-                <p className="text-almond-600 text-sm leading-relaxed mb-5 italic">"{t.quote}"</p>
-                <div className="flex items-center gap-3">
-                  <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" loading="lazy" />
-                  <div>
-                    <div className="text-sm font-semibold text-almond-900">{t.name}</div>
-                    <div className="text-xs text-almond-400">{t.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section className="py-16 sm:py-20">
-        <div className="container-page">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="section-title">How it works</h2>
-            <p className="section-subtitle">From sign-up to hands-off in three simple steps.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            <div className="hidden md:block absolute top-8 left-1/4 right-1/4 h-px bg-almond-200" />
-            {steps.map((s, i) => (
-              <div key={s.number} className="text-center animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-4">
-                  <span className="font-serif text-xl text-pink-600 font-bold">{s.number}</span>
-                </div>
-                <h3 className="font-serif text-lg text-almond-900 mb-2">{s.title}</h3>
-                <p className="text-sm text-almond-500 leading-relaxed max-w-xs mx-auto">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Portfolio preview */}
-      {projects.length > 0 && (
-        <section className="py-16 sm:py-20 bg-white">
-          <div className="container-page">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-              <div>
-                <h2 className="section-title">Recent work</h2>
-                <p className="section-subtitle">A glimpse of what we have done for clients like you.</p>
-              </div>
-              <button onClick={() => navigate('portfolio')} className="btn-ghost self-start sm:self-auto">
-                View all projects <ArrowRight className="w-4 h-4" />
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl">
+              <img
+                src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg"
+                alt="Business growth strategy meeting"
+                className="w-full h-[400px] object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <h2 className="section-title mb-4">Who we work with</h2>
+              <p className="text-almond-600 leading-relaxed mb-6">
+                We work best with businesses that are serious about growth and ready to
+                invest in a real marketing strategy — not just more activity.
+              </p>
+              <ul className="space-y-3 mb-8">
+                {idealClients.map((c) => (
+                  <li key={c} className="flex items-start gap-3 text-almond-700">
+                    <CheckCircle2 className="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm">{c}</span>
+                  </li>
+                ))}
+              </ul>
+              <button onClick={() => handleAssessment('who_we_help')} className="btn-primary">
+                See If We're a Good Fit
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((p, i) => (
-                <button
-                  key={p.id}
-                  onClick={() => navigate('portfolio')}
-                  className="card-hover overflow-hidden text-left animate-fade-up"
-                  style={{ animationDelay: `${i * 0.1}s` }}
-                >
-                  <div className="h-48 overflow-hidden">
-                    <img
-                      src={p.image_url ?? ''}
-                      alt={p.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <span className="badge bg-pink-50 text-pink-600 mb-2">{p.category}</span>
-                    <h3 className="font-serif text-lg text-almond-900 mb-1">{p.title}</h3>
-                    <p className="text-sm text-almond-500 line-clamp-2">{p.summary}</p>
-                  </div>
-                </button>
-              ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ROI Calculator CTA */}
+      <section className="py-16 sm:py-20">
+        <div className="container-page">
+          <div className="card p-10 sm:p-14 bg-gradient-to-br from-almond-900 to-almond-800 border-0 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/20 text-pink-300 text-sm font-medium mb-6">
+              <BarChart2 className="w-4 h-4" />
+              Marketing ROI Calculator
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl text-white mb-4">
+              What would better marketing be worth to your business?
+            </h2>
+            <p className="text-tan-200 text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+              Enter your current numbers and see the revenue opportunity sitting in your
+              existing marketing. Takes less than 2 minutes.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <button
+                onClick={() => { track(Events.CALCULATOR_STARTED, { source: 'homepage' }); navigate('calculator'); }}
+                className="btn-primary"
+              >
+                Calculate My Revenue Opportunity
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => handleConsultation('calculator_cta')}
+                className="btn border-2 border-tan-300 text-tan-100 hover:bg-tan-700/30"
+              >
+                Book a Consultation Instead
+              </button>
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* FAQ */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="container-page max-w-3xl">
           <div className="text-center mb-12">
-            <h2 className="section-title">Frequently asked questions</h2>
+            <h2 className="section-title">Common questions</h2>
             <p className="section-subtitle">Everything you need to know before getting started.</p>
           </div>
           <div className="space-y-3">
@@ -320,8 +290,9 @@ export function HomePage() {
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between p-5 text-left"
+                  aria-expanded={openFaq === i}
                 >
-                  <span className="font-serif text-almond-900 text-base">{faq.q}</span>
+                  <span className="font-serif text-almond-900 text-base pr-4">{faq.q}</span>
                   {openFaq === i
                     ? <ChevronUp className="w-5 h-5 text-pink-500 flex-shrink-0" />
                     : <ChevronDown className="w-5 h-5 text-almond-400 flex-shrink-0" />}
@@ -337,49 +308,49 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Lead capture */}
+      {/* Final CTA / Contact */}
       <section id="contact" className="py-16 sm:py-24">
         <div className="container-page">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div className="lg:sticky lg:top-28">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 text-sm font-medium mb-6">
-                <Sparkles className="w-4 h-4" />
-                Let's get started
+                <TrendingUp className="w-4 h-4" />
+                Let's build your growth system
               </div>
               <h2 className="font-serif text-3xl sm:text-4xl text-almond-900 mb-4">
-                Request your free consultation
+                Book a Strategy Consultation
               </h2>
               <p className="text-almond-600 text-lg leading-relaxed mb-8">
-                Tell us a little about your business and what you need. We will follow up
-                within one business day to schedule a no-pressure call and match you with
-                the right assistant.
+                Tell us about your business and your growth objectives. We'll review your
+                situation and come prepared with specific observations and recommendations.
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-3 mb-8">
                 {[
                   'No commitment — the consultation is completely free',
-                  'We match you with an assistant who fits your industry',
-                  'Flexible plans that scale as your needs grow',
+                  'We review your current marketing before the call',
+                  'You leave with at least one actionable insight',
+                  'No generic pitch — specific to your business',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-almond-700">
-                    <CheckCircle2Small />
+                    <CheckCircle2 className="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" />
                     <span className="text-sm">{item}</span>
                   </li>
                 ))}
               </ul>
+              <div className="p-5 rounded-2xl bg-pink-50 border border-pink-100">
+                <p className="text-sm text-almond-700 leading-relaxed">
+                  <span className="font-semibold text-almond-900">Prefer to start with the assessment?</span>{' '}
+                  Take our free marketing assessment first and we'll use your results to make the consultation even more valuable.
+                </p>
+                <button onClick={() => handleAssessment('contact_section')} className="btn-outline text-sm mt-3">
+                  Take the Free Assessment First
+                </button>
+              </div>
             </div>
             <LeadForm />
           </div>
         </div>
       </section>
     </div>
-  );
-}
-
-function CheckCircle2Small() {
-  return (
-    <svg className="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-      <path d="m9 11 3 3L22 4" />
-    </svg>
   );
 }

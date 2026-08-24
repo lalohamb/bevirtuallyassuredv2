@@ -4,18 +4,19 @@ import { CartProvider } from '@/context/CartContext';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { HomePage } from '@/pages/HomePage';
-import { PortfolioPage } from '@/pages/PortfolioPage';
-import { PackagesPage } from '@/pages/PackagesPage';
+import { ServicesPage } from '@/pages/ServicesPage';
+import { ResultsPage } from '@/pages/ResultsPage';
+import { AboutPage } from '@/pages/AboutPage';
+import { BlogPage } from '@/pages/BlogPage';
+import { AssessmentPage } from '@/pages/AssessmentPage';
+import { CalculatorPage } from '@/pages/CalculatorPage';
+import { ContactPage } from '@/pages/ContactPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { OnboardingPage } from '@/pages/OnboardingPage';
 import { DashboardPage } from '@/pages/DashboardPage';
-import { CheckoutPage } from '@/pages/CheckoutPage';
-import { AboutPage } from '@/pages/AboutPage';
-import { ServicesPage } from '@/pages/ServicesPage';
-import { BlogPage } from '@/pages/BlogPage';
+import { AdminPage } from '@/pages/AdminPage';
 import { PrivacyPage } from '@/pages/PrivacyPage';
 import { TermsPage } from '@/pages/TermsPage';
-import { AdminPage } from '@/pages/AdminPage';
 
 function Pages() {
   const route = useRouter();
@@ -23,18 +24,19 @@ function Pages() {
   const page = (() => {
     switch (route.name) {
       case 'home': return <HomePage />;
-      case 'portfolio': return <PortfolioPage />;
-      case 'packages': return <PackagesPage />;
+      case 'services': return <ServicesPage />;
+      case 'results': return <ResultsPage />;
+      case 'about': return <AboutPage />;
+      case 'blog': return <BlogPage />;
+      case 'assessment': return <AssessmentPage />;
+      case 'calculator': return <CalculatorPage />;
+      case 'contact': return <ContactPage />;
       case 'login': return <LoginPage />;
       case 'onboarding': return <OnboardingPage />;
       case 'dashboard': return <DashboardPage />;
-      case 'checkout': return <CheckoutPage />;
-      case 'about': return <AboutPage />;
-      case 'services': return <ServicesPage />;
-      case 'blog': return <BlogPage />;
+      case 'admin': return <AdminPage />;
       case 'privacy': return <PrivacyPage />;
       case 'terms': return <TermsPage />;
-      case 'admin': return <AdminPage />;
       default: return <HomePage />;
     }
   })();
