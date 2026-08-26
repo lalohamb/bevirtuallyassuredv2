@@ -35,7 +35,7 @@ const idealClients = [
 ];
 
 const faqs = [
-  { q: 'What makes Nandi Marketing different from a traditional agency?', a: "We operate as a strategic partner, not a vendor. We focus on business outcomes — qualified leads, customer acquisition, and measurable growth — not just marketing activity. Every recommendation is tied to a business objective." },
+  { q: 'What makes Be Virtually Assured different from a traditional agency?', a: "We operate as a strategic partner, not a vendor. We focus on business outcomes — qualified leads, customer acquisition, and measurable growth — not just marketing activity. Every recommendation is tied to a business objective." },
   { q: 'How quickly can we expect to see results?', a: 'Strategy and positioning improvements can be implemented within weeks. Lead generation and SEO results typically build over 60–90 days. We set clear milestones and track progress against them from day one.' },
   { q: 'Do you work with businesses in specific industries?', a: "We work across professional services, home services, e-commerce, real estate, and B2B. Our approach is adaptable — what matters most is that you're serious about growth and willing to invest in a real strategy." },
   { q: 'What does the engagement process look like?', a: "It starts with a free marketing assessment or strategy consultation. From there, we develop a 90-day growth plan, align on priorities, and begin execution. You'll have a dedicated point of contact and regular reporting throughout." },

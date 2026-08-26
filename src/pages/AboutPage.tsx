@@ -28,7 +28,7 @@ export function AboutPage() {
               <span className="text-pink-600">measurable growth engine.</span>
             </h1>
             <p className="text-almond-600 text-lg leading-relaxed mb-6">
-              Nandi Marketing is a marketing consulting firm focused on one thing:
+              Be Virtually Assured is a marketing consulting firm focused on one thing:
               helping businesses generate qualified leads, improve conversion, and build
               marketing systems that produce repeatable, measurable growth.
             </p>
@@ -53,12 +53,12 @@ export function AboutPage() {
             <div className="rounded-3xl overflow-hidden shadow-2xl">
               <img
                 src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg"
-                alt="Nandi Rivera — Founder, Nandi Marketing"
+                alt="Na'ndi Hambrick — Founder, Be Virtually Assured"
                 className="w-full h-[420px] object-cover object-top"
               />
             </div>
             <div className="absolute -bottom-5 -right-5 bg-white rounded-2xl shadow-xl p-4 max-w-[200px]">
-              <div className="text-sm font-semibold text-almond-900">Nandi Rivera</div>
+              <div className="text-sm font-semibold text-almond-900">Na'ndi Hambrick</div>
               <div className="text-xs text-pink-600">Founder & Lead Strategist</div>
             </div>
           </div>
@@ -88,7 +88,7 @@ export function AboutPage() {
               They measure success by output. We measure success by outcomes.
             </p>
             <p>
-              Nandi Marketing was founded on a simple observation: the businesses that struggle
+              Be Virtually Assured was founded on a simple observation: the businesses that struggle
               most with marketing aren't struggling because they lack tactics. They're struggling
               because they lack a coherent strategy that connects marketing activity to business
               objectives.

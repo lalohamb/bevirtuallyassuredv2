@@ -50,7 +50,7 @@ export function Navbar() {
             <TrendingUp className="w-5 h-5 text-white" />
           </div>
           <span className="font-serif text-xl text-almond-900 font-semibold">
-            Nandi Marketing
+            Be Virtually Assured
           </span>
         </button>
 

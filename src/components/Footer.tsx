@@ -39,7 +39,7 @@ export function Footer() {
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-white" />
               </div>
-              <span className="font-serif text-xl font-semibold text-white">Nandi Marketing</span>
+              <span className="font-serif text-xl font-semibold text-white">Be Virtually Assured</span>
             </div>
             <p className="text-tan-200 text-sm leading-relaxed max-w-sm">
               We help businesses turn marketing into a measurable growth engine — through strategy,
@@ -122,7 +122,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-almond-800 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-tan-300">
-          <span>© {new Date().getFullYear()} Nandi Marketing. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Be Virtually Assured. All rights reserved.</span>
           <div className="flex gap-4">
             <button onClick={() => navigate('privacy')} className="hover:text-pink-300 transition-colors">Privacy Policy</button>
             <button onClick={() => navigate('terms')} className="hover:text-pink-300 transition-colors">Terms of Service</button>
