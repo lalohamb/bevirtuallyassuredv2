@@ -96,7 +96,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-tan-200">
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-pink-400" />
-                <a href="mailto:hello@bevirtuallyassured.com" className="hover:text-pink-300 transition-colors">hello@bevirtuallyassured.com/</a>
+                <a href="mailto:hello@bevirtuallyassured.com" className="hover:text-pink-300 transition-colors">hello@bevirtuallyassured.com</a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-pink-400" />
