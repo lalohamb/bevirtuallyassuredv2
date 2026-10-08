@@ -36,10 +36,7 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
-              <picture>
-              <source srcSet="/logo.webp" type="image/webp" />
-              <img src="/logo.png" alt="Be Virtually Assured" className="h-14 w-auto object-contain brightness-0 invert" />
-            </picture>
+              <img src="/virtually_assured_horizontal_logo.png" alt="Be Virtually Assured" className="h-14 w-auto object-contain brightness-0 invert" />
             </div>
             <p className="text-tan-200 text-sm leading-relaxed max-w-sm">
               We assist with the tasks you find mundane or complex, so that you can focus on more revenue generating activities. Let's get connected so we can get to know your unique business and build systems that produce measurable, repeatable growth.
