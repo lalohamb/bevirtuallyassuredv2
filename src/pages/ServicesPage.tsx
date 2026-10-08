@@ -97,42 +97,49 @@ const problems = [
 
 const vaPackages = [
   {
-    name: 'Starter',
-    price: 'Starting at $X/mo',
-    desc: 'Perfect for solopreneurs and small business owners who need foundational support.',
+    name: 'Starter Support',
+    price: '$450/mo',
+    desc: 'Perfect for solopreneurs getting organized.',
+    hours: '10 dedicated hours per month of dedicated virtual assistance for the essentials.',
     features: [
-      'Email management & organization',
-      'Calendar scheduling & coordination',
-      'Basic data entry & file organization',
-      'Up to X hours/month',
+      '10 dedicated hours per month',
+      'Email & calendar management',
+      'Data entry & file organization',
+      'Basic research tasks',
+      'Weekly progress report',
     ],
     highlight: false,
   },
   {
-    name: 'Growth',
-    price: 'Starting at $X/mo',
-    desc: 'For growing businesses that need consistent, multi-function support.',
+    name: 'Growth Partner',
+    price: '$950/mo',
+    desc: 'Our most popular plan for growing businesses.',
+    hours: '25 hours per month with support and expanded service coverage.',
     features: [
-      'Everything in Starter',
-      'Customer & phone support',
-      'Social media scheduling',
-      'Research & reporting',
-      'Basic bookkeeping support',
-      'Up to X hours/month',
+      '25 dedicated hours per month',
+      'Everything in Starter Package',
+      'Social media management',
+      'Customer support inbox',
+      'Invoicing & bookkeeping support',
+      'Project coordination',
+      'Priority response (4 business hours)',
+      'Bi-weekly strategy calls',
     ],
     highlight: true,
   },
   {
-    name: 'Premium',
-    price: 'Starting at $X/mo',
-    desc: 'Full-service virtual support for established businesses ready to scale.',
+    name: 'Premium Concierge',
+    price: '$1,850/mo',
+    desc: 'Full-scale support for established teams.',
+    hours: '50 hours per month with a dedicated assistant and strategic partnership.',
     features: [
-      'Everything in Growth',
-      'Graphic design & content creation',
-      'Website maintenance',
-      'Sales follow-up & closing support',
-      'Event coordination support',
-      'Up to X hours/month',
+      '50 dedicated hours per month',
+      'Everything in Growth Package',
+      'Dedicated lead assistant',
+      'Content creation & blog writing',
+      'CRM management',
+      'Travel & event planning',
+      'Weekly strategy sessions',
     ],
     highlight: false,
   },
@@ -333,7 +340,6 @@ export function ServicesPage() {
             <div className="mb-16">
               <div className="text-center mb-10">
                 <h2 className="section-title">Packages & Pricing</h2>
-                <p className="section-subtitle">⚠️ Pricing coming soon — contact us for a custom quote.</p>
               </div>
               <div className="grid sm:grid-cols-3 gap-6">
                 {vaPackages.map((pkg) => (
@@ -348,7 +354,8 @@ export function ServicesPage() {
                     )}
                     <h3 className="font-serif text-2xl text-almond-900 mb-1">{pkg.name}</h3>
                     <div className="text-pink-600 font-semibold text-lg mb-3">{pkg.price}</div>
-                    <p className="text-sm text-almond-500 leading-relaxed mb-6">{pkg.desc}</p>
+                    <p className="text-sm text-almond-500 leading-relaxed mb-2">{pkg.desc}</p>
+                    <p className="text-xs text-almond-400 leading-relaxed mb-6">{pkg.hours}</p>
                     <ul className="space-y-2 mb-8 flex-grow">
                       {pkg.features.map((f) => (
                         <li key={f} className="flex items-start gap-2 text-sm text-almond-700">
@@ -363,6 +370,23 @@ export function ServicesPage() {
                     >
                       Get Started
                     </button>
+                  </div>
+                ))}
+              </div>
+
+              {/* Trust badges */}
+              <div className="grid sm:grid-cols-3 gap-4 mt-10">
+                {[
+                  { title: 'No Long-term Contracts', desc: 'Plans are month to month. Cancel or change anytime.' },
+                  { title: 'Unused Hours Roll Over', desc: 'Up to 25% of unused hours carry into the next month.' },
+                  { title: 'Secure & Confidential', desc: 'NDAs available. Your data stays private and protected.' },
+                ].map((b) => (
+                  <div key={b.title} className="flex items-start gap-3 p-5 rounded-2xl bg-pink-50 border border-pink-100">
+                    <Check className="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-sm font-semibold text-almond-900 mb-1">{b.title}</div>
+                      <div className="text-xs text-almond-500 leading-relaxed">{b.desc}</div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -414,20 +438,96 @@ export function ServicesPage() {
 
         {/* ── EVENT & PROJECT MANAGEMENT ── */}
         {activeTab === 'Event & Project Management' && (
-          <div className="text-center max-w-2xl mx-auto py-20">
-            <div className="w-20 h-20 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-6">
-              <Calendar className="w-10 h-10 text-pink-500" />
+          <div>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">
+                Event &amp; Project Management
+              </h1>
+              <p className="text-almond-600 text-lg leading-relaxed">
+                Flexible engagements built around your project or event — no long-term commitment required.
+              </p>
             </div>
-            <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">
-              Event & Project Management
-            </h1>
-            <p className="text-almond-500 text-lg leading-relaxed mb-8">
-              This service is currently being built out. Check back soon — or reach out
-              directly to discuss your event or project needs.
-            </p>
-            <button onClick={() => navigate('contact')} className="btn-primary">
-              Contact Us <ArrowRight className="w-4 h-4" />
-            </button>
+
+            <div className="grid sm:grid-cols-3 gap-6">
+
+              {/* Project Based */}
+              <div className="card p-8 flex flex-col">
+                <span className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-3">Project Based</span>
+                <h3 className="font-serif text-xl text-almond-900 mb-1">One-off Projects</h3>
+                <p className="text-xs text-almond-400 mb-2">One-off projects with flexible scope.</p>
+                <div className="text-pink-600 font-bold text-2xl mb-1">$750 <span className="text-sm font-normal text-almond-500">one-time fee</span></div>
+                <p className="text-sm text-almond-500 leading-relaxed mb-6">A flexible engagement for specific projects without a monthly commitment.</p>
+                <ul className="space-y-2 mb-8 flex-grow">
+                  {[
+                    'Up to 20 hours of project hours',
+                    'Custom scope of work',
+                    'Defined deliverables',
+                    'Fixed timeline',
+                    'One-time engagement',
+                    '30 day support window',
+                  ].map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm text-almond-700">
+                      <Check className="w-4 h-4 text-pink-500 flex-shrink-0 mt-0.5" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => navigate('contact')} className="btn-outline w-full">Get Started</button>
+              </div>
+
+              {/* Day of Coordination */}
+              <div className="card p-8 flex flex-col border-pink-300 shadow-lg ring-2 ring-pink-200">
+                <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-semibold mb-4 self-start">
+                  <Star className="w-3 h-3" /> Most Popular
+                </div>
+                <span className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-3">Event Package</span>
+                <h3 className="font-serif text-xl text-almond-900 mb-1">Day of Coordination</h3>
+                <p className="text-xs text-almond-400 mb-2">Event Planner steps in 14 days from the event date.</p>
+                <div className="text-pink-600 font-bold text-2xl mb-1">$1,000 <span className="text-sm font-normal text-almond-500">booking fee</span></div>
+                <p className="text-sm text-almond-500 leading-relaxed mb-6">Focused coordination support in the final stretch before your event.</p>
+                <ul className="space-y-2 mb-8 flex-grow">
+                  {[
+                    'Agreed upon working hours',
+                    'Defined scope of responsibilities',
+                    'Logistics & Vendor Point of Contact',
+                    '16 day support window (14 pre-event, 2 post-event)',
+                    'One-time engagement',
+                  ].map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm text-almond-700">
+                      <Check className="w-4 h-4 text-pink-500 flex-shrink-0 mt-0.5" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => navigate('contact')} className="btn-primary w-full">Get Started</button>
+              </div>
+
+              {/* Full Scope Event Planner */}
+              <div className="card p-8 flex flex-col">
+                <span className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-3">Full Scope</span>
+                <h3 className="font-serif text-xl text-almond-900 mb-1">Full Scope Event Planner</h3>
+                <p className="text-xs text-almond-400 mb-2">One-off projects with flexible scope.</p>
+                <div className="text-pink-600 font-bold text-2xl mb-1">Price Varies <span className="text-sm font-normal text-almond-500">+ booking fee</span></div>
+                <p className="text-sm text-almond-500 leading-relaxed mb-6">A contractual engagement for specific projects/events.</p>
+                <ul className="space-y-2 mb-8 flex-grow">
+                  {[
+                    'Project hours vary',
+                    'Custom scope of work',
+                    'Defined deliverables',
+                    'Fixed timeline & budget',
+                    'Weekly status update meetings',
+                    'Booking fee required & non-refundable',
+                  ].map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm text-almond-700">
+                      <Check className="w-4 h-4 text-pink-500 flex-shrink-0 mt-0.5" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => navigate('contact')} className="btn-outline w-full">Get Started</button>
+              </div>
+
+            </div>
           </div>
         )}
 
