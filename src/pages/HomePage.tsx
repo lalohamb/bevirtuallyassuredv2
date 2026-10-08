@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import {
-  ArrowRight, TrendingUp, Target, BarChart2, Users, Zap, ChevronDown, ChevronUp,
-  CheckCircle2, Search, Megaphone, Layers,
+  ArrowRight, TrendingUp, BarChart2, Users, Zap,
+  CheckCircle2, Layers, Target,
 } from 'lucide-react';
 import { navigate } from '@/lib/router';
 import { track, Events } from '@/lib/analytics';
@@ -17,34 +16,13 @@ const problems = [
 ];
 
 const services = [
-  { icon: Target, title: 'Marketing Strategy', desc: 'Market analysis, positioning, go-to-market planning, and competitive strategy built around your growth objectives.' },
-  { icon: Search, title: 'Lead Generation', desc: 'Qualified lead funnels, conversion optimization, and campaign strategy that fills your pipeline with the right prospects.' },
-  { icon: Megaphone, title: 'Digital Marketing', desc: 'SEO, paid advertising, email, and content strategy coordinated into a single demand-generation system.' },
-  { icon: Layers, title: 'Brand Strategy', desc: 'Positioning, messaging, and differentiation that makes your value proposition impossible to ignore.' },
-  { icon: Zap, title: 'Marketing Technology', desc: "CRM optimization, marketing automation, and analytics that give you visibility into what's actually working." },
-  { icon: Users, title: 'Fractional CMO', desc: 'Senior marketing leadership for companies that need strategic direction without a full-time executive hire.' },
-];
-
-const idealClients = [
-  'Established small businesses ready to scale',
-  'Professional services firms needing more qualified leads',
-  'Growing SMBs without senior marketing leadership',
-  'Companies entering new markets or launching new offers',
-  "Businesses whose marketing spend isn't producing results",
-  'Founders who need a strategic partner, not just an agency',
-];
-
-const faqs = [
-  { q: 'What makes Be Virtually Assured different from a traditional agency?', a: "We operate as a strategic partner, not a vendor. We focus on business outcomes — qualified leads, customer acquisition, and measurable growth — not just marketing activity. Every recommendation is tied to a business objective." },
-  { q: 'How quickly can we expect to see results?', a: 'Strategy and positioning improvements can be implemented within weeks. Lead generation and SEO results typically build over 60–90 days. We set clear milestones and track progress against them from day one.' },
-  { q: 'Do you work with businesses in specific industries?', a: "We work across professional services, home services, e-commerce, real estate, and B2B. Our approach is adaptable — what matters most is that you're serious about growth and willing to invest in a real strategy." },
-  { q: 'What does the engagement process look like?', a: "It starts with a free marketing assessment or strategy consultation. From there, we develop a 90-day growth plan, align on priorities, and begin execution. You'll have a dedicated point of contact and regular reporting throughout." },
-  { q: 'What is the Fractional CMO service?', a: "It's senior marketing leadership on a part-time basis. You get strategic direction, team oversight, and executive-level marketing thinking without the cost of a full-time CMO hire. Ideal for companies between $1M–$20M in revenue." },
+  { icon: Target, title: 'Marketing Strategy', desc: 'Branding, Web Design, Content Creation, SEO, Email Campaigns, and more.' },
+  { icon: Users, title: 'Virtual Admin Support', desc: 'Email & Calendar Support, Customer Support, Data Entry & Research, Basic Bookkeeping, Social Media management & more.' },
+  { icon: Layers, title: 'Event Coordination', desc: 'Event Planning, Decor Arrangements, Logistics, Vendor Management, Budgeting & Day Of Coordination and more.' },
+  { icon: Zap, title: 'Project Management', desc: 'Oversee Workflow & Task Tracking, Task Scheduling and Coordination, Meeting & Status Support, Timeline Deadline Tracking, Client & Vendor Communication and more.' },
 ];
 
 export function HomePage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   const handleAssessment = (source: string) => {
     track(Events.ASSESSMENT_STARTED, { source });
     navigate('assessment');
@@ -69,15 +47,14 @@ export function HomePage() {
             <div className="animate-fade-up">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 text-sm font-medium mb-6">
                 <TrendingUp className="w-4 h-4" />
-                Marketing Consulting & Growth Strategy
+                Premium Small Business Services
               </div>
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-almond-900 leading-[1.1] mb-6">
-                Turn Your Marketing Into a<br />
-                <span className="text-pink-600">Growth Engine.</span>
+                Turn Your Business Into A<br />
+                <span className="text-pink-600">Growth Machine.</span>
               </h1>
               <p className="text-lg text-almond-600 leading-relaxed mb-8 max-w-lg">
-                We help businesses generate qualified leads, improve conversion, and build
-                marketing systems that produce measurable, repeatable growth.
+                We assist with the tasks you find mundane or complex, so that you can focus on more revenue generating activities. Let's get connected so we can get to know your unique business and build systems that produce measurable, repeatable growth.
               </p>
               <div className="flex flex-wrap gap-3">
                 <button onClick={() => handleAssessment('hero')} className="btn-primary">
@@ -85,7 +62,7 @@ export function HomePage() {
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <button onClick={() => handleConsultation('hero')} className="btn-outline">
-                  Book a Strategy Consultation
+                  Schedule A Free Consultation
                 </button>
               </div>
 
@@ -176,13 +153,12 @@ export function HomePage() {
       <section className="py-16 sm:py-20">
         <div className="container-page">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="section-title">How we help you grow</h2>
+            <h2 className="section-title">What We Can Do For You</h2>
             <p className="section-subtitle">
-              Six integrated service areas, each designed to move qualified prospects
-              closer to becoming customers.
+              From marketing strategy, email and calendar management, phone and administrative support, to content creation, project and event support we are trained across the tasks that keep your business running.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {services.map((s, i) => (
               <div
                 key={s.title}
@@ -204,41 +180,6 @@ export function HomePage() {
             >
               Explore All Services <ArrowRight className="w-4 h-4" />
             </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Who we help */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="container-page">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl">
-              <img
-                src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg"
-                alt="Business growth strategy meeting"
-                className="w-full h-[400px] object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div>
-              <h2 className="section-title mb-4">Who we work with</h2>
-              <p className="text-almond-600 leading-relaxed mb-6">
-                We work best with businesses that are serious about growth and ready to
-                invest in a real marketing strategy — not just more activity.
-              </p>
-              <ul className="space-y-3 mb-8">
-                {idealClients.map((c) => (
-                  <li key={c} className="flex items-start gap-3 text-almond-700">
-                    <CheckCircle2 className="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm">{c}</span>
-                  </li>
-                ))}
-              </ul>
-              <button onClick={() => handleAssessment('who_we_help')} className="btn-primary">
-                See If We're a Good Fit
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
           </div>
         </div>
       </section>
@@ -270,40 +211,9 @@ export function HomePage() {
                 onClick={() => handleConsultation('calculator_cta')}
                 className="btn border-2 border-tan-300 text-tan-100 hover:bg-tan-700/30"
               >
-                Book a Consultation Instead
+                Schedule A Free Consultation
               </button>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="container-page max-w-3xl">
-          <div className="text-center mb-12">
-            <h2 className="section-title">Common questions</h2>
-            <p className="section-subtitle">Everything you need to know before getting started.</p>
-          </div>
-          <div className="space-y-3">
-            {faqs.map((faq, i) => (
-              <div key={i} className="card overflow-hidden">
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left"
-                  aria-expanded={openFaq === i}
-                >
-                  <span className="font-serif text-almond-900 text-base pr-4">{faq.q}</span>
-                  {openFaq === i
-                    ? <ChevronUp className="w-5 h-5 text-pink-500 flex-shrink-0" />
-                    : <ChevronDown className="w-5 h-5 text-almond-400 flex-shrink-0" />}
-                </button>
-                {openFaq === i && (
-                  <div className="px-5 pb-5 text-sm text-almond-500 leading-relaxed border-t border-almond-100 pt-4">
-                    {faq.a}
-                  </div>
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -318,7 +228,7 @@ export function HomePage() {
                 Let's build your growth system
               </div>
               <h2 className="font-serif text-3xl sm:text-4xl text-almond-900 mb-4">
-                Book a Strategy Consultation
+                Schedule A Free Consultation
               </h2>
               <p className="text-almond-600 text-lg leading-relaxed mb-8">
                 Tell us about your business and your growth objectives. We'll review your

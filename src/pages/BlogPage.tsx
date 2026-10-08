@@ -37,17 +37,6 @@ const FALLBACK_POSTS: BlogPost[] = [
     published: true,
     created_at: '2025-02-05T00:00:00Z',
   },
-  {
-    slug: 'fractional-cmo-vs-agency',
-    category: 'Marketing Leadership',
-    title: 'Fractional CMO vs. Marketing Agency: Which Does Your Business Actually Need?',
-    summary: 'Agencies execute. A fractional CMO thinks strategically. Understanding the difference could save you significant time and money.',
-    read_time: '5 min read',
-    image_url: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg',
-    body: `Growing businesses often face a choice: hire a marketing agency or bring in a fractional CMO. The right answer depends on where your biggest gap is.\n\nMarketing agencies are built for execution. They're good at producing content, running ads, managing social media, and implementing SEO. What they're typically not built for is strategic thinking about your business — understanding your competitive position, your customer acquisition economics, and how marketing connects to your overall business objectives.\n\nA fractional CMO fills the strategic gap. They think about marketing at the business level — setting direction, prioritizing investments, building systems, and holding execution accountable to outcomes. They can also manage agencies and vendors on your behalf, ensuring that execution is aligned with strategy.\n\nThe question to ask is: do we have a strategy problem or an execution problem?\n\nIf you have a clear strategy and just need more hands to execute it, an agency may be the right choice. If you're not sure what your strategy should be, or if your current marketing isn't producing results despite adequate execution, you likely need strategic leadership first.\n\nMany businesses benefit from both — a fractional CMO to set direction and an agency (or in-house team) to execute against it.`,
-    published: true,
-    created_at: '2025-02-19T00:00:00Z',
-  },
 ];
 
 export function BlogPage() {

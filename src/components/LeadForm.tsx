@@ -1,29 +1,31 @@
 import { useState } from 'react';
 import { Send, CheckCircle2, Loader2 } from 'lucide-react';
-import { supabase, type Lead } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 import { track, Events } from '@/lib/analytics';
 
-const challengeOptions = [
-  'Not generating enough qualified leads',
-  'Marketing spend not producing measurable results',
-  'Website traffic not converting',
-  'No clear customer acquisition strategy',
-  'Brand positioning is unclear',
-  'Marketing efforts are fragmented',
-  'Need senior marketing leadership',
+const industries = [
+  'Retail',
+  'Professional Services',
+  'Health & Wellness',
+  'Real Estate',
+  'Food & Beverage',
+  'Technology',
+  'Event Planning',
+  'Beauty & Personal Care',
+  'Education',
+  'Non-Profit',
   'Other',
 ];
 
 export function LeadForm() {
-  const [form, setForm] = useState<Lead & { challenge: string; website: string }>({
+  const [form, setForm] = useState({
     name: '',
-    email: '',
-    company: '',
-    phone: '',
-    service_interest: '',
-    message: '',
-    challenge: '',
+    business_name: '',
     website: '',
+    email: '',
+    phone: '',
+    industry: '',
+    message: '',
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -40,10 +42,13 @@ export function LeadForm() {
     const { error } = await supabase.from('leads').insert({
       name: form.name.trim(),
       email: form.email.trim(),
-      company: form.company?.trim() || null,
-      phone: form.phone?.trim() || null,
-      service_interest: form.challenge || null,
-      message: [form.website ? `Website: ${form.website}` : '', form.message?.trim() || ''].filter(Boolean).join('\n') || null,
+      company: form.business_name.trim() || null,
+      phone: form.phone.trim() || null,
+      service_interest: form.industry || null,
+      message: [
+        form.website ? `Website: ${form.website}` : '',
+        form.message.trim(),
+      ].filter(Boolean).join('\n') || null,
     });
 
     if (error) {
@@ -63,7 +68,7 @@ export function LeadForm() {
         </div>
         <h3 className="font-serif text-2xl text-almond-900 mb-2">Request received!</h3>
         <p className="text-almond-500 mb-6">
-          We'll review your information and reach out within one business day to schedule your strategy consultation.
+          We'll review your information and reach out within one business day to schedule your free consultation.
         </p>
         <button onClick={() => setStatus('idle')} className="btn-outline">
           Send another request
@@ -76,19 +81,19 @@ export function LeadForm() {
     <form onSubmit={handleSubmit} className="card p-6 sm:p-8 space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="label" htmlFor="lf-name">Your Name *</label>
+          <label className="label" htmlFor="lf-name">Full Name *</label>
           <input id="lf-name" className="input" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="Jane Smith" required />
         </div>
         <div>
-          <label className="label" htmlFor="lf-email">Work Email *</label>
+          <label className="label" htmlFor="lf-email">Email *</label>
           <input id="lf-email" type="email" className="input" value={form.email} onChange={(e) => update('email', e.target.value)} placeholder="jane@company.com" required />
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="label" htmlFor="lf-company">Company Name</label>
-          <input id="lf-company" className="input" value={form.company ?? ''} onChange={(e) => update('company', e.target.value)} placeholder="Acme Inc." />
+          <label className="label" htmlFor="lf-business">Business Name *</label>
+          <input id="lf-business" className="input" value={form.business_name} onChange={(e) => update('business_name', e.target.value)} placeholder="Acme Co." required />
         </div>
         <div>
           <label className="label" htmlFor="lf-website">Website</label>
@@ -96,28 +101,30 @@ export function LeadForm() {
         </div>
       </div>
 
-      <div>
-        <label className="label" htmlFor="lf-challenge">Biggest Marketing Challenge</label>
-        <select id="lf-challenge" className="input" value={form.challenge} onChange={(e) => update('challenge', e.target.value)}>
-          <option value="">Select your primary challenge…</option>
-          {challengeOptions.map((c) => <option key={c} value={c}>{c}</option>)}
-        </select>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div>
+          <label className="label" htmlFor="lf-phone">Phone *</label>
+          <input id="lf-phone" className="input" value={form.phone} onChange={(e) => update('phone', e.target.value)} placeholder="(555) 123-4567" required />
+        </div>
+        <div>
+          <label className="label" htmlFor="lf-industry">Industry *</label>
+          <select id="lf-industry" className="input" value={form.industry} onChange={(e) => update('industry', e.target.value)} required>
+            <option value="">Select your industry…</option>
+            {industries.map((i) => <option key={i} value={i}>{i}</option>)}
+          </select>
+        </div>
       </div>
 
       <div>
-        <label className="label" htmlFor="lf-message">Tell us about your goals</label>
+        <label className="label" htmlFor="lf-message">Brief Summary *</label>
         <textarea
           id="lf-message"
           className="input min-h-[100px] resize-y"
-          value={form.message ?? ''}
+          value={form.message}
           onChange={(e) => update('message', e.target.value)}
-          placeholder="What does success look like for your business in the next 12 months?"
+          placeholder="Tell us a little about your business and what you're looking for help with."
+          required
         />
-      </div>
-
-      <div>
-        <label className="label" htmlFor="lf-phone">Phone (optional)</label>
-        <input id="lf-phone" className="input" value={form.phone ?? ''} onChange={(e) => update('phone', e.target.value)} placeholder="(555) 123-4567" />
       </div>
 
       {status === 'error' && <p className="text-error-600 text-sm">{errorMsg}</p>}
@@ -126,7 +133,7 @@ export function LeadForm() {
         {status === 'submitting' ? (
           <><Loader2 className="w-4 h-4 animate-spin" />Sending…</>
         ) : (
-          <><Send className="w-4 h-4" />Book a Strategy Consultation</>
+          <><Send className="w-4 h-4" />Schedule A Free Consultation</>
         )}
       </button>
       <p className="text-xs text-almond-400 text-center">No commitment. We'll reach out within one business day.</p>

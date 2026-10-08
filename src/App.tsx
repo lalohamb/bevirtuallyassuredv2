@@ -26,6 +26,7 @@ function Pages() {
       case 'home': return <HomePage />;
       case 'services': return <ServicesPage />;
       case 'results': return <ResultsPage />;
+      case 'portfolio': return <ResultsPage />;
       case 'about': return <AboutPage />;
       case 'blog': return <BlogPage />;
       case 'assessment': return <AssessmentPage />;

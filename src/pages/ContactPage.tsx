@@ -1,9 +1,18 @@
-import { CheckCircle2, TrendingUp } from 'lucide-react';
+import { useState } from 'react';
+import { CheckCircle2, TrendingUp, ChevronDown, ChevronUp } from 'lucide-react';
 import { navigate } from '@/lib/router';
 import { track, Events } from '@/lib/analytics';
 import { LeadForm } from '@/components/LeadForm';
 
+const faqs = [
+  { q: 'What makes Be Virtually Assured different from a traditional agency?', a: "We operate as a strategic partner, not a vendor. We focus on business outcomes — qualified leads, customer acquisition, and measurable growth — not just marketing activity. Every recommendation is tied to a business objective." },
+  { q: 'How quickly can we expect to see results?', a: 'Strategy and positioning improvements can be implemented within weeks. Lead generation and SEO results typically build over 60–90 days. We set clear milestones and track progress against them from day one.' },
+  { q: 'Do you work with businesses in specific industries?', a: "We work across professional services, home services, e-commerce, real estate, and B2B. Our approach is adaptable — what matters most is that you're serious about growth and willing to invest in a real strategy." },
+  { q: 'What does the engagement process look like?', a: "It starts with a free consultation. From there, we develop a plan, align on priorities, and begin execution. You'll have a dedicated point of contact and regular reporting throughout." },
+];
+
 export function ContactPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   return (
     <div className="pt-28 pb-20">
       <div className="container-page">
@@ -14,7 +23,7 @@ export function ContactPage() {
               Free Strategy Consultation
             </div>
             <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-6">
-              Book a Strategy Consultation
+              Schedule A Free Consultation
             </h1>
             <p className="text-almond-600 text-lg leading-relaxed mb-8">
               Tell us about your business and your growth objectives. We'll review your
@@ -61,6 +70,35 @@ export function ContactPage() {
           </div>
 
           <LeadForm />
+        </div>
+
+        {/* FAQ */}
+        <div className="mt-20 max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="section-title">Common Questions</h2>
+            <p className="section-subtitle">Everything you need to know before getting started.</p>
+          </div>
+          <div className="space-y-3">
+            {faqs.map((faq, i) => (
+              <div key={i} className="card overflow-hidden">
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between p-5 text-left"
+                  aria-expanded={openFaq === i}
+                >
+                  <span className="font-serif text-almond-900 text-base pr-4">{faq.q}</span>
+                  {openFaq === i
+                    ? <ChevronUp className="w-5 h-5 text-pink-500 flex-shrink-0" />
+                    : <ChevronDown className="w-5 h-5 text-almond-400 flex-shrink-0" />}
+                </button>
+                {openFaq === i && (
+                  <div className="px-5 pb-5 text-sm text-almond-500 leading-relaxed border-t border-almond-100 pt-4">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

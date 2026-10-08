@@ -1,8 +1,9 @@
-import { ArrowRight, Check, Target, Search, Megaphone, Layers, Zap, Users } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Check, Target, Search, Megaphone, Layers, Zap, Mail, Phone, Calendar, FileText, Users, BarChart2, Bot, Star } from 'lucide-react';
 import { navigate } from '@/lib/router';
 import { track, Events } from '@/lib/analytics';
 
-const services = [
+const marketingServices = [
   {
     icon: Target,
     category: 'Marketing Strategy',
@@ -24,7 +25,7 @@ const services = [
     category: 'Lead Generation',
     headline: 'Fill Your Pipeline With Qualified Prospects',
     problem: "Generating leads is easy. Generating qualified leads — prospects who actually have the problem you solve and the budget to address it — is where most marketing falls short.",
-    outcome: 'A lead generation system that consistently delivers qualified prospects into your pipeline, with clear attribution so you know exactly what\'s working.',
+    outcome: "A lead generation system that consistently delivers qualified prospects into your pipeline, with clear attribution so you know exactly what's working.",
     deliverables: [
       'Lead funnel design and build',
       'Landing page strategy and optimization',
@@ -83,109 +84,352 @@ const services = [
     ],
     image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg',
   },
+];
+
+const problems = [
+  "Too many tasks, not enough hours in the day",
+  "Inbox and calendar constantly out of control",
+  "No bandwidth to focus on revenue-generating work",
+  "Events and projects falling through the cracks",
+  "Inconsistent social media and content presence",
+  "Administrative work pulling you away from growth",
+];
+
+const vaPackages = [
   {
-    icon: Users,
-    category: 'Fractional CMO',
-    headline: 'Senior Marketing Leadership Without the Full-Time Cost',
-    problem: "Growing companies often need strategic marketing leadership but aren't ready — or don't need — a full-time CMO. The gap between junior execution and senior strategy is where growth stalls.",
-    outcome: 'Executive-level marketing leadership on a fractional basis — strategic direction, team oversight, and accountability for marketing performance.',
-    deliverables: [
-      'Marketing strategy and planning',
-      'Team leadership and mentorship',
-      'Agency and vendor management',
-      'Board and executive reporting',
-      'Marketing budget management',
-      'Hiring and team building support',
+    name: 'Starter',
+    price: 'Starting at $X/mo',
+    desc: 'Perfect for solopreneurs and small business owners who need foundational support.',
+    features: [
+      'Email management & organization',
+      'Calendar scheduling & coordination',
+      'Basic data entry & file organization',
+      'Up to X hours/month',
     ],
-    image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg',
+    highlight: false,
+  },
+  {
+    name: 'Growth',
+    price: 'Starting at $X/mo',
+    desc: 'For growing businesses that need consistent, multi-function support.',
+    features: [
+      'Everything in Starter',
+      'Customer & phone support',
+      'Social media scheduling',
+      'Research & reporting',
+      'Basic bookkeeping support',
+      'Up to X hours/month',
+    ],
+    highlight: true,
+  },
+  {
+    name: 'Premium',
+    price: 'Starting at $X/mo',
+    desc: 'Full-service virtual support for established businesses ready to scale.',
+    features: [
+      'Everything in Growth',
+      'Graphic design & content creation',
+      'Website maintenance',
+      'Sales follow-up & closing support',
+      'Event coordination support',
+      'Up to X hours/month',
+    ],
+    highlight: false,
   },
 ];
 
+const vaServices = [
+  { icon: Mail, label: 'Email & Calendar Management' },
+  { icon: Phone, label: 'Customer & Phone Support' },
+  { icon: FileText, label: 'Data Entry & Research' },
+  { icon: Users, label: 'Social Media Management' },
+  { icon: BarChart2, label: 'Basic Bookkeeping' },
+  { icon: Calendar, label: 'Event Coordination Support' },
+];
+
+const tabs = ['Marketing Solutions', 'Virtual Assistant', 'Event & Project Management'] as const;
+type Tab = typeof tabs[number];
+
 export function ServicesPage() {
+  const [activeTab, setActiveTab] = useState<Tab>('Marketing Solutions');
+
   return (
     <div className="pt-28 pb-20">
       <div className="container-page">
 
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">
-            Marketing Services Built Around Business Outcomes
-          </h1>
-          <p className="text-almond-600 text-lg leading-relaxed">
-            Every service we offer is designed to move qualified prospects closer to
-            becoming customers — and to give you clear visibility into what's working.
-          </p>
-        </div>
-
-        <div className="space-y-20">
-          {services.map((s, i) => (
-            <div
-              key={s.category}
-              className={`grid lg:grid-cols-2 gap-12 items-center animate-fade-up`}
-              style={{ animationDelay: `${i * 0.05}s` }}
+        {/* Tab Navigation */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-6 py-3 rounded-full text-sm font-semibold transition-all ${
+                activeTab === tab
+                  ? 'bg-pink-500 text-white shadow-md'
+                  : 'bg-white border border-almond-200 text-almond-600 hover:border-pink-300 hover:text-pink-600'
+              }`}
             >
-              <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
-                <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-5">
-                  <s.icon className="w-6 h-6 text-pink-600" />
-                </div>
-                <span className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-2 block">{s.category}</span>
-                <h2 className="font-serif text-2xl sm:text-3xl text-almond-900 mb-4">{s.headline}</h2>
-
-                <div className="mb-4 p-4 rounded-xl bg-almond-50 border border-almond-100">
-                  <p className="text-xs font-semibold text-almond-500 uppercase tracking-wide mb-1">The Problem</p>
-                  <p className="text-sm text-almond-700 leading-relaxed">{s.problem}</p>
-                </div>
-
-                <div className="mb-6 p-4 rounded-xl bg-pink-50 border border-pink-100">
-                  <p className="text-xs font-semibold text-pink-500 uppercase tracking-wide mb-1">The Outcome</p>
-                  <p className="text-sm text-almond-700 leading-relaxed">{s.outcome}</p>
-                </div>
-
-                <ul className="space-y-2 mb-8">
-                  {s.deliverables.map((d) => (
-                    <li key={d} className="flex items-start gap-3 text-sm text-almond-700">
-                      <span className="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check className="w-3 h-3 text-pink-600" />
-                      </span>
-                      {d}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => { track(Events.CONSULTATION_STARTED, { source: `services_${s.category}` }); navigate('assessment'); }}
-                  className="btn-primary"
-                >
-                  Get a Free Assessment <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-              <div className={`rounded-2xl overflow-hidden shadow-lg ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
-                <img
-                  src={s.image}
-                  alt={s.category}
-                  className="w-full h-72 object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </div>
+              {tab}
+            </button>
           ))}
         </div>
 
-        <div className="mt-20 card p-10 text-center bg-gradient-to-br from-pink-50 to-tan-100 border-pink-100">
-          <h2 className="font-serif text-2xl text-almond-900 mb-3">Not sure where to start?</h2>
-          <p className="text-almond-600 mb-6">
-            Take our free marketing assessment and we'll identify your highest-value growth opportunities.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <button
-              onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'services_cta' }); navigate('assessment'); }}
-              className="btn-primary"
-            >
-              Get Your Free Marketing Assessment <ArrowRight className="w-4 h-4" />
-            </button>
-            <button onClick={() => navigate('contact')} className="btn-outline">
-              Book a Consultation
+        {/* ── MARKETING SOLUTIONS ── */}
+        {activeTab === 'Marketing Solutions' && (
+          <div>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">
+                Marketing Services Built Around Business Outcomes
+              </h1>
+              <p className="text-almond-600 text-lg leading-relaxed">
+                Every service we offer is designed to move qualified prospects closer to
+                becoming customers — and to give you clear visibility into what's working.
+              </p>
+            </div>
+
+            {/* Problem section */}
+            <div className="mb-20 py-16 bg-white border-y border-almond-100 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
+              <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                  <h2 className="section-title mb-4">Does any of this sound familiar?</h2>
+                  <p className="section-subtitle mb-8">
+                    Most businesses we work with are dealing with one or more of these challenges before we start working together.
+                  </p>
+                  <ul className="space-y-3">
+                    {problems.map((p) => (
+                      <li key={p} className="flex items-start gap-3 text-almond-700">
+                        <span className="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <span className="w-2 h-2 rounded-full bg-pink-500 block" />
+                        </span>
+                        <span className="text-sm leading-relaxed">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="card p-8 bg-gradient-to-br from-pink-50 to-tan-50 border-pink-100">
+                  <h3 className="font-serif text-2xl text-almond-900 mb-4">
+                    These aren't marketing problems.<br />
+                    <span className="text-pink-600">They're growth problems.</span>
+                  </h3>
+                  <p className="text-almond-600 leading-relaxed mb-6">
+                    The root cause is almost always the same: activity without a coordinated
+                    strategy. More content, more ads, more tools — but no unified system
+                    connecting them to business outcomes.
+                  </p>
+                  <button
+                    onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'services_problem' }); navigate('contact'); }}
+                    className="btn-primary"
+                  >
+                    Find Out What's Holding You Back
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Services list */}
+            <div className="space-y-20">
+              {marketingServices.map((s, i) => (
+                <div
+                  key={s.category}
+                  className="grid lg:grid-cols-2 gap-12 items-center animate-fade-up"
+                  style={{ animationDelay: `${i * 0.05}s` }}
+                >
+                  <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
+                    <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-5">
+                      <s.icon className="w-6 h-6 text-pink-600" />
+                    </div>
+                    <span className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-2 block">{s.category}</span>
+                    <h2 className="font-serif text-2xl sm:text-3xl text-almond-900 mb-4">{s.headline}</h2>
+                    <div className="mb-4 p-4 rounded-xl bg-almond-50 border border-almond-100">
+                      <p className="text-xs font-semibold text-almond-500 uppercase tracking-wide mb-1">The Problem</p>
+                      <p className="text-sm text-almond-700 leading-relaxed">{s.problem}</p>
+                    </div>
+                    <div className="mb-6 p-4 rounded-xl bg-pink-50 border border-pink-100">
+                      <p className="text-xs font-semibold text-pink-500 uppercase tracking-wide mb-1">The Outcome</p>
+                      <p className="text-sm text-almond-700 leading-relaxed">{s.outcome}</p>
+                    </div>
+                    <ul className="space-y-2 mb-8">
+                      {s.deliverables.map((d) => (
+                        <li key={d} className="flex items-start gap-3 text-sm text-almond-700">
+                          <span className="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-3 h-3 text-pink-600" />
+                          </span>
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => { track(Events.CONSULTATION_STARTED, { source: `services_${s.category}` }); navigate('contact'); }}
+                      className="btn-primary"
+                    >
+                      Schedule A Free Consultation <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <div className={`rounded-2xl overflow-hidden shadow-lg ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <img src={s.image} alt={s.category} className="w-full h-72 object-cover" loading="lazy" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* ROI Calculator CTA */}
+            <div className="mt-20 card p-10 sm:p-14 bg-gradient-to-br from-almond-900 to-almond-800 border-0 text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/20 text-pink-300 text-sm font-medium mb-6">
+                <BarChart2 className="w-4 h-4" />
+                Marketing ROI Calculator
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl text-white mb-4">
+                What would better marketing be worth to your business?
+              </h2>
+              <p className="text-tan-200 text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+                Enter your current numbers and see the revenue opportunity sitting in your
+                existing marketing. Takes less than 2 minutes.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                <button
+                  onClick={() => { track(Events.CALCULATOR_STARTED, { source: 'services' }); navigate('calculator'); }}
+                  className="btn-primary"
+                >
+                  Calculate My Revenue Opportunity <ArrowRight className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => navigate('contact')}
+                  className="btn border-2 border-tan-300 text-tan-100 hover:bg-tan-700/30"
+                >
+                  Schedule A Free Consultation
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── VIRTUAL ASSISTANT ── */}
+        {activeTab === 'Virtual Assistant' && (
+          <div>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">
+                Virtual Assistant Services
+              </h1>
+              <p className="text-almond-600 text-lg leading-relaxed">
+                We handle the tasks that keep your business running so you can focus on
+                the work that grows it.
+              </p>
+            </div>
+
+            {/* What we handle */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-16">
+              {vaServices.map(({ icon: Icon, label }) => (
+                <div key={label} className="card p-5 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-pink-100 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-5 h-5 text-pink-600" />
+                  </div>
+                  <span className="text-sm font-medium text-almond-800">{label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Packages */}
+            <div className="mb-16">
+              <div className="text-center mb-10">
+                <h2 className="section-title">Packages & Pricing</h2>
+                <p className="section-subtitle">⚠️ Pricing coming soon — contact us for a custom quote.</p>
+              </div>
+              <div className="grid sm:grid-cols-3 gap-6">
+                {vaPackages.map((pkg) => (
+                  <div
+                    key={pkg.name}
+                    className={`card p-8 flex flex-col ${pkg.highlight ? 'border-pink-300 shadow-lg ring-2 ring-pink-200' : ''}`}
+                  >
+                    {pkg.highlight && (
+                      <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-semibold mb-4 self-start">
+                        <Star className="w-3 h-3" /> Most Popular
+                      </div>
+                    )}
+                    <h3 className="font-serif text-2xl text-almond-900 mb-1">{pkg.name}</h3>
+                    <div className="text-pink-600 font-semibold text-lg mb-3">{pkg.price}</div>
+                    <p className="text-sm text-almond-500 leading-relaxed mb-6">{pkg.desc}</p>
+                    <ul className="space-y-2 mb-8 flex-grow">
+                      {pkg.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2 text-sm text-almond-700">
+                          <Check className="w-4 h-4 text-pink-500 flex-shrink-0 mt-0.5" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => navigate('contact')}
+                      className={pkg.highlight ? 'btn-primary w-full' : 'btn-outline w-full'}
+                    >
+                      Get Started
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* AI Business Assistant */}
+            <div className="card p-10 sm:p-14 bg-gradient-to-br from-almond-900 to-almond-800 border-0">
+              <div className="grid lg:grid-cols-2 gap-10 items-center">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/20 text-pink-300 text-sm font-medium mb-6">
+                    <Bot className="w-4 h-4" />
+                    AI-Powered Support
+                  </div>
+                  <h2 className="font-serif text-3xl sm:text-4xl text-white mb-4">
+                    Meet Your AI Business Assistant
+                  </h2>
+                  <p className="text-tan-200 text-lg leading-relaxed mb-6">
+                    We combine the warmth of a dedicated human VA with the speed and
+                    precision of AI-powered tools — giving your business a competitive
+                    edge without the overhead.
+                  </p>
+                  <ul className="space-y-3 mb-8">
+                    {[
+                      'AI-assisted email drafting & responses',
+                      'Smart scheduling & calendar optimization',
+                      'Automated research & data summaries',
+                      'Content drafts ready for your review',
+                      'Workflow automation setup & management',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-tan-200 text-sm">
+                        <Zap className="w-4 h-4 text-pink-400 flex-shrink-0 mt-0.5" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => navigate('contact')} className="btn-primary">
+                    Learn More <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="w-48 h-48 rounded-full bg-pink-500/10 border border-pink-500/30 flex items-center justify-center">
+                    <Bot className="w-24 h-24 text-pink-400" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── EVENT & PROJECT MANAGEMENT ── */}
+        {activeTab === 'Event & Project Management' && (
+          <div className="text-center max-w-2xl mx-auto py-20">
+            <div className="w-20 h-20 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-6">
+              <Calendar className="w-10 h-10 text-pink-500" />
+            </div>
+            <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">
+              Event & Project Management
+            </h1>
+            <p className="text-almond-500 text-lg leading-relaxed mb-8">
+              This service is currently being built out. Check back soon — or reach out
+              directly to discuss your event or project needs.
+            </p>
+            <button onClick={() => navigate('contact')} className="btn-primary">
+              Contact Us <ArrowRight className="w-4 h-4" />
             </button>
           </div>
-        </div>
+        )}
 
       </div>
     </div>

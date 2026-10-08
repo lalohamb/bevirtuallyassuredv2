@@ -1,29 +1,20 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, TrendingUp } from 'lucide-react';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import { navigate, useRouter } from '@/lib/router';
 import { useAuth } from '@/context/AuthContext';
 import { isAdmin } from '@/lib/supabase';
 import { track, Events } from '@/lib/analytics';
 
 const links = [
-  { label: 'Services', path: 'services' },
-  { label: 'Results', path: 'results' },
-  { label: 'Insights', path: 'blog' },
   { label: 'About', path: 'about' },
-  { label: 'Calculator', path: 'calculator' },
+  { label: 'Services', path: 'services' },
+  { label: 'Blog', path: 'blog' },
 ];
 
 export function Navbar() {
   const route = useRouter();
   const { user, signOut } = useAuth();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   const isActive = (path: string) => route.name === path;
 
@@ -32,26 +23,25 @@ export function Navbar() {
     setOpen(false);
   };
 
-  const handleAssessment = () => {
-    track(Events.ASSESSMENT_STARTED, { source: 'navbar' });
-    handleNav('assessment');
+  const handleConsultation = () => {
+    track(Events.CONSULTATION_STARTED, { source: 'navbar' });
+    handleNav('contact');
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-tan-50/95 backdrop-blur-md shadow-sm' : 'bg-transparent'
-      }`}
-    >
-      <nav className="container-page flex items-center justify-between h-16 sm:h-20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-almond-900 shadow-lg">
+      <nav className="container-page flex items-center justify-between h-24 sm:h-28">
         {/* Logo */}
-        <button onClick={() => handleNav('')} className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
-            <TrendingUp className="w-5 h-5 text-white" />
-          </div>
-          <span className="font-serif text-xl text-almond-900 font-semibold">
-            Be Virtually Assured
-          </span>
+        <button onClick={() => handleNav('')} className="flex items-center group">
+          <picture>
+            <source srcSet="/logo.webp" type="image/webp" />
+            <img
+              src="/logo.png"
+              alt="Be Virtually Assured"
+              className="h-20 sm:h-24 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+              fetchPriority="high"
+            />
+          </picture>
         </button>
 
         {/* Desktop links */}
@@ -60,10 +50,10 @@ export function Navbar() {
             <button
               key={l.path}
               onClick={() => handleNav(l.path)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-full text-sm font-semibold tracking-wide transition-all ${
                 isActive(l.path)
-                  ? 'text-pink-700 bg-pink-50'
-                  : 'text-almond-700 hover:text-pink-600 hover:bg-pink-50/50'
+                  ? 'text-pink-400 bg-white/10'
+                  : 'text-tan-100 hover:text-pink-300 hover:bg-white/10'
               }`}
             >
               {l.label}
@@ -74,10 +64,10 @@ export function Navbar() {
         {/* Right actions */}
         <div className="flex items-center gap-2">
           <button
-            onClick={handleAssessment}
-            className="hidden md:inline-flex btn-primary text-sm py-2 px-5"
+            onClick={handleConsultation}
+            className="hidden md:inline-flex btn-primary text-sm py-2.5 px-6 font-semibold tracking-wide"
           >
-            Free Assessment
+            Free Consultation
           </button>
 
           {user ? (
@@ -89,44 +79,44 @@ export function Navbar() {
               <button onClick={signOut} className="btn-outline text-sm">Sign Out</button>
             </div>
           ) : (
-            <button onClick={() => handleNav('login')} className="hidden md:inline-flex btn-ghost text-sm">
+            <button onClick={() => handleNav('login')} className="hidden md:inline-flex text-tan-200 hover:text-pink-300 text-sm font-medium px-3 py-2 transition-colors">
               Client Login
             </button>
           )}
 
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden p-2.5 rounded-full hover:bg-pink-50 transition-colors"
+            className="md:hidden p-2.5 rounded-full hover:bg-white/10 transition-colors"
             aria-label="Menu"
           >
-            {open ? <X className="w-5 h-5 text-almond-700" /> : <Menu className="w-5 h-5 text-almond-700" />}
+            {open ? <X className="w-5 h-5 text-tan-100" /> : <Menu className="w-5 h-5 text-tan-100" />}
           </button>
         </div>
       </nav>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-tan-50 border-t border-almond-100 animate-fade-in">
-          <div className="container-page py-4 flex flex-col gap-1">
+        <div className="md:hidden bg-almond-900 border-t border-almond-700 shadow-lg animate-fade-in">
+          <div className="container-page py-5 flex flex-col gap-1">
             {links.map((l) => (
               <button
                 key={l.path}
                 onClick={() => handleNav(l.path)}
                 className={`px-4 py-3 rounded-xl text-left text-sm font-medium transition ${
-                  isActive(l.path) ? 'text-pink-700 bg-pink-50' : 'text-almond-700 hover:bg-pink-50/50'
+                  isActive(l.path) ? 'text-pink-400 bg-white/10' : 'text-tan-100 hover:bg-white/10'
                 }`}
               >
                 {l.label}
               </button>
             ))}
-            <button onClick={handleAssessment} className="btn-primary mt-2">
-              Free Marketing Assessment
+            <button onClick={handleConsultation} className="btn-primary mt-2">
+              Free Consultation
             </button>
             <button
-              onClick={() => { track(Events.CONSULTATION_STARTED, { source: 'navbar_mobile' }); handleNav('contact'); }}
+              onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'navbar_mobile' }); handleNav('assessment'); }}
               className="btn-outline mt-2"
             >
-              Book a Consultation
+              Free Marketing Assessment
             </button>
             {user ? (
               <>
