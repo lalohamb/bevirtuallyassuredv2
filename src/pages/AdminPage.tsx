@@ -12,11 +12,12 @@ export function AdminPage() {
 
   useEffect(() => {
     if (authLoading) return;
-    if (!user || !isAdmin(user)) navigate('');
+    if (!user || !isAdmin(user)) navigate('login');
   }, [user, authLoading]);
 
   if (authLoading) return <Spinner />;
-  if (!user || !isAdmin(user)) return null;
+  if (!user) return null;
+  if (!isAdmin(user)) return null;
 
   return (
     <div className="pt-28 pb-20">

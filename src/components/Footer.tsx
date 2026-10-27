@@ -76,10 +76,12 @@ export function Footer() {
                 { label: 'Results', path: 'results' },
                 { label: 'Blog', path: 'blog' },
                 { label: 'About', path: 'about' },
-                { label: 'Calculator', path: 'calculator' },
+                { label: 'ROI Calculator', path: 'calculator' },
+                { label: 'Free Assessment', path: 'assessment' },
+                { label: 'FAQ', path: 'faq' },
                 { label: 'Contact Us', path: 'contact' },
               ].map((l) => (
-                <li key={l.path}>
+                <li key={l.label}>
                   <button
                     onClick={() => navigate(l.path)}
                     className="text-tan-200 hover:text-pink-300 transition-colors"
@@ -108,10 +110,16 @@ export function Footer() {
               <NewsletterForm />
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 space-y-2">
+              <button
+                onClick={() => { track(Events.CONSULTATION_STARTED, { source: 'footer' }); navigate('contact'); }}
+                className="btn-primary text-sm w-full"
+              >
+                Schedule Consultation
+              </button>
               <button
                 onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'footer' }); navigate('assessment'); }}
-                className="btn-primary text-sm w-full"
+                className="btn-outline text-sm w-full border-tan-600 text-tan-200 hover:bg-white/10"
               >
                 Free Marketing Assessment
               </button>

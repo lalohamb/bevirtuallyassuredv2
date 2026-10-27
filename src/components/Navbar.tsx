@@ -68,12 +68,6 @@ export function Navbar() {
         {/* Right actions */}
         <div className="flex items-center gap-2">
           <button
-            onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'navbar' }); handleNav('assessment'); }}
-            className="hidden md:inline-flex btn-outline text-sm py-2.5 px-6 font-semibold tracking-wide"
-          >
-            Free Assessment
-          </button>
-          <button
             onClick={handleConsultation}
             className="hidden md:inline-flex btn-primary text-sm py-2.5 px-6 font-semibold tracking-wide"
           >
@@ -121,12 +115,6 @@ export function Navbar() {
             ))}
             <button onClick={handleConsultation} className="btn-primary mt-2">
               Free Consultation
-            </button>
-            <button
-              onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'navbar_mobile' }); handleNav('assessment'); }}
-              className="btn-outline mt-2"
-            >
-              Free Marketing Assessment
             </button>
             {user ? (
               <>

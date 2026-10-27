@@ -10,8 +10,10 @@ export type Route =
   | { name: 'assessment' }
   | { name: 'calculator' }
   | { name: 'contact' }
+  | { name: 'faq' }
   | { name: 'privacy' }
   | { name: 'terms' }
+  | { name: 'branding' }
   | { name: 'login' }
   | { name: 'dashboard' }
   | { name: 'admin' }
@@ -28,8 +30,10 @@ function parsePath(): Route {
     case 'assessment':  return { name: 'assessment' };
     case 'calculator':  return { name: 'calculator' };
     case 'contact':     return { name: 'contact' };
+    case 'faq':        return { name: 'faq' };
     case 'privacy':     return { name: 'privacy' };
     case 'terms':       return { name: 'terms' };
+    case 'branding':   return { name: 'branding' };
     case 'login':       return { name: 'login' };
     case 'dashboard':   return { name: 'dashboard' };
     case 'admin':       return { name: 'admin' };

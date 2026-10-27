@@ -15,6 +15,8 @@ import { LoginPage } from '@/pages/LoginPage';
 import { OnboardingPage } from '@/pages/OnboardingPage';
 import { DashboardPage } from '@/pages/DashboardPage';
 import { AdminPage } from '@/pages/AdminPage';
+import { BrandingPage } from '@/pages/BrandingPage';
+import { FAQPage } from '@/pages/FAQPage';
 import { PrivacyPage } from '@/pages/PrivacyPage';
 import { TermsPage } from '@/pages/TermsPage';
 
@@ -36,6 +38,8 @@ function Pages() {
       case 'onboarding': return <OnboardingPage />;
       case 'dashboard': return <DashboardPage />;
       case 'admin': return <AdminPage />;
+      case 'branding': return <BrandingPage />;
+      case 'faq': return <FAQPage />;
       case 'privacy': return <PrivacyPage />;
       case 'terms': return <TermsPage />;
       default: return <HomePage />;

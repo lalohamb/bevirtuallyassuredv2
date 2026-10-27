@@ -56,29 +56,7 @@ export function HomePage() {
               <p className="text-lg text-almond-600 leading-relaxed mb-8 max-w-lg">
                 We assist with the tasks you find mundane or complex, so that you can focus on more revenue generating activities. Let's get connected so we can get to know your unique business and build systems that produce measurable, repeatable growth.
               </p>
-              <div className="flex flex-wrap gap-3">
-                <button onClick={() => handleAssessment('hero')} className="btn-primary">
-                  Get Your Free Marketing Assessment
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <button onClick={() => handleConsultation('hero')} className="btn-outline">
-                  Schedule A Free Consultation
-                </button>
-              </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12">
-                {[
-                  { metric: 'Strategy', label: 'Clarity on your highest-value growth opportunities' },
-                  { metric: 'Leads', label: 'A consistent flow of qualified prospects' },
-                  { metric: 'Conversion', label: 'More revenue from existing traffic and spend' },
-                  { metric: 'Visibility', label: "Know what's working and why" },
-                ].map((o) => (
-                  <div key={o.metric}>
-                    <div className="font-serif text-lg text-pink-600 font-semibold">{o.metric}</div>
-                    <div className="text-xs text-almond-500 mt-1 leading-snug">{o.label}</div>
-                  </div>
-                ))}
-              </div>
             </div>
 
             <div className="relative animate-fade-up" style={{ animationDelay: '0.2s' }}>
@@ -100,50 +78,6 @@ export function HomePage() {
                   <div className="text-xs text-almond-500">Strategy tied to business results</div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Problem section */}
-      <section className="py-16 sm:py-20 bg-white border-y border-almond-100">
-        <div className="container-page">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="section-title mb-4">Does any of this sound familiar?</h2>
-              <p className="section-subtitle mb-8">
-                Most businesses we work with are dealing with one or more of these challenges before we start working together.
-              </p>
-              <ul className="space-y-3">
-                {problems.map((p) => (
-                  <li key={p} className="flex items-start gap-3 text-almond-700">
-                    <span className="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="w-2 h-2 rounded-full bg-pink-500 block" />
-                    </span>
-                    <span className="text-sm leading-relaxed">{p}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="card p-8 bg-gradient-to-br from-pink-50 to-tan-50 border-pink-100">
-              <h3 className="font-serif text-2xl text-almond-900 mb-4">
-                These aren't marketing problems.<br />
-                <span className="text-pink-600">They're growth problems.</span>
-              </h3>
-              <p className="text-almond-600 leading-relaxed mb-6">
-                The root cause is almost always the same: marketing activity without a
-                coordinated strategy. More content, more ads, more tools — but no unified
-                system connecting them to business outcomes.
-              </p>
-              <p className="text-almond-600 leading-relaxed mb-8">
-                That's what we fix. We connect strategy, brand, demand generation,
-                conversion, and analytics into one growth system built around your
-                specific business objectives.
-              </p>
-              <button onClick={() => handleAssessment('problem_section')} className="btn-primary">
-                Find Out What's Holding You Back
-                <ArrowRight className="w-4 h-4" />
-              </button>
             </div>
           </div>
         </div>
