@@ -1,8 +1,8 @@
 import { useRouter } from '@/lib/router';
 import { AuthProvider } from '@/context/AuthContext';
 import { CartProvider } from '@/context/CartContext';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import { HomePage } from '@/pages/HomePage';
 import { ServicesPage } from '@/pages/ServicesPage';
 import { ResultsPage } from '@/pages/ResultsPage';
@@ -48,8 +48,14 @@ function Pages() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow">{page}</main>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-white focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-navy focus:shadow-lift"
+      >
+        Skip to content
+      </a>
+      <Header />
+      <main id="main" tabIndex={-1} className="flex-grow focus:outline-none">{page}</main>
       <Footer />
     </div>
   );

@@ -1,12 +1,11 @@
-import { Target, BarChart2, Zap, Lightbulb, Handshake } from 'lucide-react';
-
-const pillars = [
-  { icon: Zap, title: 'Proactive Ownership', desc: "We don't just wait for instructions; we anticipate needs, solve problems early, and own the outcomes." },
-  { icon: Target, title: 'Agile Adaptability', desc: 'The digital landscape changes fast; we pivot quickly and adapt smoothly to keep our clients ahead of the curve.' },
-  { icon: Lightbulb, title: 'Bold Creativity', desc: 'We push boundaries in our marketing strategies to help brands stand out in crowded markets.' },
-  { icon: BarChart2, title: 'Efficient Execution', desc: 'We value smart workflows, automation, and speed, eliminating friction for our clients.' },
-  { icon: Handshake, title: 'Collaborative Synergy', desc: "We operate as a seamless extension of our clients' internal teams, blending our strengths with theirs." },
-];
+import { ArrowRight, CalendarDays } from 'lucide-react';
+import { navigate } from '@/lib/router';
+import { track, Events } from '@/lib/analytics';
+import { PageHero } from '@/components/shared/PageHero';
+import { SectionHeading } from '@/components/shared/SectionHeading';
+import { CallToAction } from '@/components/shared/CallToAction';
+import { PanelArcs } from '@/components/shared/Decor';
+import { ABOUT_HEADING, ABOUT_INTRO, FOUNDER, PILLARS } from '@/content/company';
 
 const methodology = [
   { step: '01', title: 'Assess', desc: 'We start by understanding your business, your market, your current marketing, and your growth objectives. No assumptions.' },
@@ -17,41 +16,34 @@ const methodology = [
 
 export function AboutPage() {
   return (
-    <div className="pt-28 pb-24">
-
-      {/* Hero */}
-      <div className="container-page">
-        <div className="grid lg:grid-cols-2 gap-14 items-center mb-28">
-          <div className="animate-fade-up">
-            <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-6">
-              What Sets Us Apart
-            </h1>
-            <p className="text-almond-600 text-lg leading-relaxed">
-              At Virtually Assured, we are committed to helping you succeed by offering a comprehensive range of consulting services tailored to your needs. From marketing strategy and executive administrative support, to event &amp; project management. We take the time to understand your needs and challenges, and create solutions tailored to your business that make a difference.
-            </p>
+    <>
+      <PageHero
+        eyebrow="About Be Virtually Assured"
+        title={ABOUT_HEADING}
+        description={<p>{ABOUT_INTRO}</p>}
+        image={{
+          src: '/about-hero.png',
+          alt: `${FOUNDER.name} — Founder, Be Virtually Assured`,
+          className: 'object-top',
+        }}
+        imageOverlay={
+          <div className="absolute -bottom-5 left-5 rounded-2xl bg-white p-4 pr-6 shadow-lift sm:left-auto sm:-right-5">
+            <div className="text-sm font-semibold text-navy">{FOUNDER.name}</div>
+            <div className="text-xs font-medium text-coral-700">{FOUNDER.title}</div>
           </div>
-          <div className="relative animate-fade-up" style={{ animationDelay: '0.2s' }}>
-            <div className="rounded-3xl overflow-hidden shadow-2xl">
-              <img
-                src="/about-hero.png"
-                alt="Na'ndi Hambrick — Founder, Be Virtually Assured"
-                className="w-full h-[420px] object-cover object-top"
-              />
-            </div>
-            <div className="absolute -bottom-5 -right-5 bg-white rounded-2xl shadow-xl p-4 max-w-[200px]">
-              <div className="text-sm font-semibold text-almond-900">Na'ndi Hambrick</div>
-              <div className="text-xs text-pink-600">Founder &amp; CEO</div>
-            </div>
-          </div>
-        </div>
-      </div>
+        }
+      />
 
-      {/* Why we exist — full-width band */}
-      <div className="bg-almond-50 py-20 mb-28">
-        <div className="container-page max-w-3xl mx-auto text-center">
-          <h2 className="section-title mb-8">Why We Exist</h2>
-          <div className="space-y-5 text-almond-600 text-lg leading-relaxed">
-            <p>
+      {/* Why we exist — editorial two-column */}
+      <section className="section bg-white">
+        <div className="container-page grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+          <div>
+            <p className="eyebrow mb-4 text-teal-700">Our Purpose</p>
+            <h2 className="section-title">Why We <span className="text-highlight">Exist</span></h2>
+            <div aria-hidden="true" className="mt-6 h-1 w-16 rounded-full bg-coral-500" />
+          </div>
+          <div className="space-y-6 text-lg leading-relaxed text-ink-700">
+            <p className="font-serif text-2xl leading-snug text-navy sm:text-[1.65rem]">
               Most consulting agencies are built around deliverables — content, ads, social posts.
               They measure success by output. We measure success by outcomes.
             </p>
@@ -67,48 +59,75 @@ export function AboutPage() {
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Pillars */}
-      <div className="container-page mb-28">
-        <div className="text-center mb-12">
-          <h2 className="section-title">Our 5 Foundational Pillars</h2>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {pillars.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="card p-8">
-              <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-5">
-                <Icon className="w-6 h-6 text-pink-600" />
-              </div>
-              <h3 className="font-serif text-lg text-almond-900 mb-3">{title}</h3>
-              <p className="text-sm text-almond-500 leading-relaxed">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Methodology — full-width band */}
-      <div className="bg-almond-50 py-20">
+      <section className="section bg-cream-100">
         <div className="container-page">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <h2 className="section-title">How We Work</h2>
-            <p className="section-subtitle">A disciplined four-step process that produces consistent, measurable results.</p>
-          </div>
-          <div className="grid md:grid-cols-4 gap-10 relative">
-            <div className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-almond-200" />
-            {methodology.map((m, i) => (
-              <div key={m.step} className="text-center animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-5 relative z-10">
-                  <span className="font-serif text-xl text-pink-600 font-bold">{m.step}</span>
-                </div>
-                <h3 className="font-serif text-lg text-almond-900 mb-2">{m.title}</h3>
-                <p className="text-sm text-almond-500 leading-relaxed">{m.desc}</p>
+          <SectionHeading
+            eyebrow="What Guides Us"
+            title={<>Our 5 Foundational <span className="text-highlight">Pillars</span></>}
+          />
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
+            {PILLARS.map(({ icon: Icon, title, desc }, i) => (
+              <div
+                key={title}
+                className={`card p-7 sm:p-8 lg:col-span-2 ${i === 3 ? 'lg:col-start-2' : ''}`}
+              >
+                <span className="icon-chip mb-5 h-14 w-14">
+                  <Icon className="h-7 w-7" strokeWidth={1.75} aria-hidden="true" />
+                </span>
+                <h3 className="font-serif text-xl font-semibold">{title}</h3>
+                <p className="mt-3 leading-relaxed text-ink-600">{desc}</p>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-    </div>
+      {/* Methodology — deep teal band */}
+      <section className="section relative overflow-hidden bg-teal-700 text-white">
+        <PanelArcs />
+        <div className="container-page relative">
+          <SectionHeading
+            tone="dark"
+            eyebrow="Our Process"
+            title="How We Work"
+            description="A disciplined four-step process that produces consistent, measurable results."
+          />
+          <ol className="relative mt-16 grid gap-10 sm:grid-cols-2 md:grid-cols-4">
+            <div aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-8 hidden h-px bg-teal-400/50 md:block" />
+            {methodology.map((m) => (
+              <li key={m.step} className="relative text-center">
+                <div className="relative z-10 mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-teal-300/40 bg-teal-800">
+                  <span className="font-serif text-xl font-semibold text-coral-300">{m.step}</span>
+                </div>
+                <h3 className="font-serif text-xl font-semibold !text-white">{m.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-teal-50/85">{m.desc}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <CallToAction
+        title={<>Schedule A <span className="text-highlight">Free Consultation</span></>}
+        description="Tell us about your business and your growth objectives. We'll review your situation and come prepared with specific observations and recommendations."
+        actions={
+          <>
+            <button
+              onClick={() => { track(Events.CONSULTATION_STARTED, { source: 'about_page' }); navigate('contact'); }}
+              className="btn-primary"
+            >
+              <CalendarDays className="h-4 w-4" aria-hidden="true" />
+              Schedule A Free Consultation
+            </button>
+            <button onClick={() => navigate('services')} className="btn-outline">
+              Explore All Services <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </>
+        }
+      />
+    </>
   );
 }

@@ -14,3 +14,9 @@ export function formatDate(iso: string): string {
     day: 'numeric',
   });
 }
+
+/**
+ * Spread onto an <img> to request high fetch priority. React 18 warns on the
+ * camelCase `fetchPriority` prop, so pass the lowercase DOM attribute instead.
+ */
+export const HIGH_PRIORITY = { fetchpriority: 'high' } as Record<string, string>;

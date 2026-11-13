@@ -102,41 +102,41 @@ export function OnboardingPage() {
 
   if (done) {
     return (
-      <div className="pt-28 pb-20 min-h-screen flex items-center">
+      <div className="py-14 sm:py-20 min-h-[80vh] flex items-center bg-gradient-to-b from-cream-100 to-cream-50">
         <div className="container-page max-w-md text-center">
           <div className="w-20 h-20 rounded-full bg-success-100 flex items-center justify-center mx-auto mb-6 animate-scale-in">
             <CheckCircle2 className="w-10 h-10 text-success-600" />
           </div>
-          <h1 className="font-serif text-3xl text-almond-900 mb-3">You're all set!</h1>
-          <p className="text-almond-500 mb-2">Your onboarding is complete.</p>
-          <p className="text-almond-400 text-sm">Taking you to your dashboard…</p>
-          <Loader2 className="w-5 h-5 animate-spin text-pink-500 mx-auto mt-4" />
+          <h1 className="font-serif text-3xl text-ink-900 mb-3">You're all set!</h1>
+          <p className="text-ink-500 mb-2">Your onboarding is complete.</p>
+          <p className="text-ink-400 text-sm">Taking you to your dashboard…</p>
+          <Loader2 className="w-5 h-5 animate-spin text-coral-500 mx-auto mt-4" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="pt-28 pb-20">
+    <div className="py-12 sm:py-16 bg-gradient-to-b from-cream-100 to-cream-50">
       <div className="container-page max-w-2xl">
         <div className="text-center mb-8">
-          <h1 className="font-serif text-3xl sm:text-4xl text-almond-900 mb-2">Client Onboarding</h1>
-          <p className="text-almond-500">Tell us about your business so we can match you with the right assistant.</p>
+          <h1 className="font-serif text-3xl sm:text-4xl text-ink-900 mb-2">Client Onboarding</h1>
+          <p className="text-ink-500">Tell us about your business so we can match you with the right assistant.</p>
         </div>
 
         {/* Stepper */}
         <div className="flex items-center justify-center gap-2 mb-8">
           {steps.map((label, i) => (
             <div key={label} className="flex items-center">
-              <div className={`flex items-center gap-2 ${i <= step ? 'text-pink-600' : 'text-almond-300'}`}>
+              <div className={`flex items-center gap-2 ${i <= step ? 'text-teal-700' : 'text-ink-300'}`}>
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                  i < step ? 'bg-pink-500 text-white' : i === step ? 'bg-pink-100 text-pink-700 ring-2 ring-pink-400' : 'bg-tan-100'
+                  i < step ? 'bg-teal-600 text-white' : i === step ? 'bg-teal-50 text-teal-800 ring-2 ring-teal-400' : 'bg-cream-100'
                 }`}>
                   {i < step ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
                 </div>
                 <span className="text-sm font-medium hidden sm:inline">{label}</span>
               </div>
-              {i < steps.length - 1 && <div className={`w-8 sm:w-16 h-0.5 mx-1 ${i < step ? 'bg-pink-300' : 'bg-tan-200'}`} />}
+              {i < steps.length - 1 && <div className={`w-8 sm:w-16 h-0.5 mx-1 ${i < step ? 'bg-teal-300' : 'bg-cream-200'}`} />}
             </div>
           ))}
         </div>
@@ -145,8 +145,8 @@ export function OnboardingPage() {
           {step === 0 && (
             <div className="space-y-5 animate-fade-in">
               <div className="flex items-center gap-2 mb-2">
-                <Building2 className="w-5 h-5 text-pink-500" />
-                <h2 className="font-serif text-xl text-almond-900">Business details</h2>
+                <Building2 className="w-5 h-5 text-coral-500" />
+                <h2 className="font-serif text-xl text-ink-900">Business details</h2>
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
@@ -174,8 +174,8 @@ export function OnboardingPage() {
           {step === 1 && (
             <div className="space-y-5 animate-fade-in">
               <div className="flex items-center gap-2 mb-2">
-                <User className="w-5 h-5 text-pink-500" />
-                <h2 className="font-serif text-xl text-almond-900">Needs & preferences</h2>
+                <User className="w-5 h-5 text-coral-500" />
+                <h2 className="font-serif text-xl text-ink-900">Needs & preferences</h2>
               </div>
               <div>
                 <label className="label">Business type *</label>
@@ -186,8 +186,8 @@ export function OnboardingPage() {
                       onClick={() => update('business_type', t)}
                       className={`px-3 py-2.5 rounded-xl text-sm font-medium border transition ${
                         form.business_type === t
-                          ? 'bg-pink-500 text-white border-pink-500'
-                          : 'bg-white text-almond-600 border-almond-200 hover:border-pink-300'
+                          ? 'bg-teal-600 text-white border-teal-600'
+                          : 'bg-white text-ink-600 border-ink-200 hover:border-coral-300'
                       }`}
                     >
                       {t}
@@ -204,11 +204,11 @@ export function OnboardingPage() {
                   step={5}
                   value={form.monthly_hours}
                   onChange={(e) => update('monthly_hours', Number(e.target.value))}
-                  className="w-full accent-pink-500"
+                  className="w-full accent-coral-500"
                 />
-                <div className="flex justify-between text-xs text-almond-400 mt-1">
+                <div className="flex justify-between text-xs text-ink-400 mt-1">
                   <span>5 hrs</span>
-                  <span className="text-pink-600 font-semibold">{form.monthly_hours} hrs/month</span>
+                  <span className="text-coral-600 font-semibold">{form.monthly_hours} hrs/month</span>
                   <span>50 hrs</span>
                 </div>
               </div>
@@ -225,8 +225,8 @@ export function OnboardingPage() {
 
           {step === 2 && (
             <div className="space-y-4 animate-fade-in">
-              <h2 className="font-serif text-xl text-almond-900 mb-2">Review your details</h2>
-              <dl className="divide-y divide-almond-100">
+              <h2 className="font-serif text-xl text-ink-900 mb-2">Review your details</h2>
+              <dl className="divide-y divide-ink-100">
                 {[
                   ['Business name', form.business_name],
                   ['Contact name', form.contact_name],
@@ -238,8 +238,8 @@ export function OnboardingPage() {
                   ['Notes', form.notes || '—'],
                 ].map(([label, value]) => (
                   <div key={label} className="flex justify-between py-3">
-                    <dt className="text-sm text-almond-500">{label}</dt>
-                    <dd className="text-sm text-almond-900 font-medium text-right max-w-[60%]">{value}</dd>
+                    <dt className="text-sm text-ink-500">{label}</dt>
+                    <dd className="text-sm text-ink-900 font-medium text-right max-w-[60%]">{value}</dd>
                   </div>
                 ))}
               </dl>

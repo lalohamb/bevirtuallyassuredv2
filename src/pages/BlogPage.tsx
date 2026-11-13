@@ -1,7 +1,11 @@
+import { HIGH_PRIORITY } from '@/lib/format';
 import { useState, useEffect } from 'react';
 import { ArrowRight, Clock, Loader2 } from 'lucide-react';
 import { navigate } from '@/lib/router';
 import { supabase, type BlogPost } from '@/lib/supabase';
+import { PageHero } from '@/components/shared/PageHero';
+import { CallToAction } from '@/components/shared/CallToAction';
+import { WaveCorner } from '@/components/shared/Decor';
 
 const FALLBACK_POSTS: BlogPost[] = [
   {
@@ -58,52 +62,63 @@ export function BlogPage() {
 
   if (active) {
     return (
-      <div className="pt-28 pb-20">
-        <div className="container-page max-w-3xl">
-          <button onClick={() => setActive(null)} className="btn-ghost text-sm mb-8">
-            ← Back to Blog
-          </button>
-          <span className="badge bg-pink-50 text-pink-600 mb-4">{active.category}</span>
-          <h1 className="font-serif text-3xl sm:text-4xl text-almond-900 mb-4">{active.title}</h1>
-          <div className="flex items-center gap-4 text-sm text-almond-400 mb-8">
-            {active.created_at && <span>{new Date(active.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>}
-            {active.read_time && <span className="flex items-center gap-1"><Clock className="w-4 h-4" />{active.read_time}</span>}
-          </div>
-          {active.image_url && (
-            <div className="rounded-2xl overflow-hidden mb-10">
-              <img src={active.image_url} alt={active.title} className="w-full h-64 object-cover" />
-            </div>
-          )}
-          <div className="space-y-4">
-            {(active.body ?? '').split('\n\n').map((para, i) => (
-              <p key={i} className="text-almond-600 leading-relaxed">{para}</p>
-            ))}
-          </div>
-          <div className="mt-12 card p-8 text-center bg-gradient-to-br from-pink-50 to-tan-100 border-pink-100">
-            <h3 className="font-serif text-xl text-almond-900 mb-2">Need help identifying your biggest marketing opportunity?</h3>
-            <p className="text-almond-600 text-sm mb-5">Take our free marketing assessment and get a personalized growth score.</p>
-            <button onClick={() => navigate('assessment')} className="btn-primary">
-              Get Your Free Marketing Assessment <ArrowRight className="w-4 h-4" />
+      <article>
+        <header className="relative overflow-hidden bg-gradient-to-b from-cream-100 to-cream-50 pt-10 pb-12 sm:pt-14 sm:pb-16">
+          <WaveCorner tone="teal" corner="bottom-left" className="opacity-80" />
+          <div className="container-page relative max-w-3xl">
+            <button onClick={() => setActive(null)} className="btn-ghost -ml-4 mb-6 text-sm">
+              ← Back to Blog
             </button>
+            <span className="badge mb-4 block w-fit bg-teal-50 text-teal-800">{active.category}</span>
+            <h1 className="font-serif text-3xl font-semibold leading-tight sm:text-[2.75rem]">{active.title}</h1>
+            <div className="mt-5 flex items-center gap-4 text-sm text-ink-500">
+              {active.created_at && <span>{new Date(active.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>}
+              {active.read_time && <span className="flex items-center gap-1"><Clock className="h-4 w-4" aria-hidden="true" />{active.read_time}</span>}
+            </div>
+          </div>
+        </header>
+        <div className="section bg-white pt-10">
+          <div className="container-page max-w-3xl">
+            {active.image_url && (
+              <div className="mb-10 overflow-hidden rounded-[28px] shadow-lift">
+                <img src={active.image_url} alt={active.title} className="h-64 w-full object-cover sm:h-80" />
+              </div>
+            )}
+            <div className="space-y-5 text-lg">
+              {(active.body ?? '').split('\n\n').map((para, i) => (
+                <p key={i} className="whitespace-pre-line leading-relaxed text-ink-700">{para}</p>
+              ))}
+            </div>
+            <div className="mt-14">
+              <CallToAction
+                contained
+                title="Need help identifying your biggest marketing opportunity?"
+                description="Take our free marketing assessment and get a personalized growth score."
+                actions={
+                  <button onClick={() => navigate('assessment')} className="btn-primary">
+                    Get Your Free Marketing Assessment <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                }
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </article>
     );
   }
 
   return (
-    <div className="pt-28 pb-20">
+    <>
+      <PageHero
+        eyebrow="Resources"
+        title={<>Marketing <span className="text-highlight">Insights</span></>}
+        description={<p>Practical strategy, lead generation, and growth marketing insights for business owners and marketing leaders.</p>}
+      />
+      <section className="section bg-white pt-12 sm:pt-16">
       <div className="container-page">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">Marketing Insights</h1>
-          <p className="text-almond-600 text-lg">
-            Practical strategy, lead generation, and growth marketing insights for business owners and marketing leaders.
-          </p>
-        </div>
-
         {loading ? (
           <div className="flex justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
+            <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
           </div>
         ) : (
           <>
@@ -117,14 +132,14 @@ export function BlogPage() {
                   src={posts[0].image_url ?? ''}
                   alt={posts[0].title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  fetchPriority="high"
+                  {...HIGH_PRIORITY}
                 />
               </div>
-              <div className="p-8 flex flex-col justify-center">
-                <span className="badge bg-pink-50 text-pink-600 mb-3">{posts[0].category}</span>
-                <h2 className="font-serif text-2xl text-almond-900 mb-3">{posts[0].title}</h2>
-                <p className="text-almond-500 text-sm leading-relaxed mb-4">{posts[0].summary}</p>
-                <div className="flex items-center gap-4 text-xs text-almond-400">
+              <div className="p-8 sm:p-10 flex flex-col justify-center">
+                <span className="badge bg-teal-50 text-teal-800 mb-3">{posts[0].category}</span>
+                <h2 className="font-serif text-2xl sm:text-3xl font-semibold leading-tight mb-3">{posts[0].title}</h2>
+                <p className="text-ink-500 text-sm leading-relaxed mb-4">{posts[0].summary}</p>
+                <div className="flex items-center gap-4 text-xs text-ink-400">
                   {posts[0].created_at && <span>{new Date(posts[0].created_at).toLocaleDateString()}</span>}
                   {posts[0].read_time && <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{posts[0].read_time}</span>}
                 </div>
@@ -151,11 +166,11 @@ export function BlogPage() {
                         />
                       </div>
                     )}
-                    <div className="p-5">
-                      <span className="badge bg-pink-50 text-pink-600 mb-2">{post.category}</span>
-                      <h3 className="font-serif text-lg text-almond-900 mb-2">{post.title}</h3>
-                      <p className="text-sm text-almond-500 line-clamp-2 mb-3">{post.summary}</p>
-                      <div className="flex items-center gap-3 text-xs text-almond-400">
+                    <div className="p-6">
+                      <span className="badge bg-teal-50 text-teal-800 mb-2">{post.category}</span>
+                      <h3 className="font-serif text-xl font-semibold leading-snug mb-2">{post.title}</h3>
+                      <p className="text-sm text-ink-500 line-clamp-2 mb-3">{post.summary}</p>
+                      <div className="flex items-center gap-3 text-xs text-ink-400">
                         {post.created_at && <span>{new Date(post.created_at).toLocaleDateString()}</span>}
                         {post.read_time && <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{post.read_time}</span>}
                       </div>
@@ -167,6 +182,7 @@ export function BlogPage() {
           </>
         )}
       </div>
-    </div>
+      </section>
+    </>
   );
 }

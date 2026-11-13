@@ -1,14 +1,20 @@
+import { PageHero } from '@/components/shared/PageHero';
+
 export function PrivacyPage() {
   return (
-    <div className="pt-28 pb-20">
+    <>
+      <PageHero
+        compact
+        eyebrow="Legal"
+        title="Privacy Policy"
+        description={<p className="text-sm">Last updated: February 1, 2025</p>}
+      />
+      <section className="section bg-white pt-10 sm:pt-12">
       <div className="container-page max-w-3xl">
-        <h1 className="font-serif text-4xl text-almond-900 mb-2">Privacy Policy</h1>
-        <p className="text-almond-400 text-sm mb-10">Last updated: February 1, 2025</p>
-
-        <div className="space-y-8 text-almond-600 leading-relaxed">
+        <div className="card space-y-8 p-6 text-ink-600 leading-relaxed sm:p-10 [&_section+section]:border-t [&_section+section]:border-cream-200 [&_section+section]:pt-8">
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">1. Information we collect</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">1. Information we collect</h2>
             <p>When you use Petal Assist, we may collect the following types of information:</p>
             <ul className="list-disc list-inside mt-3 space-y-1 text-sm">
               <li>Contact information you provide (name, email address, phone number, company name)</li>
@@ -20,7 +26,7 @@ export function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">2. How we use your information</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">2. How we use your information</h2>
             <p className="text-sm">We use the information we collect to:</p>
             <ul className="list-disc list-inside mt-3 space-y-1 text-sm">
               <li>Provide, operate, and improve our services</li>
@@ -33,7 +39,7 @@ export function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">3. Data sharing</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">3. Data sharing</h2>
             <p className="text-sm">
               We do not sell your personal data. We may share your information with trusted third-party
               service providers who assist us in operating our platform (such as Supabase for database
@@ -43,7 +49,7 @@ export function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">4. Data retention</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">4. Data retention</h2>
             <p className="text-sm">
               We retain your personal data for as long as your account is active or as needed to provide
               services. You may request deletion of your data at any time by emailing
@@ -52,7 +58,7 @@ export function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">5. Cookies</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">5. Cookies</h2>
             <p className="text-sm">
               We use essential cookies to keep you logged in and remember your preferences. We do not
               use third-party advertising cookies. You can disable cookies in your browser settings,
@@ -61,7 +67,7 @@ export function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">6. Your rights</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">6. Your rights</h2>
             <p className="text-sm">Depending on your location, you may have the right to:</p>
             <ul className="list-disc list-inside mt-3 space-y-1 text-sm">
               <li>Access the personal data we hold about you</li>
@@ -74,7 +80,7 @@ export function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">7. Security</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">7. Security</h2>
             <p className="text-sm">
               We implement industry-standard security measures including encrypted data transmission (TLS),
               encrypted storage, and access controls. However, no method of transmission over the internet
@@ -83,7 +89,7 @@ export function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">8. Changes to this policy</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">8. Changes to this policy</h2>
             <p className="text-sm">
               We may update this Privacy Policy from time to time. We will notify you of significant
               changes by email or by posting a notice on our website. Your continued use of our services
@@ -92,16 +98,17 @@ export function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">9. Contact</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">9. Contact</h2>
             <p className="text-sm">
               If you have questions about this Privacy Policy, please contact us at:<br />
-              <a href="mailto:hello@petalassist.com" className="text-pink-600 hover:underline">hello@petalassist.com</a><br />
+              <a href="mailto:hello@petalassist.com" className="text-coral-700 underline-offset-2 hover:underline">hello@petalassist.com</a><br />
               Petal Assist · Remote · Worldwide
             </p>
           </section>
 
         </div>
       </div>
-    </div>
+      </section>
+    </>
   );
 }

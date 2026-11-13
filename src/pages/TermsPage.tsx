@@ -1,14 +1,20 @@
+import { PageHero } from '@/components/shared/PageHero';
+
 export function TermsPage() {
   return (
-    <div className="pt-28 pb-20">
+    <>
+      <PageHero
+        compact
+        eyebrow="Legal"
+        title="Terms of Service"
+        description={<p className="text-sm">Last updated: February 1, 2025</p>}
+      />
+      <section className="section bg-white pt-10 sm:pt-12">
       <div className="container-page max-w-3xl">
-        <h1 className="font-serif text-4xl text-almond-900 mb-2">Terms of Service</h1>
-        <p className="text-almond-400 text-sm mb-10">Last updated: February 1, 2025</p>
-
-        <div className="space-y-8 text-almond-600 leading-relaxed">
+        <div className="card space-y-8 p-6 text-ink-600 leading-relaxed sm:p-10 [&_section+section]:border-t [&_section+section]:border-cream-200 [&_section+section]:pt-8">
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">1. Acceptance of terms</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">1. Acceptance of terms</h2>
             <p className="text-sm">
               By accessing or using Petal Assist ("the Service"), you agree to be bound by these Terms
               of Service. If you do not agree to these terms, please do not use the Service.
@@ -16,7 +22,7 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">2. Description of service</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">2. Description of service</h2>
             <p className="text-sm">
               Petal Assist provides virtual assistant services to entrepreneurs and small businesses.
               Services are delivered by trained virtual assistants according to the plan selected by
@@ -26,7 +32,7 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">3. Accounts and eligibility</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">3. Accounts and eligibility</h2>
             <p className="text-sm">
               You must be at least 18 years old and capable of entering into a binding contract to use
               the Service. You are responsible for maintaining the confidentiality of your account
@@ -35,7 +41,7 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">4. Payment and billing</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">4. Payment and billing</h2>
             <ul className="list-disc list-inside space-y-1 text-sm">
               <li>All plans are billed monthly in advance.</li>
               <li>Payments are processed securely via Stripe.</li>
@@ -47,7 +53,7 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">5. Confidentiality</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">5. Confidentiality</h2>
             <p className="text-sm">
               Petal Assist treats all client information as strictly confidential. All assistants sign
               non-disclosure agreements before engaging with any client. We will not share your business
@@ -57,7 +63,7 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">6. Client responsibilities</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">6. Client responsibilities</h2>
             <p className="text-sm">You agree to:</p>
             <ul className="list-disc list-inside mt-3 space-y-1 text-sm">
               <li>Provide clear, timely instructions to your assigned assistant</li>
@@ -68,7 +74,7 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">7. Limitation of liability</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">7. Limitation of liability</h2>
             <p className="text-sm">
               Petal Assist is not liable for any indirect, incidental, or consequential damages arising
               from the use of the Service. Our total liability to you for any claim arising from the
@@ -77,7 +83,7 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">8. Termination</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">8. Termination</h2>
             <p className="text-sm">
               Either party may terminate the service relationship at any time. Petal Assist reserves
               the right to suspend or terminate accounts that violate these Terms. Upon termination,
@@ -86,7 +92,7 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">9. Changes to terms</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">9. Changes to terms</h2>
             <p className="text-sm">
               We may update these Terms from time to time. We will notify you of material changes by
               email at least 14 days before they take effect. Continued use of the Service after
@@ -95,7 +101,7 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">10. Governing law</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">10. Governing law</h2>
             <p className="text-sm">
               These Terms are governed by the laws of the State of Delaware, United States, without
               regard to conflict of law principles.
@@ -103,15 +109,16 @@ export function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-serif text-xl text-almond-900 mb-3">11. Contact</h2>
+            <h2 className="font-serif text-xl font-semibold mb-3">11. Contact</h2>
             <p className="text-sm">
               For questions about these Terms, contact us at:<br />
-              <a href="mailto:hello@petalassist.com" className="text-pink-600 hover:underline">hello@petalassist.com</a>
+              <a href="mailto:hello@petalassist.com" className="text-coral-700 underline-offset-2 hover:underline">hello@petalassist.com</a>
             </p>
           </section>
 
         </div>
       </div>
-    </div>
+      </section>
+    </>
   );
 }

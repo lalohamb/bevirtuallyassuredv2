@@ -4,44 +4,68 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Baby Pink — primary brand
-        pink: {
-          50: '#FDF2F4',
-          100: '#FBE0E5',
-          200: '#F7C2CD',
-          300: '#F0A0B0',
-          400: '#E67E94',
-          500: '#D85F78',
-          600: '#BE4A61',
-          700: '#9C3A4F',
-          800: '#7C2E3E',
-          900: '#5E2330',
+        // Brand palette — mirrors the CSS custom properties in src/styles/tokens.css.
+        // navy: headings / deep surfaces (--navy)
+        navy: {
+          DEFAULT: '#0F2740',
+          700: '#1E4466',
+          800: '#163452',
+          900: '#0F2740',
+          950: '#0A1C2E',
         },
-        // Almond Brown — secondary / accent
-        almond: {
-          50: '#FAF6F2',
-          100: '#F0E6DC',
-          200: '#E0CDBA',
-          300: '#CDAF92',
-          400: '#B88D6A',
-          500: '#A17A5E',
-          600: '#85624A',
-          700: '#6B4F3B',
-          800: '#523D2E',
-          900: '#3D2D22',
+        // teal: secondary brand, icons, highlighted phrases (--teal = 600, --sage = 300)
+        teal: {
+          50: '#EEF5F3',
+          100: '#DCECE9',
+          200: '#C3DCD7',
+          300: '#A9C9C3',
+          400: '#74A6A2',
+          500: '#468589',
+          600: '#2F6F73',
+          700: '#275C60',
+          800: '#1F4A4D',
+          900: '#173A3C',
         },
-        // Tan — neutral / supporting
-        tan: {
-          50: '#FBF8F3',
-          100: '#F5EFE3',
-          200: '#EADFC8',
-          300: '#DECBA0',
-          400: '#CDB077',
-          500: '#B89A5E',
-          600: '#9C8150',
-          700: '#7E6840',
-          800: '#5F4F30',
-          900: '#433624',
+        sage: { DEFAULT: '#A9C9C3' },
+        // coral: primary action colour (--coral = 500). 600 is the AA-compliant
+        // fill for white button text (4.6:1); 700 for coral text on tinted surfaces.
+        coral: {
+          50: '#FDF3EF',
+          100: '#FBE4DA',
+          200: '#F6C8B5',
+          300: '#F0A688',
+          400: '#EC8E6D',
+          500: '#E97855',
+          600: '#C4512F',
+          700: '#A8432A',
+          800: '#863624',
+          900: '#6B2C1F',
+        },
+        // cream: warm page/section backgrounds (--off-white = 50, --cream = 100)
+        cream: {
+          50: '#FAFAF8',
+          100: '#F7F4EE',
+          200: '#EFE9DF',
+          300: '#E2D8C8',
+          400: '#CBBCA4',
+          500: '#A8977B',
+          600: '#87775D',
+          700: '#6A5C47',
+          800: '#4D4334',
+          900: '#332C22',
+        },
+        // ink: neutral text scale, warm-light to navy-dark (--body-text = 800)
+        ink: {
+          50: '#F6F4EF',
+          100: '#EBE7DF',
+          200: '#D8D3C9',
+          300: '#B9B6AE',
+          400: '#6B7480',
+          500: '#5D6A75',
+          600: '#45535F',
+          700: '#2F3F4D',
+          800: '#22313F',
+          900: '#0F2740',
         },
         success: {
           50: '#F0FDF4',
@@ -67,6 +91,16 @@ export default {
       fontFamily: {
         serif: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      maxWidth: {
+        page: 'var(--container-width)',
+      },
+      borderRadius: {
+        card: 'var(--card-radius)',
+      },
+      boxShadow: {
+        soft: '0 1px 2px rgba(15, 39, 64, 0.04), 0 8px 24px -12px rgba(15, 39, 64, 0.12)',
+        lift: '0 2px 4px rgba(15, 39, 64, 0.04), 0 20px 40px -16px rgba(15, 39, 64, 0.22)',
       },
       keyframes: {
         'fade-up': {

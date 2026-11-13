@@ -25,18 +25,19 @@ own — no API layer, no server functions. Every page talks to Postgres directly
 JS client and is gated by row-level security. **When you add a data-backed feature, the access rule
 belongs in a migration under `supabase/migrations/`, not in a client-side check.**
 
-### Routing — hash-based, hand-rolled
+### Routing — History API, hand-rolled
 
-There is no React Router. [src/lib/router.ts](src/lib/router.ts) holds a `Route` union, a `parseHash()`
-switch over `window.location.hash`, a `useRouter()` hook, and a `navigate(path)` helper that assigns
-`window.location.hash`. [src/App.tsx](src/App.tsx) switches on `route.name` to pick a page component.
+There is no React Router. [src/lib/router.ts](src/lib/router.ts) holds a `Route` union, a `parsePath()`
+switch over `window.location.pathname`, a `useRouter()` hook, and a `navigate(path)` helper that does
+`history.pushState` + a synthetic `popstate`. [src/App.tsx](src/App.tsx) switches on `route.name` to pick a page component.
 
-Adding a page means editing **three** places: the `Route` union, the `parseHash()` switch, and the
-`App.tsx` switch. Miss `parseHash()` and the route silently falls through to `HomePage` — unknown
-hashes have no 404, they render home.
+Adding a page means editing **three** places: the `Route` union, the `parsePath()` switch, and the
+`App.tsx` switch. Miss `parsePath()` and the route silently falls through to `HomePage` — unknown
+paths have no 404, they render home. Header/footer link lists live in [src/lib/navigation.ts](src/lib/navigation.ts).
 
-Because it's hash routing, deep links are `/#/services`, and the nginx/serve SPA fallback in
-[nginx.conf](nginx.conf) is only needed for `/` itself.
+Query strings survive `navigate()` (e.g. `navigate('services?tab=events')`); `ServicesPage` reads `?tab=`
+(`marketing` | `virtual-assistant` | `events` | `brand`) and re-reads it on `popstate`. Clean paths rely on the
+SPA fallback in [nginx.conf](nginx.conf) (`try_files … /index.html`) for deep links.
 
 ### Providers and shared state
 
@@ -84,17 +85,32 @@ style.
 
 ### Styling
 
-Tailwind with a custom brand palette in [tailwind.config.js](tailwind.config.js): `pink` (primary,
-overrides Tailwind's own pink), `almond` (text/secondary), `tan` (page background), plus
-`success`/`warning`/`error` and the `fade-up`/`fade-in`/`scale-in`/`float`/`shimmer` animations.
+Design follows the approved mockup (docs in [docs/redesign/](docs/redesign/)). Tokens live in
+[src/styles/tokens.css](src/styles/tokens.css) and are mirrored as Tailwind scales in
+[tailwind.config.js](tailwind.config.js) — change both together:
 
-Reusable component classes live in `@layer components` in [src/index.css](src/index.css) —
-`container-page`, `btn` + `btn-primary`/`btn-secondary`/`btn-outline`/`btn-ghost`, `card`/`card-hover`,
-`input`, `label`, `section-title`, `section-subtitle`, `badge`. **Use these rather than re-deriving
-the same utility strings**; body text color, background, and serif headings are already set globally.
+- `navy` (headings), `teal` (600 = brand; icons, highlighted phrases, deep bands), `sage`,
+  `coral` (500 = brand), `cream` (50 off-white, 100 cream backgrounds), `ink` (text; 800 = body).
+- **Filled coral buttons use `coral-600`** — brand `coral-500` with white text fails AA (2.9:1). Coral text on
+  tinted surfaces uses `coral-700`.
+- The old `pink`/`almond`/`tan` scales are gone.
+
+Reusable classes live in `@layer components` in [src/index.css](src/index.css) — `container-page`, `section`,
+`section-tight`, `eyebrow`/`eyebrow-ruled`, `section-title`, `section-subtitle`, `text-highlight` (teal italic
+phrase), `btn-primary`/`btn-secondary`/`btn-outline`/`btn-outline-light`/`btn-ghost`, `link-arrow`,
+`card`/`card-hover`/`card-cream`/`card-tint`/`card-peach`/`card-deep`, `icon-chip`, `pill-active`/`pill-idle`,
+`input`, `label`, `badge`. **Use these rather than re-deriving utility strings.**
+
+Shared React pieces: `components/layout/{Header,Footer}`, `components/shared/{PageHero,SectionHeading,CallToAction,
+ServiceCard,Decor,LeadForm}`, homepage sections in `components/home/`. Every interior page opens with `PageHero`
+and usually closes with `CallToAction`. Copy shared across pages (About intro, pillars, founder, consultation
+points) lives in [src/content/company.ts](src/content/company.ts).
+
+The header is `sticky` (not fixed), so pages need no top padding offset.
 
 Icons come from `lucide-react` only (it's excluded from Vite's `optimizeDeps`). Fonts — Inter and
-Playfair Display — are linked in [index.html](index.html), not imported in CSS.
+Playfair Display (incl. italics) — are linked in [index.html](index.html), not imported in CSS. For high-priority
+images spread `HIGH_PRIORITY` from `@/lib/format` (React 18 warns on the `fetchPriority` prop).
 
 ### Conventions
 
@@ -114,7 +130,8 @@ marketing agency), and the migration is incomplete. Expect to hit this:
 
 - Stale "Petal Assist" copy remains in [LoginPage.tsx](src/pages/LoginPage.tsx),
   [PackagesPage.tsx](src/pages/PackagesPage.tsx), [PrivacyPage.tsx](src/pages/PrivacyPage.tsx), and
-  [TermsPage.tsx](src/pages/TermsPage.tsx).
+  [TermsPage.tsx](src/pages/TermsPage.tsx). Left untouched pending a business/legal decision.
+- The logo artwork is gold/pink and predates the teal/coral palette; new artwork is pending.
 - [PackagesPage.tsx](src/pages/PackagesPage.tsx), [PortfolioPage.tsx](src/pages/PortfolioPage.tsx),
   and [CheckoutPage.tsx](src/pages/CheckoutPage.tsx) are orphaned — nothing imports them and they
   have no route. `ResultsPage` is the live replacement for the portfolio view. `CartContext` is

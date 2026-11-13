@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
+import { ChevronDown, ArrowRight } from 'lucide-react';
 import { navigate } from '@/lib/router';
 import { track, Events } from '@/lib/analytics';
+import { PageHero } from '@/components/shared/PageHero';
+import { CallToAction } from '@/components/shared/CallToAction';
 
 const faqs = [
   { q: 'What makes Be Virtually Assured different from a traditional agency?', a: "We operate as a strategic partner, not a vendor. We focus on business outcomes — qualified leads, customer acquisition, and measurable growth — not just marketing activity. Every recommendation is tied to a business objective." },
@@ -16,45 +18,56 @@ export function FAQPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="pt-28 pb-20">
-      <div className="container-page max-w-3xl">
+    <>
+      <PageHero
+        eyebrow="FAQ"
+        title={<>Common <span className="text-highlight">Questions</span></>}
+        description={<p>Everything you need to know before getting started.</p>}
+      />
 
-        <div className="text-center mb-12">
-          <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">Common Questions</h1>
-          <p className="text-almond-600 text-lg">Everything you need to know before getting started.</p>
-        </div>
-
-        <div className="space-y-3 mb-16">
-          {faqs.map((faq, i) => (
-            <div key={i} className="card overflow-hidden">
-              <button
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="w-full flex items-center justify-between p-5 text-left"
-                aria-expanded={openFaq === i}
-              >
-                <span className="font-serif text-almond-900 text-base pr-4">{faq.q}</span>
-                {openFaq === i
-                  ? <ChevronUp className="w-5 h-5 text-pink-500 flex-shrink-0" />
-                  : <ChevronDown className="w-5 h-5 text-almond-400 flex-shrink-0" />}
-              </button>
-              {openFaq === i && (
-                <div className="px-5 pb-5 text-sm text-almond-500 leading-relaxed border-t border-almond-100 pt-4">
-                  {faq.a}
+      <section className="section bg-white pt-12 sm:pt-16">
+        <div className="container-page max-w-3xl">
+          <div className="space-y-3">
+            {faqs.map((faq, i) => {
+              const open = openFaq === i;
+              return (
+                <div key={i} className={`card overflow-hidden ${open ? 'border-teal-200 bg-teal-50/40' : ''}`}>
+                  <h2 className="!font-sans">
+                    <button
+                      onClick={() => setOpenFaq(open ? null : i)}
+                      className="flex w-full items-center justify-between gap-4 p-5 text-left sm:p-6"
+                      aria-expanded={open}
+                      aria-controls={`faq-${i}`}
+                      id={`faq-q-${i}`}
+                    >
+                      <span className="font-serif text-lg font-semibold text-navy">{faq.q}</span>
+                      <span className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition ${open ? 'bg-coral-600 text-white' : 'bg-cream-100 text-teal-700'}`}>
+                        <ChevronDown className={`h-5 w-5 transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
+                      </span>
+                    </button>
+                  </h2>
+                  {open && (
+                    <div id={`faq-${i}`} role="region" aria-labelledby={`faq-q-${i}`} className="px-5 pb-6 leading-relaxed text-ink-600 sm:px-6">
+                      {faq.a}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
+      </section>
 
-        <div className="card p-10 bg-gradient-to-br from-pink-50 to-tan-50 border-pink-100 text-center">
-          <h2 className="font-serif text-2xl text-almond-900 mb-3">Still have questions?</h2>
-          <p className="text-almond-600 mb-6">Schedule a free consultation and we'll answer everything specific to your business.</p>
-          <div className="flex flex-wrap justify-center gap-3">
+      <CallToAction
+        title="Still have questions?"
+        description="Schedule a free consultation and we'll answer everything specific to your business."
+        actions={
+          <>
             <button
               onClick={() => { track(Events.CONSULTATION_STARTED, { source: 'faq_page' }); navigate('contact'); }}
               className="btn-primary"
             >
-              Schedule A Free Consultation <ArrowRight className="w-4 h-4" />
+              Schedule A Free Consultation <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>
             <button
               onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'faq_page' }); navigate('assessment'); }}
@@ -62,10 +75,9 @@ export function FAQPage() {
             >
               Take the Free Assessment
             </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
+          </>
+        }
+      />
+    </>
   );
 }

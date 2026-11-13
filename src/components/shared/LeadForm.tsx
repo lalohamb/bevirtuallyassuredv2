@@ -66,8 +66,8 @@ export function LeadForm() {
         <div className="w-16 h-16 rounded-full bg-success-100 flex items-center justify-center mx-auto mb-4">
           <CheckCircle2 className="w-8 h-8 text-success-600" />
         </div>
-        <h3 className="font-serif text-2xl text-almond-900 mb-2">Request received!</h3>
-        <p className="text-almond-500 mb-6">
+        <h3 className="font-serif text-2xl text-ink-900 mb-2">Request received!</h3>
+        <p className="text-ink-500 mb-6">
           We'll review your information and reach out within one business day to schedule your free consultation.
         </p>
         <button onClick={() => setStatus('idle')} className="btn-outline">
@@ -136,7 +136,7 @@ export function LeadForm() {
           <><Send className="w-4 h-4" />Schedule A Free Consultation</>
         )}
       </button>
-      <p className="text-xs text-almond-400 text-center">No commitment. We'll reach out within one business day.</p>
+      <p className="text-xs text-ink-400 text-center">No commitment. We'll reach out within one business day.</p>
     </form>
   );
 }

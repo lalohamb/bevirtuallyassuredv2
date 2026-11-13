@@ -1,0 +1,43 @@
+/*
+ * Be Virtually Assured — design tokens.
+ *
+ * Colour values are mirrored in tailwind.config.js (navy / teal / sage / coral /
+ * cream / ink) so they can be used as utilities with opacity modifiers. Change
+ * both together. Layout tokens (container, spacing, radii) are consumed directly
+ * by the component classes in src/index.css and by Tailwind (`max-w-page`,
+ * `rounded-card`).
+ */
+:root {
+  /* Brand */
+  --navy: #0f2740;
+  --teal: #2f6f73;
+  --sage: #a9c9c3;
+  --coral: #e97855;
+  --cream: #f7f4ee;
+  --off-white: #fafaf8;
+  --body-text: #22313f;
+
+  /* Semantic */
+  --color-heading: var(--navy);
+  --color-text: var(--body-text);
+  --color-accent: var(--teal);
+  --color-action: #c4512f;        /* coral-600: AA contrast with white text */
+  --color-action-hover: #a8432a;  /* coral-700 */
+  --color-surface: #ffffff;
+  --color-surface-warm: var(--cream);
+  --color-surface-tint: #eef5f3;  /* teal-50: value strip, soft cards */
+  --color-surface-deep: #275c60;  /* teal-700: About band */
+
+  /* Layout */
+  --container-width: 1200px;
+  --section-spacing: clamp(64px, 8vw, 112px);
+  --card-radius: 18px;
+  --button-radius: 999px;
+  --header-height: 80px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-height: 92px;
+  }
+}

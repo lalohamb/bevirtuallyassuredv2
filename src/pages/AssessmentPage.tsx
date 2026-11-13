@@ -3,6 +3,18 @@ import { ArrowRight, ArrowLeft, CheckCircle2, Loader2, BarChart2 } from 'lucide-
 import { supabase } from '@/lib/supabase';
 import { navigate } from '@/lib/router';
 import { track, Events } from '@/lib/analytics';
+import { WaveCorner } from '@/components/shared/Decor';
+
+/** Shared backdrop for every assessment step. */
+function AssessmentShell({ children }: { children: React.ReactNode }) {
+  return (
+    <section className="relative min-h-[70vh] overflow-hidden bg-gradient-to-b from-cream-100 to-cream-50 py-14 sm:py-20">
+      <WaveCorner tone="teal" corner="bottom-left" />
+      <WaveCorner tone="coral" corner="bottom-right" />
+      <div className="relative">{children}</div>
+    </section>
+  );
+}
 
 type Step = 'intro' | 'questions' | 'capture' | 'results';
 
@@ -153,16 +165,16 @@ export function AssessmentPage() {
 
   if (step === 'intro') {
     return (
-      <div className="pt-28 pb-20">
+      <AssessmentShell>
         <div className="container-page max-w-2xl text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-50 text-teal-800 text-sm font-medium mb-6">
             <BarChart2 className="w-4 h-4" />
             Free Marketing Assessment
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-6">
+          <h1 className="font-serif font-semibold text-[2.25rem] leading-[1.1] sm:text-5xl text-navy mb-6">
             Find Out What's Holding Your Marketing Back
           </h1>
-          <p className="text-almond-600 text-lg leading-relaxed mb-8">
+          <p className="text-ink-600 text-lg leading-relaxed mb-8">
             Answer 8 quick questions about your business and marketing. We'll calculate
             your Marketing Growth Score and identify your highest-value opportunities.
             Takes less than 3 minutes.
@@ -174,8 +186,8 @@ export function AssessmentPage() {
               'See your top growth opportunities',
               'No commitment required',
             ].map((item) => (
-              <li key={item} className="flex items-center gap-3 text-almond-700 text-sm">
-                <CheckCircle2 className="w-5 h-5 text-pink-500 flex-shrink-0" />
+              <li key={item} className="flex items-center gap-3 text-ink-700 text-sm">
+                <CheckCircle2 className="w-5 h-5 text-teal-600 flex-shrink-0" />
                 {item}
               </li>
             ))}
@@ -188,31 +200,31 @@ export function AssessmentPage() {
             <ArrowRight className="w-5 h-5" />
           </button>
         </div>
-      </div>
+      </AssessmentShell>
     );
   }
 
   if (step === 'questions') {
     const progress = ((qIndex + 1) / questions.length) * 100;
     return (
-      <div className="pt-28 pb-20">
+      <AssessmentShell>
         <div className="container-page max-w-2xl">
           {/* Progress */}
           <div className="mb-8">
-            <div className="flex justify-between text-sm text-almond-500 mb-2">
+            <div className="flex justify-between text-sm text-ink-500 mb-2">
               <span>Question {qIndex + 1} of {questions.length}</span>
               <span>{Math.round(progress)}% complete</span>
             </div>
-            <div className="h-2 bg-almond-100 rounded-full overflow-hidden">
+            <div className="h-2 bg-ink-100 rounded-full overflow-hidden">
               <div
-                className="h-full bg-pink-500 rounded-full transition-all duration-500"
+                className="h-full bg-teal-600 rounded-full transition-all duration-500"
                 style={{ width: `${progress}%` }}
               />
             </div>
           </div>
 
           <div className="card p-8 sm:p-10">
-            <h2 className="font-serif text-2xl text-almond-900 mb-6">{currentQ.label}</h2>
+            <h2 className="font-serif text-2xl text-ink-900 mb-6">{currentQ.label}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
               {currentQ.options.map((option) => {
                 const selected = currentQ.multi
@@ -224,11 +236,11 @@ export function AssessmentPage() {
                     onClick={() => selectOption(option)}
                     className={`p-4 rounded-xl border-2 text-left text-sm font-medium transition-all ${
                       selected
-                        ? 'border-pink-500 bg-pink-50 text-pink-700'
-                        : 'border-almond-200 bg-white text-almond-700 hover:border-pink-300'
+                        ? 'border-teal-600 bg-teal-50 text-teal-800'
+                        : 'border-cream-300 bg-white text-ink-700 hover:border-teal-400'
                     }`}
                   >
-                    {selected && <CheckCircle2 className="w-4 h-4 inline mr-2 text-pink-500" />}
+                    {selected && <CheckCircle2 className="w-4 h-4 inline mr-2 text-teal-600" />}
                     {option}
                   </button>
                 );
@@ -253,20 +265,20 @@ export function AssessmentPage() {
             </div>
           </div>
         </div>
-      </div>
+      </AssessmentShell>
     );
   }
 
   if (step === 'capture') {
     return (
-      <div className="pt-28 pb-20">
+      <AssessmentShell>
         <div className="container-page max-w-lg">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-4">
-              <BarChart2 className="w-8 h-8 text-pink-600" />
+            <div className="w-16 h-16 rounded-full bg-teal-50 flex items-center justify-center mx-auto mb-4">
+              <BarChart2 className="w-8 h-8 text-teal-600" />
             </div>
-            <h2 className="font-serif text-3xl text-almond-900 mb-3">Your results are ready</h2>
-            <p className="text-almond-600">
+            <h2 className="font-serif text-3xl text-ink-900 mb-3">Your results are ready</h2>
+            <p className="text-ink-600">
               Enter your details to see your Marketing Growth Score and personalized recommendations.
             </p>
           </div>
@@ -292,24 +304,24 @@ export function AssessmentPage() {
             <button type="submit" disabled={submitting} className="btn-primary w-full">
               {submitting ? <><Loader2 className="w-4 h-4 animate-spin" />Calculating…</> : <>See My Marketing Growth Score <ArrowRight className="w-4 h-4" /></>}
             </button>
-            <p className="text-xs text-almond-400 text-center">We'll also send you a copy of your results by email.</p>
+            <p className="text-xs text-ink-400 text-center">We'll also send you a copy of your results by email.</p>
           </form>
         </div>
-      </div>
+      </AssessmentShell>
     );
   }
 
   // Results
   if (step === 'results' && score) {
-    const scoreColor = score.total >= 70 ? 'text-success-600' : score.total >= 45 ? 'text-warning-600' : 'text-pink-600';
+    const scoreColor = score.total >= 70 ? 'text-success-600' : score.total >= 45 ? 'text-warning-600' : 'text-coral-600';
     return (
-      <div className="pt-28 pb-20">
+      <AssessmentShell>
         <div className="container-page max-w-2xl">
           <div className="text-center mb-10">
-            <h1 className="font-serif text-3xl sm:text-4xl text-almond-900 mb-4">Your Marketing Growth Score</h1>
+            <h1 className="font-serif text-3xl sm:text-4xl text-ink-900 mb-4">Your Marketing Growth Score</h1>
             <div className={`font-serif text-7xl font-bold mb-2 ${scoreColor}`}>{score.total}</div>
-            <div className="text-almond-500 text-lg mb-2">out of 100</div>
-            <p className="text-almond-600 text-sm max-w-md mx-auto">
+            <div className="text-ink-500 text-lg mb-2">out of 100</div>
+            <p className="text-ink-600 text-sm max-w-md mx-auto">
               This is a preliminary assessment based on your answers. It identifies areas of opportunity — not a definitive audit.
             </p>
           </div>
@@ -318,25 +330,25 @@ export function AssessmentPage() {
             {score.areas.map((area) => (
               <div key={area.name} className="card p-5">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="font-serif text-almond-900">{area.name}</span>
-                  <span className="font-semibold text-pink-600">{area.score}/100</span>
+                  <span className="font-serif text-ink-900">{area.name}</span>
+                  <span className="font-semibold text-teal-700">{area.score}/100</span>
                 </div>
-                <div className="h-2 bg-almond-100 rounded-full overflow-hidden mb-2">
+                <div className="h-2 bg-ink-100 rounded-full overflow-hidden mb-2">
                   <div
-                    className="h-full bg-pink-500 rounded-full transition-all duration-700"
+                    className="h-full bg-teal-600 rounded-full transition-all duration-700"
                     style={{ width: `${area.score}%` }}
                   />
                 </div>
-                <p className="text-xs text-almond-500">{area.note}</p>
+                <p className="text-xs text-ink-500">{area.note}</p>
               </div>
             ))}
           </div>
 
-          <div className="card p-8 bg-gradient-to-br from-pink-50 to-tan-50 border-pink-100 text-center">
-            <h2 className="font-serif text-2xl text-almond-900 mb-3">
+          <div className="card-cream p-8 text-center">
+            <h2 className="font-serif text-2xl text-ink-900 mb-3">
               Want a Personalized 90-Day Growth Strategy?
             </h2>
-            <p className="text-almond-600 mb-6">
+            <p className="text-ink-600 mb-6">
               Book a free strategy consultation and we'll walk through your results,
               identify your highest-value opportunities, and outline a specific plan for your business.
             </p>
@@ -354,7 +366,7 @@ export function AssessmentPage() {
             </div>
           </div>
         </div>
-      </div>
+      </AssessmentShell>
     );
   }
 

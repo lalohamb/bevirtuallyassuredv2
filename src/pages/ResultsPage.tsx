@@ -3,6 +3,8 @@ import { ArrowRight, X, Loader2, TrendingUp } from 'lucide-react';
 import { supabase, type PortfolioProject } from '@/lib/supabase';
 import { navigate } from '@/lib/router';
 import { track, Events } from '@/lib/analytics';
+import { PageHero } from '@/components/shared/PageHero';
+import { CallToAction } from '@/components/shared/CallToAction';
 
 const PLACEHOLDER_CASES = [
   {
@@ -76,31 +78,32 @@ export function ResultsPage() {
   };
 
   return (
-    <div className="pt-28 pb-20">
-      <div className="container-page">
-
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h1 className="font-serif text-4xl sm:text-5xl text-almond-900 mb-4">Client Results</h1>
-          <p className="text-almond-600 text-lg leading-relaxed">
+    <>
+      <PageHero
+        eyebrow="Case Studies"
+        title={<>Client <span className="text-highlight">Results</span></>}
+        description={
+          <p>
             Real strategies, real execution, real outcomes. Here's how we've helped
             businesses turn marketing into a measurable growth engine.
           </p>
-          <div className="mt-4 p-3 rounded-xl bg-almond-50 border border-almond-100 text-xs text-almond-500">
-            Case studies below are structural placeholders. All client results will be verified and published with client permission.
-          </div>
+        }
+      >
+        <div className="mx-auto max-w-xl rounded-xl border border-cream-300 bg-white/70 p-3 text-xs text-ink-500">
+          Case studies below are structural placeholders. All client results will be verified and published with client permission.
         </div>
+      </PageHero>
 
+      <section className="section bg-white pt-12 sm:pt-16">
+      <div className="container-page">
         {!loading && projects.length > 0 && (
           <div className="flex flex-wrap justify-center gap-2 mb-10">
             {categories.map((c) => (
               <button
                 key={c}
                 onClick={() => setFilter(c)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                  filter === c
-                    ? 'bg-pink-500 text-white shadow-sm'
-                    : 'bg-white text-almond-600 border border-almond-200 hover:border-pink-300'
-                }`}
+                aria-pressed={filter === c}
+                className={filter === c ? 'pill-active' : 'pill-idle'}
               >
                 {c}
               </button>
@@ -110,7 +113,7 @@ export function ResultsPage() {
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
+            <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -129,11 +132,11 @@ export function ResultsPage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="p-5">
-                  <span className="badge bg-pink-50 text-pink-600 mb-2">{p.category}</span>
-                  <h3 className="font-serif text-lg text-almond-900 mb-1">{p.title}</h3>
-                  <p className="text-sm text-almond-500 line-clamp-2">{p.summary}</p>
-                  <div className="flex items-center gap-1 mt-3 text-pink-600 text-sm font-medium">
+                <div className="p-6">
+                  <span className="badge bg-teal-50 text-teal-800 mb-3">{p.category}</span>
+                  <h3 className="font-serif text-xl font-semibold leading-snug mb-2">{p.title}</h3>
+                  <p className="text-sm text-ink-600 leading-relaxed line-clamp-2">{p.summary}</p>
+                  <div className="link-arrow mt-4 text-sm">
                     Read case study <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
@@ -142,10 +145,14 @@ export function ResultsPage() {
           </div>
         )}
 
-        <div className="mt-16 text-center card p-10 bg-gradient-to-br from-pink-50 to-tan-100 border-pink-100">
-          <h2 className="font-serif text-2xl text-almond-900 mb-3">Ready to build your own growth story?</h2>
-          <p className="text-almond-600 mb-6">Start with a free marketing assessment and we'll identify your highest-value opportunities.</p>
-          <div className="flex flex-wrap justify-center gap-3">
+      </div>
+      </section>
+
+      <CallToAction
+        title="Ready to build your own growth story?"
+        description="Start with a free marketing assessment and we'll identify your highest-value opportunities."
+        actions={
+          <>
             <button
               onClick={() => { track(Events.ASSESSMENT_STARTED, { source: 'results_cta' }); navigate('assessment'); }}
               className="btn-primary"
@@ -153,14 +160,14 @@ export function ResultsPage() {
               Get Your Free Marketing Assessment
             </button>
             <button onClick={() => navigate('contact')} className="btn-outline">Book a Consultation</button>
-          </div>
-        </div>
-      </div>
+          </>
+        }
+      />
 
       {/* Case study modal */}
       {active && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-almond-900/50 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-navy/60 backdrop-blur-sm animate-fade-in"
           onClick={() => setActive(null)}
         >
           <div
@@ -174,34 +181,34 @@ export function ResultsPage() {
                 className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center hover:bg-white transition"
                 aria-label="Close"
               >
-                <X className="w-5 h-5 text-almond-700" />
+                <X className="w-5 h-5 text-ink-700" />
               </button>
             </div>
             <div className="p-6 sm:p-8">
-              <span className="badge bg-pink-50 text-pink-600 mb-3">{active.category}</span>
-              <h2 className="font-serif text-2xl text-almond-900 mb-4">{active.title}</h2>
+              <span className="badge bg-teal-50 text-teal-800 mb-3">{active.category}</span>
+              <h2 className="font-serif text-2xl text-ink-900 mb-4">{active.title}</h2>
 
               <div className="space-y-4 mb-6">
-                <div className="p-4 rounded-xl bg-almond-50 border border-almond-100">
-                  <p className="text-xs font-semibold text-almond-500 uppercase tracking-wide mb-1">The Challenge</p>
-                  <p className="text-sm text-almond-700 leading-relaxed">{active.description}</p>
+                <div className="p-4 rounded-xl bg-ink-50 border border-ink-100">
+                  <p className="text-xs font-semibold text-ink-500 uppercase tracking-wide mb-1">The Challenge</p>
+                  <p className="text-sm text-ink-700 leading-relaxed">{active.description}</p>
                 </div>
                 <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-almond-700 mb-2">Services Applied</h4>
+                  <h4 className="text-sm font-semibold text-ink-700 mb-2">Services Applied</h4>
                   <div className="flex flex-wrap gap-2">
                     {active.services.map((s) => (
-                      <span key={s} className="badge bg-tan-100 text-tan-700">{s}</span>
+                      <span key={s} className="badge bg-cream-100 text-cream-700">{s}</span>
                     ))}
                   </div>
                 </div>
                 {active.result && (
-                  <div className="rounded-xl bg-pink-50 border border-pink-100 p-4 flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0">
-                      <TrendingUp className="w-4 h-4 text-pink-600" />
+                  <div className="rounded-xl bg-coral-50 border border-coral-100 p-4 flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-coral-100 flex items-center justify-center flex-shrink-0">
+                      <TrendingUp className="w-4 h-4 text-coral-600" />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-pink-700">Result</div>
-                      <div className="text-sm text-almond-600">{active.result}</div>
+                      <div className="text-sm font-semibold text-coral-700">Result</div>
+                      <div className="text-sm text-ink-600">{active.result}</div>
                     </div>
                   </div>
                 )}
@@ -217,6 +224,6 @@ export function ResultsPage() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

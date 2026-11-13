@@ -54,8 +54,8 @@ export function DashboardPage() {
 
   if (loading || authLoading) {
     return (
-      <div className="pt-28 pb-20 min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
+      <div className="py-14 sm:py-20 min-h-[70vh] flex items-center justify-center bg-gradient-to-b from-cream-100 to-cream-50">
+        <Loader2 className="w-8 h-8 animate-spin text-coral-500" />
       </div>
     );
   }
@@ -63,15 +63,15 @@ export function DashboardPage() {
   if (!user) return null;
 
   return (
-    <div className="pt-28 pb-20">
+    <div className="py-12 sm:py-16 bg-gradient-to-b from-cream-100 to-cream-50">
       <div className="container-page">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="font-serif text-3xl sm:text-4xl text-almond-900">
+            <h1 className="font-serif text-3xl sm:text-4xl text-ink-900">
               Welcome, {profile?.contact_name?.split(' ')[0] || user.email}
             </h1>
-            <p className="text-almond-500 mt-1">Manage your plan, profile, and orders.</p>
+            <p className="text-ink-500 mt-1">Manage your plan, profile, and orders.</p>
           </div>
           <button onClick={signOut} className="btn-outline text-sm self-start">
             Sign Out
@@ -80,14 +80,14 @@ export function DashboardPage() {
 
         {/* Onboarding nudge */}
         {profile && !profile.onboarding_completed && (
-          <div className="card p-5 mb-8 bg-gradient-to-r from-pink-50 to-tan-100 border-pink-100 flex items-center justify-between gap-4">
+          <div className="card p-5 mb-8 bg-gradient-to-r from-coral-50 to-cream-100 border-coral-100 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0">
-                <Sparkles className="w-5 h-5 text-pink-600" />
+              <div className="w-10 h-10 rounded-full bg-coral-100 flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-5 h-5 text-coral-600" />
               </div>
               <div>
-                <h3 className="font-serif text-base text-almond-900">Complete your onboarding</h3>
-                <p className="text-sm text-almond-500">Tell us about your business to get matched with an assistant.</p>
+                <h3 className="font-serif text-base text-ink-900">Complete your onboarding</h3>
+                <p className="text-sm text-ink-500">Tell us about your business to get matched with an assistant.</p>
               </div>
             </div>
             <button onClick={() => navigate('onboarding')} className="btn-primary text-sm whitespace-nowrap">
@@ -101,13 +101,13 @@ export function DashboardPage() {
           <div className="card p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center">
-                  <User className="w-5 h-5 text-pink-600" />
+                <div className="w-10 h-10 rounded-full bg-coral-100 flex items-center justify-center">
+                  <User className="w-5 h-5 text-coral-600" />
                 </div>
-                <h3 className="font-serif text-lg text-almond-900">My Profile</h3>
+                <h3 className="font-serif text-lg text-ink-900">My Profile</h3>
               </div>
               {!editing && (
-                <button onClick={() => setEditing(true)} className="p-2 rounded-full hover:bg-pink-50 text-almond-400 hover:text-pink-600 transition">
+                <button onClick={() => setEditing(true)} className="p-2 rounded-full hover:bg-coral-50 text-ink-400 hover:text-coral-600 transition">
                   <Edit3 className="w-4 h-4" />
                 </button>
               )}
@@ -154,20 +154,20 @@ export function DashboardPage() {
             {/* Current plan */}
             <div className="card p-6">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-full bg-almond-100 flex items-center justify-center">
-                  <Package className="w-5 h-5 text-almond-700" />
+                <div className="w-10 h-10 rounded-full bg-ink-100 flex items-center justify-center">
+                  <Package className="w-5 h-5 text-ink-700" />
                 </div>
-                <h3 className="font-serif text-lg text-almond-900">Your Plan</h3>
+                <h3 className="font-serif text-lg text-ink-900">Your Plan</h3>
               </div>
               {orders.length > 0 ? (
                 <div>
                   {orders[0].items?.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between py-2 border-b border-almond-50 last:border-0">
+                    <div key={item.id} className="flex items-center justify-between py-2 border-b border-ink-50 last:border-0">
                       <div>
-                        <div className="text-sm font-medium text-almond-900">{item.name}</div>
-                        <div className="text-xs text-almond-400">Qty {item.quantity}</div>
+                        <div className="text-sm font-medium text-ink-900">{item.name}</div>
+                        <div className="text-xs text-ink-400">Qty {item.quantity}</div>
                       </div>
-                      <span className="text-sm text-almond-700">{formatPrice(item.price_cents * item.quantity)}</span>
+                      <span className="text-sm text-ink-700">{formatPrice(item.price_cents * item.quantity)}</span>
                     </div>
                   ))}
                   <div className="flex items-center gap-2 mt-4 text-success-600 text-sm">
@@ -177,7 +177,7 @@ export function DashboardPage() {
                 </div>
               ) : (
                 <div className="text-center py-6">
-                  <p className="text-almond-500 text-sm mb-4">You don't have an active plan yet.</p>
+                  <p className="text-ink-500 text-sm mb-4">You don't have an active plan yet.</p>
                   <button onClick={() => navigate('packages')} className="btn-primary text-sm">
                     Browse Packages <ArrowRight className="w-4 h-4" />
                   </button>
@@ -188,23 +188,23 @@ export function DashboardPage() {
             {/* Order history */}
             <div className="card p-6">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-full bg-tan-100 flex items-center justify-center">
-                  <Clock className="w-5 h-5 text-tan-700" />
+                <div className="w-10 h-10 rounded-full bg-cream-100 flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-cream-700" />
                 </div>
-                <h3 className="font-serif text-lg text-almond-900">Order History</h3>
+                <h3 className="font-serif text-lg text-ink-900">Order History</h3>
               </div>
               {orders.length === 0 ? (
-                <p className="text-almond-400 text-sm py-4">No orders yet.</p>
+                <p className="text-ink-400 text-sm py-4">No orders yet.</p>
               ) : (
                 <div className="space-y-3">
                   {orders.map((o) => (
-                    <div key={o.id} className="flex items-center justify-between py-2 border-b border-almond-50 last:border-0">
+                    <div key={o.id} className="flex items-center justify-between py-2 border-b border-ink-50 last:border-0">
                       <div>
-                        <div className="text-sm font-medium text-almond-900">{formatDate(o.created_at)}</div>
-                        <div className="text-xs text-almond-400">{o.items?.length || 0} item(s)</div>
+                        <div className="text-sm font-medium text-ink-900">{formatDate(o.created_at)}</div>
+                        <div className="text-xs text-ink-400">{o.items?.length || 0} item(s)</div>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className="text-sm text-almond-700">{formatPrice(o.total_cents)}</span>
+                        <span className="text-sm text-ink-700">{formatPrice(o.total_cents)}</span>
                         <span className="badge bg-success-50 text-success-600 capitalize">{o.status}</span>
                       </div>
                     </div>
@@ -222,8 +222,8 @@ export function DashboardPage() {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-4">
-      <dt className="text-almond-400">{label}</dt>
-      <dd className="text-almond-900 font-medium text-right">{value}</dd>
+      <dt className="text-ink-400">{label}</dt>
+      <dd className="text-ink-900 font-medium text-right">{value}</dd>
     </div>
   );
 }

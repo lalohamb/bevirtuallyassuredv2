@@ -20,20 +20,20 @@ export function AdminPage() {
   if (!isAdmin(user)) return null;
 
   return (
-    <div className="pt-28 pb-20">
+    <div className="py-12 sm:py-16 bg-gradient-to-b from-cream-100 to-cream-50">
       <div className="container-page">
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-pink-100 flex items-center justify-center">
-            <LayoutDashboard className="w-5 h-5 text-pink-600" />
+          <div className="icon-chip h-10 w-10 rounded-xl">
+            <LayoutDashboard className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="font-serif text-3xl text-almond-900">Admin Dashboard</h1>
-            <p className="text-almond-400 text-sm">Manage your site content</p>
+            <h1 className="font-serif text-3xl text-ink-900">Admin Dashboard</h1>
+            <p className="text-ink-400 text-sm">Manage your site content</p>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-8 border-b border-almond-100">
+        <div className="flex gap-2 mb-8 border-b border-ink-100">
           {([
             { key: 'posts', label: 'Blog Posts', icon: FileText },
             { key: 'leads', label: 'Leads', icon: Inbox },
@@ -43,8 +43,8 @@ export function AdminPage() {
               onClick={() => setTab(key)}
               className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors ${
                 tab === key
-                  ? 'border-pink-500 text-pink-600'
-                  : 'border-transparent text-almond-500 hover:text-almond-700'
+                  ? 'border-coral-500 text-navy'
+                  : 'border-transparent text-ink-500 hover:text-ink-700'
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -110,7 +110,7 @@ function BlogPostsTab() {
       <PostEditor
         post={editing}
         isNew={isNew}
-        onSave={async (saved) => {
+        onSave={async () => {
           await load();
           setEditing(null);
           setIsNew(false);
@@ -123,7 +123,7 @@ function BlogPostsTab() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <p className="text-almond-500 text-sm">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
+        <p className="text-ink-500 text-sm">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
         <button onClick={openNew} className="btn-primary text-sm">
           <Plus className="w-4 h-4" /> New Post
         </button>
@@ -131,8 +131,8 @@ function BlogPostsTab() {
 
       {loading ? <Spinner /> : posts.length === 0 ? (
         <div className="card p-12 text-center">
-          <FileText className="w-10 h-10 text-almond-200 mx-auto mb-3" />
-          <p className="text-almond-400 mb-4">No blog posts yet.</p>
+          <FileText className="w-10 h-10 text-ink-200 mx-auto mb-3" />
+          <p className="text-ink-400 mb-4">No blog posts yet.</p>
           <button onClick={openNew} className="btn-primary text-sm"><Plus className="w-4 h-4" /> Create your first post</button>
         </div>
       ) : (
@@ -144,32 +144,32 @@ function BlogPostsTab() {
               )}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="badge bg-pink-50 text-pink-600 text-xs">{post.category}</span>
-                  <span className={`badge text-xs ${post.published ? 'bg-success-50 text-success-600' : 'bg-tan-100 text-almond-500'}`}>
+                  <span className="badge bg-coral-50 text-coral-600 text-xs">{post.category}</span>
+                  <span className={`badge text-xs ${post.published ? 'bg-success-50 text-success-600' : 'bg-cream-100 text-ink-500'}`}>
                     {post.published ? 'Published' : 'Draft'}
                   </span>
                 </div>
-                <h3 className="font-serif text-almond-900 truncate">{post.title}</h3>
-                <p className="text-xs text-almond-400 mt-0.5">{post.read_time} · {post.created_at ? new Date(post.created_at).toLocaleDateString() : '—'}</p>
+                <h3 className="font-serif text-ink-900 truncate">{post.title}</h3>
+                <p className="text-xs text-ink-400 mt-0.5">{post.read_time} · {post.created_at ? new Date(post.created_at).toLocaleDateString() : '—'}</p>
               </div>
               <div className="flex items-center gap-1 flex-shrink-0">
                 <button
                   onClick={() => togglePublish(post)}
-                  className="p-2 rounded-lg hover:bg-tan-100 text-almond-400 hover:text-almond-700 transition"
+                  className="p-2 rounded-lg hover:bg-cream-100 text-ink-400 hover:text-ink-700 transition"
                   title={post.published ? 'Unpublish' : 'Publish'}
                 >
                   {post.published ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
                 <button
                   onClick={() => { setIsNew(false); setEditing(post); }}
-                  className="p-2 rounded-lg hover:bg-pink-50 text-almond-400 hover:text-pink-600 transition"
+                  className="p-2 rounded-lg hover:bg-coral-50 text-ink-400 hover:text-coral-600 transition"
                   title="Edit"
                 >
                   <Pencil className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => deletePost(post.id!)}
-                  className="p-2 rounded-lg hover:bg-error-50 text-almond-400 hover:text-error-500 transition"
+                  className="p-2 rounded-lg hover:bg-error-50 text-ink-400 hover:text-error-500 transition"
                   title="Delete"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -228,8 +228,8 @@ function PostEditor({ post, isNew, onSave, onCancel }: {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="font-serif text-xl text-almond-900">{isNew ? 'New Post' : 'Edit Post'}</h2>
-        <button onClick={onCancel} className="p-2 rounded-full hover:bg-tan-100 text-almond-400 transition">
+        <h2 className="font-serif text-xl text-ink-900">{isNew ? 'New Post' : 'Edit Post'}</h2>
+        <button onClick={onCancel} className="p-2 rounded-full hover:bg-cream-100 text-ink-400 transition">
           <X className="w-5 h-5" />
         </button>
       </div>
@@ -258,7 +258,7 @@ function PostEditor({ post, isNew, onSave, onCancel }: {
               onChange={(e) => set('body', e.target.value)}
               placeholder="Write your post content here. Use blank lines to separate paragraphs."
             />
-            <p className="text-xs text-almond-400 mt-1">Separate paragraphs with a blank line.</p>
+            <p className="text-xs text-ink-400 mt-1">Separate paragraphs with a blank line.</p>
           </div>
 
           <div>
@@ -275,7 +275,7 @@ function PostEditor({ post, isNew, onSave, onCancel }: {
         {/* Sidebar */}
         <div className="space-y-5">
           <div className="card p-5 space-y-4">
-            <h3 className="font-serif text-base text-almond-900">Post settings</h3>
+            <h3 className="font-serif text-base text-ink-900">Post settings</h3>
 
             <div>
               <label className="label">Slug *</label>
@@ -326,11 +326,11 @@ function PostEditor({ post, isNew, onSave, onCancel }: {
             <div className="flex items-center gap-3 pt-1">
               <button
                 onClick={() => set('published', !form.published)}
-                className={`relative w-10 h-6 rounded-full transition-colors ${form.published ? 'bg-pink-500' : 'bg-almond-200'}`}
+                className={`relative w-10 h-6 rounded-full transition-colors ${form.published ? 'bg-teal-600' : 'bg-ink-200'}`}
               >
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${form.published ? 'translate-x-5' : 'translate-x-1'}`} />
               </button>
-              <span className="text-sm text-almond-700">{form.published ? 'Published' : 'Draft'}</span>
+              <span className="text-sm text-ink-700">{form.published ? 'Published' : 'Draft'}</span>
             </div>
           </div>
 
@@ -383,22 +383,22 @@ function LeadsTab() {
   };
 
   const statusColor: Record<string, string> = {
-    new: 'bg-pink-50 text-pink-600',
+    new: 'bg-coral-50 text-coral-600',
     contacted: 'bg-warning-50 text-warning-600',
     converted: 'bg-success-50 text-success-600',
-    closed: 'bg-tan-100 text-almond-500',
+    closed: 'bg-cream-100 text-ink-500',
   };
 
   if (loading) return <Spinner />;
 
   return (
     <div>
-      <p className="text-almond-500 text-sm mb-6">{leads.length} lead{leads.length !== 1 ? 's' : ''}</p>
+      <p className="text-ink-500 text-sm mb-6">{leads.length} lead{leads.length !== 1 ? 's' : ''}</p>
 
       {leads.length === 0 ? (
         <div className="card p-12 text-center">
-          <Users className="w-10 h-10 text-almond-200 mx-auto mb-3" />
-          <p className="text-almond-400">No leads yet.</p>
+          <Users className="w-10 h-10 text-ink-200 mx-auto mb-3" />
+          <p className="text-ink-400">No leads yet.</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -407,22 +407,22 @@ function LeadsTab() {
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <span className="font-serif text-almond-900">{lead.name}</span>
-                    {lead.company && <span className="text-almond-400 text-sm">· {lead.company}</span>}
+                    <span className="font-serif text-ink-900">{lead.name}</span>
+                    {lead.company && <span className="text-ink-400 text-sm">· {lead.company}</span>}
                     <span className={`badge text-xs ${statusColor[lead.status ?? 'new'] ?? statusColor.new}`}>
                       {lead.status ?? 'new'}
                     </span>
                   </div>
-                  <a href={`mailto:${lead.email}`} className="text-pink-600 text-sm hover:underline">{lead.email}</a>
-                  {lead.phone && <span className="text-almond-400 text-sm ml-3">{lead.phone}</span>}
+                  <a href={`mailto:${lead.email}`} className="text-coral-600 text-sm hover:underline">{lead.email}</a>
+                  {lead.phone && <span className="text-ink-400 text-sm ml-3">{lead.phone}</span>}
                   {lead.service_interest && (
-                    <p className="text-xs text-almond-500 mt-1">Interested in: {lead.service_interest}</p>
+                    <p className="text-xs text-ink-500 mt-1">Interested in: {lead.service_interest}</p>
                   )}
                   {lead.message && (
-                    <p className="text-sm text-almond-600 mt-2 leading-relaxed line-clamp-2">{lead.message}</p>
+                    <p className="text-sm text-ink-600 mt-2 leading-relaxed line-clamp-2">{lead.message}</p>
                   )}
                   {lead.created_at && (
-                    <p className="text-xs text-almond-300 mt-2">{new Date(lead.created_at).toLocaleString()}</p>
+                    <p className="text-xs text-ink-300 mt-2">{new Date(lead.created_at).toLocaleString()}</p>
                   )}
                 </div>
                 <select
@@ -447,7 +447,7 @@ function LeadsTab() {
 function Spinner() {
   return (
     <div className="flex justify-center py-20">
-      <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
+      <Loader2 className="w-8 h-8 animate-spin text-coral-500" />
     </div>
   );
 }

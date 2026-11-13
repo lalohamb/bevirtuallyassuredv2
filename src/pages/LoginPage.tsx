@@ -52,16 +52,16 @@ export function LoginPage() {
   };
 
   return (
-    <div className="pt-28 pb-20 min-h-screen flex items-center">
+    <div className="py-14 sm:py-20 min-h-[80vh] flex items-center bg-gradient-to-b from-cream-100 to-cream-50">
       <div className="container-page max-w-md">
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center mx-auto mb-4 shadow-md">
+          <div className="w-14 h-14 rounded-2xl bg-teal-600 flex items-center justify-center mx-auto mb-4 shadow-lift">
             <Sparkles className="w-7 h-7 text-white" />
           </div>
-          <h1 className="font-serif text-3xl text-almond-900 mb-2">
+          <h1 className="font-serif text-3xl text-ink-900 mb-2">
             {mode === 'login' ? 'Welcome back' : 'Create your account'}
           </h1>
-          <p className="text-almond-500 text-sm">
+          <p className="text-ink-500 text-sm">
             {mode === 'login'
               ? 'Sign in to manage your plan and access your dashboard.'
               : 'Join Petal Assist to get matched with a dedicated assistant.'}
@@ -70,11 +70,11 @@ export function LoginPage() {
 
         <div className="card p-6 sm:p-8">
           {/* Toggle */}
-          <div className="flex p-1 bg-tan-100 rounded-full mb-6">
+          <div className="flex p-1 bg-cream-100 rounded-full mb-6">
             <button
               onClick={() => { setMode('login'); setError(null); setNotice(null); }}
               className={`flex-1 py-2 rounded-full text-sm font-medium transition ${
-                mode === 'login' ? 'bg-white text-pink-700 shadow-sm' : 'text-almond-500'
+                mode === 'login' ? 'bg-white text-coral-700 shadow-sm' : 'text-ink-500'
               }`}
             >
               Sign In
@@ -82,7 +82,7 @@ export function LoginPage() {
             <button
               onClick={() => { setMode('signup'); setError(null); setNotice(null); }}
               className={`flex-1 py-2 rounded-full text-sm font-medium transition ${
-                mode === 'signup' ? 'bg-white text-pink-700 shadow-sm' : 'text-almond-500'
+                mode === 'signup' ? 'bg-white text-coral-700 shadow-sm' : 'text-ink-500'
               }`}
             >
               Sign Up
@@ -144,11 +144,11 @@ export function LoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-sm text-almond-400 mt-6">
+        <p className="text-center text-sm text-ink-400 mt-6">
           {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
           <button
             onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError(null); setNotice(null); }}
-            className="text-pink-600 font-medium hover:underline"
+            className="text-coral-600 font-medium hover:underline"
           >
             {mode === 'login' ? 'Sign up' : 'Sign in'}
           </button>
