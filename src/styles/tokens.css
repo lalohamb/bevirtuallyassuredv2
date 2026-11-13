@@ -9,24 +9,25 @@
  */
 :root {
   /* Brand */
-  --navy: #0f2740;
-  --teal: #2f6f73;
-  --sage: #a9c9c3;
-  --coral: #e97855;
-  --cream: #f7f4ee;
-  --off-white: #fafaf8;
-  --body-text: #22313f;
+  --navy: #2c1a0e;
+  --teal: #6b4c35;
+  --sage: #c4a882;
+  --coral: #c0607a;
+  --pink: #d4547a;
+  --cream: #f7f2ea;
+  --off-white: #faf8f4;
+  --body-text: #3b2a1a;
 
   /* Semantic */
   --color-heading: var(--navy);
   --color-text: var(--body-text);
   --color-accent: var(--teal);
-  --color-action: #c4512f;        /* coral-600: AA contrast with white text */
-  --color-action-hover: #a8432a;  /* coral-700 */
+  --color-action: #b03d60;        /* pink-600: AA contrast with white text */
+  --color-action-hover: #922f50;  /* pink-700 */
   --color-surface: #ffffff;
   --color-surface-warm: var(--cream);
-  --color-surface-tint: #eef5f3;  /* teal-50: value strip, soft cards */
-  --color-surface-deep: #275c60;  /* teal-700: About band */
+  --color-surface-tint: #f5ede0;  /* warm tan-50: value strip, soft cards */
+  --color-surface-deep: #5a3d28;  /* brown-700: About band */
 
   /* Layout */
   --container-width: 1200px;

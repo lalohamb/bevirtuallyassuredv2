@@ -64,9 +64,9 @@
   .section-subtitle {
     @apply text-ink-600 mt-4 text-base sm:text-lg leading-relaxed;
   }
-  /* Highlighted phrase inside a heading (mockup teal italic) */
+  /* Highlighted phrase inside a heading */
   .text-highlight {
-    @apply italic text-teal-600;
+    @apply italic text-coral-600;
   }
   .prose-body {
     @apply text-ink-600 leading-relaxed;
@@ -84,7 +84,7 @@
     @apply btn bg-teal-600 text-white shadow-sm hover:bg-teal-700 hover:shadow-md focus-visible:ring-teal-500;
   }
   .btn-outline {
-    @apply btn border-2 border-teal-700 text-teal-800 bg-transparent hover:bg-teal-50 focus-visible:ring-teal-500;
+    @apply btn border-2 border-coral-600 text-coral-700 bg-transparent hover:bg-pink-50 focus-visible:ring-coral-400;
   }
   /* Outline button for deep (teal/navy) backgrounds */
   .btn-outline-light {
@@ -94,7 +94,7 @@
     @apply btn text-ink-700 hover:bg-cream-200 focus-visible:ring-ink-300;
   }
   .link-arrow {
-    @apply inline-flex items-center gap-1.5 font-semibold text-coral-700 hover:text-coral-800 transition-colors;
+    @apply inline-flex items-center gap-1.5 font-semibold text-coral-600 hover:text-coral-700 transition-colors;
   }
   .link-arrow svg {
     @apply transition-transform duration-200;
@@ -116,7 +116,7 @@
     @apply card bg-cream-100 border-cream-200;
   }
   .card-tint {
-    @apply card bg-teal-50 border-teal-100;
+    @apply card bg-pink-50 border-pink-100;
   }
   .card-peach {
     @apply card bg-coral-50 border-coral-100;
@@ -126,7 +126,7 @@
     border-radius: var(--card-radius);
   }
   .icon-chip {
-    @apply flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-teal-50 text-teal-600;
+    @apply flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-pink-100 text-coral-600;
   }
 
   /* ── Forms ──────────────────────────────────────────── */
@@ -144,9 +144,9 @@
     @apply px-5 py-2.5 rounded-full text-sm font-semibold transition-all border;
   }
   .pill-active {
-    @apply pill bg-teal-700 border-teal-700 text-white shadow-sm;
+    @apply pill bg-coral-600 border-coral-600 text-white shadow-sm;
   }
   .pill-idle {
-    @apply pill bg-white border-cream-300 text-ink-600 hover:border-teal-400 hover:text-teal-700;
+    @apply pill bg-white border-cream-300 text-ink-600 hover:border-coral-400 hover:text-coral-700;
   }
 }
